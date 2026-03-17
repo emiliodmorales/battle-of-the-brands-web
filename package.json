@@ -1,5 +1,5 @@
 {
-  "name": "foobar",
+  "name": "battle-web",
   "type": "module",
   "scripts": {
     "dev": "vite",
