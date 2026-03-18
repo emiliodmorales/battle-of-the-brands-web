@@ -1,4 +1,5 @@
-.character-browser {
+.character-browser,
+.character-details {
   padding: 1em;
   display: flex;
   flex-direction: column;
