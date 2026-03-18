@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import "../styles/characters.css";
+import { Link } from "react-router";
 
 export default function CharacterBrowser() {
   const { token } = useAuth();
@@ -212,23 +213,25 @@ export default function CharacterBrowser() {
 
 function CharacterItem(character) {
   return (
-    <li key={character.id} className="char-li">
-      <h3>{character.name}</h3>
-      {character.username && (
-        <p className="char-user">Owner: {character.username}</p>
-      )}
-      {character.image && character.image !== "" && (
-        <img alt={"image of " + character.name} src={character.image} />
-      )}
-      <p className="char-desc">{character.description}</p>
-      <p className="char-hp">{character.hp} HP</p>
-      <p className="char-atk">{character.attack} ATK</p>
-      <p className="char-def">{character.defense} DEF</p>
-      <p className="char-ability">
-        {character.ability_name
-          ? `Ability: ${character.ability_name}`
-          : "No Ability"}
-      </p>
+    <li key={character.id}>
+      <Link to={"/characters/" + character.id} className="char-item">
+        <h3>{character.name}</h3>
+        {character.username && (
+          <p className="char-user">Owner: {character.username}</p>
+        )}
+        {character.image && character.image !== "" && (
+          <img alt={"image of " + character.name} src={character.image} />
+        )}
+        <p className="char-desc">{character.description}</p>
+        <p className="char-hp">{character.hp} HP</p>
+        <p className="char-atk">{character.attack} ATK</p>
+        <p className="char-def">{character.defense} DEF</p>
+        <p className="char-ability">
+          {character.ability_name
+            ? `Ability: ${character.ability_name}`
+            : "No Ability"}
+        </p>
+      </Link>
     </li>
   );
 }
