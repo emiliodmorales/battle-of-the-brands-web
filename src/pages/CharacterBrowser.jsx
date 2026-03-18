@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
+import "../styles/characters.css";
 
 export default function CharacterBrowser() {
   const { token } = useAuth();
@@ -220,21 +221,23 @@ export default function CharacterBrowser() {
 
 function CharacterItem(character) {
   return (
-    <li>
+    <li key={character.id} className="char-li">
       <h3>{character.name}</h3>
-      <p>{character.description}</p>
-      {character.image && character.image !== "" && (
-        <img
-          style={{ maxWidth: "200px", maxHeight: "200px" }}
-          alt={"image of " + character.name}
-          src={character.image}
-        />
+      {character.user && (
+        <p className="char-user">Owner: {character.user.username}</p>
       )}
-      <p>{character.hp} HP</p>
-      <p>{character.attack} ATK</p>
-      <p>{character.defense} DEF</p>
-      {character.ability && <p>Ability: {character.ability.name}</p>}
-      {character.user && <p>User: {character.user.username}</p>}
+      {character.image && character.image !== "" && (
+        <img alt={"image of " + character.name} src={character.image} />
+      )}
+      <p className="char-desc">{character.description}</p>
+      <p className="char-hp">{character.hp} HP</p>
+      <p className="char-atk">{character.attack} ATK</p>
+      <p className="char-def">{character.defense} DEF</p>
+      <p className="char-ability">
+        {character.ability
+          ? `Ability: ${character.ability.name}`
+          : "No Ability"}
+      </p>
     </li>
   );
 }
