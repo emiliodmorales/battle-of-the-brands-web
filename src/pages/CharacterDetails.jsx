@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { getCharacterDetails } from "../api/characters";
+import { useAuth } from "../auth/AuthContext";
 
 export default function CharacterDetails() {
+  const { token } = useAuth();
   const { id } = useParams();
   const [character, setCharacter] = useState();
 
@@ -32,6 +34,7 @@ export default function CharacterDetails() {
         Owner:
         <Link to={"/users/" + character.user_id}>{character.username}</Link>
       </p>
+      {token && <Link to="edit">Edit</Link>}
       <section className="char-stats">
         <h2>Character Stats</h2>
         <p>{character.hp} HP</p>
