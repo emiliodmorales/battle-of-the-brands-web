@@ -21,17 +21,8 @@ export default function CharacterBrowser() {
           attack: 10,
           defense: 2,
           ability_id: null,
-          ability: {
-            cost: 1,
-            name: "Thorn",
-            description: "Enemy takes 1 damage when hit, per stack of thorn",
-          },
-          user: {
-            id: 1,
-            username: "Ash",
-            password:
-              "$2b$10$JGoXKv3eK321Pz.CN5qQG.SXr.yUldYFBOzd5RFWVKfBC6qyjP5cm",
-          },
+          ability_name: "Thorn",
+          username: "Ash",
         },
         {
           id: 2,
@@ -223,8 +214,8 @@ function CharacterItem(character) {
   return (
     <li key={character.id} className="char-li">
       <h3>{character.name}</h3>
-      {character.user && (
-        <p className="char-user">Owner: {character.user.username}</p>
+      {character.username && (
+        <p className="char-user">Owner: {character.username}</p>
       )}
       {character.image && character.image !== "" && (
         <img alt={"image of " + character.name} src={character.image} />
@@ -234,8 +225,8 @@ function CharacterItem(character) {
       <p className="char-atk">{character.attack} ATK</p>
       <p className="char-def">{character.defense} DEF</p>
       <p className="char-ability">
-        {character.ability
-          ? `Ability: ${character.ability.name}`
+        {character.ability_name
+          ? `Ability: ${character.ability_name}`
           : "No Ability"}
       </p>
     </li>
