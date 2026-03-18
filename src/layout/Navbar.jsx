@@ -11,7 +11,13 @@ export default function Navbar() {
       </NavLink>
       <nav>
         {token ? (
-          <button onClick={logout}>Log out</button>
+          <>
+            <NavLink to="/">CreateCreature</NavLink>
+            <NavLink to="/">Favorites</NavLink>
+            <NavLink to="/">Teams</NavLink>
+            <NavLink to="/">Account</NavLink>
+            <button onClick={logout}>Log out</button>
+          </>
         ) : (
           <NavLink to="/login">Log in</NavLink>
         )}
