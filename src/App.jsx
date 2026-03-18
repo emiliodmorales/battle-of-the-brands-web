@@ -4,6 +4,7 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import CharacterDetails from "./pages/CharacterDetails";
 
 export default function App() {
   return (
@@ -13,6 +14,10 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+
+        <Route path="/characters">
+          <Route path=":id" element={<CharacterDetails />} />
+        </Route>
       </Route>
     </Routes>
   );
