@@ -15,11 +15,22 @@ export default function CharacterBrowser() {
           user_id: 1,
           name: "Pikachu",
           description: "electric mouse",
-          image: "",
+          image: "https://img.pokemondb.net/artwork/large/pikachu.jpg",
           hp: 5,
           attack: 10,
           defense: 2,
           ability_id: null,
+          ability: {
+            cost: 1,
+            name: "Thorn",
+            description: "Enemy takes 1 damage when hit, per stack of thorn",
+          },
+          user: {
+            id: 1,
+            username: "Ash",
+            password:
+              "$2b$10$JGoXKv3eK321Pz.CN5qQG.SXr.yUldYFBOzd5RFWVKfBC6qyjP5cm",
+          },
         },
         {
           id: 2,
