@@ -14,8 +14,8 @@ export default function Register() {
     const username = formData.get("username");
     const password = formData.get("password");
     try {
-      await register({ username, password });
-      navigate("/");
+      //await register({ username, password });
+      navigate("/profile");
     } catch (e) {
       setError(e.message);
     }
