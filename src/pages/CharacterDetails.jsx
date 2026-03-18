@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { getCharacterDetails } from "../api/characters";
 
 export default function CharacterDetails() {
@@ -28,7 +28,10 @@ export default function CharacterDetails() {
         />
       )}
       <p>{character.description}</p>
-      <p>Owner: {character.username}</p>
+      <p>
+        Owner:
+        <Link to={"/users/" + character.user_id}>{character.username}</Link>
+      </p>
       <section className="char-stats">
         <h2>Character Stats</h2>
         <p>{character.hp} HP</p>
