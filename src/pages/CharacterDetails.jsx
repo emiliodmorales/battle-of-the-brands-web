@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
+import { getCharacterDetails } from "../api/characters";
 
 export default function CharacterDetails() {
   const { id } = useParams();
@@ -8,19 +9,8 @@ export default function CharacterDetails() {
 
   useEffect(() => {
     const tryGetCharacter = async () => {
-      setCharacter({
-        id: 1,
-        user_id: 1,
-        name: "Pikachu",
-        description: "electric mouse",
-        image: "https://img.pokemondb.net/artwork/large/pikachu.jpg",
-        hp: 5,
-        attack: 10,
-        defense: 2,
-        ability_id: null,
-        ability_name: "Thorn",
-        username: "Ash",
-      });
+      const retrievedCharacter = await getCharacterDetails(id);
+      setCharacter(retrievedCharacter);
     };
     tryGetCharacter();
   }, []);
@@ -30,11 +20,13 @@ export default function CharacterDetails() {
   return (
     <section className="character-details">
       <h1>{character.name}</h1>
-      <img
-        style={{ maxHeight: "200px", maxWidth: "200px" }}
-        alt={"image of " + character.name}
-        src={character.image}
-      />
+      {character.image && character.image !== "" && (
+        <img
+          style={{ maxHeight: "200px", maxWidth: "200px" }}
+          alt={"image of " + character.name}
+          src={character.image}
+        />
+      )}
       <p>{character.description}</p>
       <p>Owner: {character.username}</p>
       <section className="char-stats">
