@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useParams } from "react-router";
-import { getCharacterDetails } from "../api/characters";
+import { deleteCharacter, getCharacterDetails } from "../api/characters";
 import { useAuth } from "../auth/AuthContext";
 
 export default function CharacterDetails() {
@@ -19,6 +19,10 @@ export default function CharacterDetails() {
 
   if (!character) return <p>Loading character details...</p>;
 
+  const deleteChar = async () => {
+    await deleteCharacter(token, character.id);
+  };
+
   return (
     <section className="character-details">
       <h1>{character.name}</h1>
@@ -35,6 +39,7 @@ export default function CharacterDetails() {
         <Link to={"/users/" + character.user_id}>{character.username}</Link>
       </p>
       {token && <Link to="edit">Edit</Link>}
+      {token && <button onClick={deleteChar}>Delete</button>}
       <section className="char-stats">
         <h2>Character Stats</h2>
         <p>{character.hp} HP</p>
