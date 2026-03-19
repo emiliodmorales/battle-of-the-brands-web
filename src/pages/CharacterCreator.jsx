@@ -21,7 +21,8 @@ export default function CharacterCreator() {
   }, []);
 
   const submitCharacter = async (formData) => {
-    if (points !== 0) throw Error("You have unused points");
+    if (points > 0) throw Error("You have unused points");
+    if (points < 0) throw Error("Cannot have negative points");
 
     const name = formData.get("name");
     const description = formData.get("description");
