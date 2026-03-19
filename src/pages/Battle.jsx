@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../battle.css";
 
 // Dummy Data
-// For characters in team 1
+// For the two teams fighting
 const challenger = [
   { team_id: 1, character_id: 10, position: 1, name: "Knight" },
   { team_id: 1, character_id: 12, position: 2, name: "Mage" },
@@ -19,11 +19,36 @@ const defender = [
   { team_id: 2, character_id: 1, position: 5, name: "Hero" },
 ];
 
+// Might want to import useState and other functions into a GameContext if there's a lot
+
+const COUNTDOWN_TIME = 3;
+
 export default function Battle() {
   const [isFighting, setIsFighting] = useState(false);
+  const [countdown, setCountdown] = useState(COUNTDOWN_TIME);
+  const [isCounting, setIsCounting] = useState(false);
 
   const toggleFighting = () => {
-    setIsFighting(!isFighting);
+    setCountdown(3);
+    setIsCounting(true);
+  };
+
+  useEffect(() => {
+    if (!isCounting) return;
+
+    if (countdown === 0) {
+      setIsFighting(true);
+      setIsCounting(false);
+      return;
+    }
+
+    const timer = setInterval(() => setCountdown(countdown - 1), 1000);
+    return () => clearInterval(timer);
+  }, [countdown, isCounting]);
+
+  // function not complete but it stops fighting and resets the screen, also record win++
+  const stop = () => {
+    setIsFighting(false);
   };
 
   return (
@@ -51,7 +76,9 @@ export default function Battle() {
           )}
         </div>
 
-        <button onClick={toggleFighting}>FIGHT!</button>
+        <button onClick={toggleFighting} disabled={isCounting}>
+          FIGHT!
+        </button>
       </div>
     </div>
   );
