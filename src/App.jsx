@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import CharacterBrowser from "./pages/CharacterBrowser";
 import CharacterDetails from "./pages/CharacterDetails";
+import CharacterCreator from "./pages/CharacterCreator";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/characters">
           <Route index element={<CharacterBrowser />} />
           <Route path=":id" element={<CharacterDetails />} />
+          <Route path="new" element={<CharacterCreator />} />
         </Route>
       </Route>
     </Routes>
