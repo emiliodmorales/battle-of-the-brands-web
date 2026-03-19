@@ -36,6 +36,18 @@ span.vertical-shake {
   grid-template-rows: 1fr 6fr 2fr;
 }
 
+.battleBoxFighting {
+  background-color: #808080;
+  width: 80vw;
+  min-width: 20vw;
+  max-height: 60vh;
+  min-height: 15vh;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 6fr 2fr;
+}
+
 .battleBox button {
   grid-column: 2;
   grid-row: 3;
@@ -49,13 +61,25 @@ span.vertical-shake {
   font-size: clamp(0.8rem, 2vw, 2rem);
 }
 
-div.challenger {
-  grid-row: span 2;
-  grid-row: 2;
+.battleBoxFighting button {
+  grid-column: 2;
+  grid-row: 3;
+
+  visibility: hidden;
 }
 
-div.defender {
-  grid-row: span 2;
+div.challenger {
+  grid-row: 2 / span 2;
+}
+
+p.challenger {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+}
+
+div.defenderHidden {
+  grid-row: 2 / span 2;
 
   justify-self: center;
   align-self: center;
@@ -64,10 +88,8 @@ div.defender {
   font-size: 9rem;
 }
 
-p.challenger {
-  grid-column: 1;
-  grid-row: 1;
-  justify-self: center;
+div.defenderRevealed {
+  grid-row: 2 / span 2;
 }
 
 p.defender {
@@ -78,8 +100,7 @@ p.defender {
 
 p.sword {
   grid-column: 2;
-  grid-row: 1;
-  grid-row: span 2;
+  grid-row: 1 / span 2;
 
   justify-self: center;
   align-self: center;
