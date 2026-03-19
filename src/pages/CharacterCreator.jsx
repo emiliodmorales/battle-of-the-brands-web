@@ -4,10 +4,12 @@ import { useAuth } from "../auth/AuthContext";
 import "../styles/characters.css";
 import { createCharacter } from "../api/characters";
 import { uploadImage } from "../api/images";
+import { useNavigate } from "react-router";
 
 const STARTING_POINTS = 25;
 
 export default function CharacterCreator() {
+  const navigate = useNavigate();
   const { token } = useAuth();
   const [points, setPoints] = useState(STARTING_POINTS);
   const [abilities, setAbilities] = useState([]);
@@ -45,7 +47,8 @@ export default function CharacterCreator() {
       abilityId,
     };
 
-    await createCharacter(charData, token);
+    const character = await createCharacter(charData, token);
+    navigate("/characters/" + character.id);
   };
 
   const calculatePoints = async (e) => {
