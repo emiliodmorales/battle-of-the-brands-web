@@ -86,6 +86,7 @@ export default function CharacterBrowser() {
   return (
     <section className="character-browser">
       <h1>Characters</h1>
+      <Link to="new">New Character</Link>
       {token && (
         <section className="user-characters">
           <h2>Your Characters</h2>
