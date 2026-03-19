@@ -77,14 +77,16 @@
   grid-column: 3/4;
 }
 
-.character-creator {
+.character-creator,
+.character-editor {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2em;
   padding: 2em;
 }
 
-.character-creator h1 {
+.character-creator h1,
+.character-editor h1 {
   grid-column: 1/3;
 }
 
