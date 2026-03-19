@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link, useParams } from "react-router";
-import { getCharacterDetails } from "../api/characters";
+import { Link, useNavigate, useParams } from "react-router";
+import { deleteCharacter, getCharacterDetails } from "../api/characters";
 import { useAuth } from "../auth/AuthContext";
 
 export default function CharacterDetails() {
-  const { token } = useAuth();
+  const { token, getProfile } = useAuth();
   const { id } = useParams();
   const [character, setCharacter] = useState();
+  const [profile, setProfile] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const tryGetCharacter = async () => {
@@ -17,7 +19,20 @@ export default function CharacterDetails() {
     tryGetCharacter();
   }, []);
 
+  useEffect(() => {
+    const tryGetProfile = async () => {
+      const retrievedProfile = await getProfile();
+      setProfile(retrievedProfile);
+    };
+    tryGetProfile();
+  }, []);
+
   if (!character) return <p>Loading character details...</p>;
+
+  const deleteChar = async () => {
+    await deleteCharacter(token, character.id);
+    navigate("/characters");
+  };
 
   return (
     <section className="character-details">
@@ -34,7 +49,10 @@ export default function CharacterDetails() {
         Owner:
         <Link to={"/users/" + character.user_id}>{character.username}</Link>
       </p>
-      {token && <Link to="edit">Edit</Link>}
+      {profile?.id === character.user_id && <Link to="edit">Edit</Link>}
+      {profile?.id === character.user_id && (
+        <button onClick={deleteChar}>Delete</button>
+      )}
       <section className="char-stats">
         <h2>Character Stats</h2>
         <p>{character.hp} HP</p>
