@@ -62,7 +62,7 @@ export default function Battle() {
         <div className="challenger">
           {challenger.map((character) => (
             <p key={character.character_id}>
-              <span className={`${isFighting ? "charge" : ""}`}>
+              <span className={`${isFighting ? "challengerCharge" : ""}`}>
                 {character.name}
               </span>
             </p>
@@ -74,7 +74,7 @@ export default function Battle() {
           {isFighting ? (
             defender.map((character) => (
               <p key={character.character_id}>
-                <span className={`${isFighting ? "charge" : ""}`}>
+                <span className={`${isFighting ? "defenderCharge" : ""}`}>
                   {character.name}
                 </span>
               </p>
