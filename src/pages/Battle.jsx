@@ -29,7 +29,6 @@ export default function Battle() {
   const [isCounting, setIsCounting] = useState(false);
 
   const toggleFighting = () => {
-    setCountdown(3);
     setIsCounting(true);
   };
 
@@ -46,9 +45,10 @@ export default function Battle() {
     return () => clearInterval(timer);
   }, [countdown, isCounting]);
 
-  // function not complete but it stops fighting and resets the screen, also record win++
+  // function not complete but its for stopping fights and reseting the screen, also recording win++
   const stop = () => {
     setIsFighting(false);
+    setCountdown(COUNTDOWN_TIME);
   };
 
   return (
@@ -56,25 +56,37 @@ export default function Battle() {
       <h1>
         Get ready to <span className="vertical-shake">rumble</span>
       </h1>
+      {/* No styling change but left in case we want to change the box when the fight starts */}
       <div className={`battleBox${isFighting ? "Fighting" : ""}`}>
+        <p className="challenger">Challenger</p>
         <div className="challenger">
           {challenger.map((character) => (
-            <p key={character.character_id}>{character.name}</p>
+            <p key={character.character_id}>
+              <span className={`${isFighting ? "charge" : ""}`}>
+                {character.name}
+              </span>
+            </p>
           ))}
         </div>
-        <p className="challenger">Challenger</p>
-        <p className="sword">⚔️</p>
 
         <p className="defender">Defender</p>
         <div className={`defender${isFighting ? "Revealed" : "Hidden"}`}>
           {isFighting ? (
             defender.map((character) => (
-              <p key={character.character_id}>{character.name}</p>
+              <p key={character.character_id}>
+                <span className={`${isFighting ? "charge" : ""}`}>
+                  {character.name}
+                </span>
+              </p>
             ))
           ) : (
             <div>❔</div>
           )}
         </div>
+
+        <p className="sword">
+          {isFighting ? "" : isCounting ? countdown : "⚔️"}
+        </p>
 
         <button onClick={toggleFighting} disabled={isCounting}>
           FIGHT!
@@ -83,3 +95,14 @@ export default function Battle() {
     </div>
   );
 }
+
+// Questions to ask
+
+// setinterval vs setTimeout
+// Avoid stacking intervals and recommended for countdown
+
+// Changing
+// const timer = setInterval(() => setCountdown(countdown - 1), 1000);
+// to
+// const timer = setInterval(() => {setCountdown((prev) => prev - 1);}, 1000);
+// because stale state bugs are captured from render when effect is ran?

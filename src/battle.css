@@ -24,6 +24,11 @@ span.vertical-shake {
   animation: vertical-shake 0.2s infinite;
 }
 
+span.charge {
+  display: inline-block;
+  animation: charge 0.75s infinite;
+}
+
 .battleBox {
   background-color: #808080;
   width: 80vw;
@@ -124,5 +129,44 @@ p.sword {
   }
   100% {
     transform: translateY(0);
+  }
+}
+
+/* tilt-n-move-shaking renamed charge for simplicity */
+@keyframes charge {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(5px, 5px) rotate(5deg);
+  }
+  50% {
+    transform: translate(0, 0) rotate(0eg);
+  }
+  75% {
+    transform: translate(-5px, 5px) rotate(-5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes challengerAttack {
+  0% {
+    transform: translate(50px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes defenderAttack {
+  0% {
+    transform: translate(-50px);
+  }
+
+  100% {
+    transform: translate(0);
   }
 }
