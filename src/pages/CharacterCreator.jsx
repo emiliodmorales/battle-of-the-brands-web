@@ -21,6 +21,8 @@ export default function CharacterCreator() {
   }, []);
 
   const submitCharacter = async (formData) => {
+    if (points !== 0) throw Error("You have unused points");
+
     const name = formData.get("name");
     const description = formData.get("description");
     const image = formData.get("image");
@@ -38,17 +40,22 @@ export default function CharacterCreator() {
       abilityId,
     };
 
-    try {
-      await createCharacter(charData, token);
-    } catch (e) {
-      setError(e.message);
-    }
+    await createCharacter(charData, token);
   };
 
   return (
     <section className="character-creator">
       <h1>Character Creator</h1>
-      <form action={submitCharacter} className="char-form">
+      <form
+        action={async (formData) => {
+          try {
+            await submitCharacter(formData);
+          } catch (e) {
+            setError(e.message);
+          }
+        }}
+        className="char-form"
+      >
         <label>
           Character Name
           <input type="text" name="name" />
