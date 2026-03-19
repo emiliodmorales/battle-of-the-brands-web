@@ -1,0 +1,107 @@
+/* Change this later dark mode so I don't flashbang myself */
+/* Note 1rem = 16px */
+/* Will need to make add that the box shrinks when the window shrinks */
+/* Maybe remove the shake from rumble and add that to the sword when you hover over fight */
+body {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+}
+
+.battleBackground {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.battleBackground h1 {
+  font-family: papyrus;
+  text-transform: uppercase;
+}
+
+span.vertical-shake {
+  display: inline-block;
+  animation: vertical-shake 0.2s infinite;
+}
+
+.battleBox {
+  background-color: #808080;
+  width: 80vw;
+  min-width: 20vw;
+  max-height: 60vh;
+  min-height: 15vh;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 6fr 2fr;
+}
+
+.battleBox button {
+  grid-column: 2;
+  grid-row: 3;
+
+  height: 60%;
+  width: 90%;
+
+  justify-self: center;
+  align-self: center;
+
+  font-size: clamp(0.8rem, 2vw, 2rem);
+}
+
+div.challenger {
+  grid-row: span 2;
+  grid-row: 2;
+}
+
+div.defender {
+  grid-row: span 2;
+
+  justify-self: center;
+  align-self: center;
+
+  margin: 0;
+  font-size: 9rem;
+}
+
+p.challenger {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+}
+
+p.defender {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: center;
+}
+
+p.sword {
+  grid-column: 2;
+  grid-row: 1;
+  grid-row: span 2;
+
+  justify-self: center;
+  align-self: center;
+
+  margin: 0;
+  font-size: clamp(2rem, 20vmin, 9rem);
+}
+
+@keyframes vertical-shake {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  75% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
