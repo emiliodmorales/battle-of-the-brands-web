@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { deleteCharacter, getCharacterDetails } from "../api/characters";
 import { useAuth } from "../auth/AuthContext";
 
 export default function CharacterDetails() {
-  const { getProfile } = useAuth();
+  const { token, getProfile } = useAuth();
   const { id } = useParams();
   const [character, setCharacter] = useState();
   const [profile, setProfile] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const tryGetCharacter = async () => {
@@ -30,6 +31,7 @@ export default function CharacterDetails() {
 
   const deleteChar = async () => {
     await deleteCharacter(token, character.id);
+    navigate("/characters");
   };
 
   return (
