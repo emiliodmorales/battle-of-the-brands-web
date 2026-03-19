@@ -38,7 +38,17 @@ export function AuthProvider({ children }) {
     sessionStorage.removeItem("token");
   };
 
-  const value = { token, register, login, logout };
+  const getProfile = async () => {
+    const response = await fetch(API + "/users/profile", {
+      method: "GET",
+      headers: { Authorization: "Bearer " + token },
+    });
+    const result = await response.json();
+    if (!response.ok) throw Error(result);
+    return result;
+  };
+
+  const value = { token, register, login, logout, getProfile };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
