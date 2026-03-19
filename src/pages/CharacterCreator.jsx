@@ -76,7 +76,7 @@ export default function CharacterCreator() {
         </label>
         <label>
           Select Ability
-          <select>
+          <select name="ability">
             <option value="none">None</option>
             {abilities.map((ability) => (
               <option key={ability.id} value={ability.id}>
