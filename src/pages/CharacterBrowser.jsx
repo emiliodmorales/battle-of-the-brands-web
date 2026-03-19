@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import "../styles/characters.css";
 import { Link } from "react-router";
+import { getCharacters } from "../api/characters";
 
 export default function CharacterBrowser() {
   const { token } = useAuth();
@@ -11,120 +12,8 @@ export default function CharacterBrowser() {
 
   useEffect(() => {
     const tryGetCharacters = async () => {
-      setCharacters([
-        {
-          id: 1,
-          user_id: 1,
-          name: "Pikachu",
-          description: "electric mouse",
-          image: "https://img.pokemondb.net/artwork/large/pikachu.jpg",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-          ability_name: "Thorn",
-          username: "Ash",
-        },
-        {
-          id: 2,
-          user_id: 1,
-          name: "Charizard",
-          description: "fire lizard",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 3,
-          user_id: 1,
-          name: "Bulbasaur",
-          description: "grass lover",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 4,
-          user_id: 1,
-          name: "Geodude",
-          description: "floating rocks",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 5,
-          user_id: 1,
-          name: "Beedrill",
-          description: "big bee",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 6,
-          user_id: 2,
-          name: "Agumon",
-          description: "little trex",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 7,
-          user_id: 2,
-          name: "Numemon",
-          description: "slug",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 8,
-          user_id: 2,
-          name: "Birdramon",
-          description: "fire bird",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 9,
-          user_id: 2,
-          name: "Monzaemon",
-          description: "teddy bear",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 10,
-          user_id: 2,
-          name: "Vegiemon",
-          description: "plant",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-      ]);
+      const retrievedCharacters = await getCharacters();
+      setCharacters(retrievedCharacters);
     };
     tryGetCharacters();
   }, []);
