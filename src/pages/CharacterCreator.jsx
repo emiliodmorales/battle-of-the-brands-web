@@ -44,6 +44,19 @@ export default function CharacterCreator() {
     await createCharacter(charData, token);
   };
 
+  const calculatePoints = async (e) => {
+    const formData = new FormData(e.target.form);
+    const hp = +formData.get("hp");
+    const attack = +formData.get("attack");
+    const defense = +formData.get("defense");
+
+    const abilityId = +formData.get("ability");
+    const ability = abilities.filter((ability) => ability.id === abilityId)[0];
+    const abilityCost = ability?.cost ?? 0;
+
+    setPoints(STARTING_POINTS - hp - attack - defense - abilityCost);
+  };
+
   return (
     <section className="character-creator">
       <h1>Character Creator</h1>
@@ -72,19 +85,37 @@ export default function CharacterCreator() {
         <p>{points} Points</p>
         <label>
           HP - 1 point
-          <input type="number" name="hp" />
+          <input
+            type="number"
+            name="hp"
+            min={0}
+            defaultValue={0}
+            onChange={calculatePoints}
+          />
         </label>
         <label>
           Attack - 1 point
-          <input type="number" name="attack" />
+          <input
+            type="number"
+            name="attack"
+            min={0}
+            defaultValue={0}
+            onChange={calculatePoints}
+          />
         </label>
         <label>
           Defense - 1 point
-          <input type="number" name="defense" />
+          <input
+            type="number"
+            name="defense"
+            min={0}
+            defaultValue={0}
+            onChange={calculatePoints}
+          />
         </label>
         <label>
           Select Ability
-          <select name="ability">
+          <select name="ability" onChange={calculatePoints}>
             <option value="none">None</option>
             {abilities.map((ability) => (
               <option key={ability.id} value={ability.id}>
