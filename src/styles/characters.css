@@ -48,6 +48,9 @@
 .char-item img {
   grid-row: 2/3;
   grid-column: 1/4;
+}
+
+.char-img {
   max-width: 12em;
   max-height: 12em;
 }

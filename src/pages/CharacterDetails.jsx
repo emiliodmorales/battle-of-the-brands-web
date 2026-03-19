@@ -24,7 +24,7 @@ export default function CharacterDetails() {
       <h1>{character.name}</h1>
       {character.image && character.image !== "" && (
         <img
-          style={{ maxHeight: "200px", maxWidth: "200px" }}
+          className="char-img"
           alt={"image of " + character.name}
           src={character.image}
         />
