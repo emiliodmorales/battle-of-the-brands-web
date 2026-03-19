@@ -3,6 +3,7 @@ import { getAbilities } from "../api/abilities";
 import { useAuth } from "../auth/AuthContext";
 import "../styles/characters.css";
 import { createCharacter } from "../api/characters";
+import { uploadImage } from "../api/images";
 
 const STARTING_POINTS = 25;
 
@@ -26,11 +27,14 @@ export default function CharacterCreator() {
 
     const name = formData.get("name");
     const description = formData.get("description");
-    const image = formData.get("image");
     const hp = formData.get("hp");
     const attack = formData.get("attack");
     const defense = formData.get("defense");
     const abilityId = formData.get("ability");
+
+    const imageFile = formData.get("image");
+    const image = await uploadImage(imageFile);
+
     const charData = {
       name,
       description,
@@ -80,7 +84,7 @@ export default function CharacterCreator() {
         </label>
         <label>
           Image
-          <input type="text" name="image" />
+          <input type="file" name="image" accept="image/*" />
         </label>
         <p>{points} Points</p>
         <label>
