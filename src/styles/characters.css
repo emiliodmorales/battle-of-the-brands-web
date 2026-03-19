@@ -76,3 +76,29 @@
   grid-row: 4/5;
   grid-column: 3/4;
 }
+
+.character-creator {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+  padding: 2em;
+}
+
+.character-creator h1 {
+  grid-column: 1/3;
+}
+
+.char-form {
+  display: grid;
+}
+
+.char-form label {
+  height: fit-content;
+  display: flex;
+  justify-content: baseline;
+  gap: 1em;
+}
+
+p[role="alert"] {
+  color: red;
+}
