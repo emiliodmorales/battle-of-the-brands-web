@@ -10,6 +10,7 @@ export default function Navbar() {
         <p>Homepage</p>
       </NavLink>
       <nav>
+        <NavLink to="/characters">Characters</NavLink>
         {token ? (
           <>
             <NavLink to="/">CreateCreature</NavLink>
