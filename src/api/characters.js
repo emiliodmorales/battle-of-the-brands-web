@@ -11,3 +11,17 @@ export async function getCharacterDetails(id) {
   const result = await response.json();
   return result;
 }
+
+export async function deleteCharacter(token, id) {
+  const response = await fetch(API + "/characters/" + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message);
+  }
+}
