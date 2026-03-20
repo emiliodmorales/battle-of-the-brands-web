@@ -12,6 +12,12 @@ export async function getCharacterDetails(id) {
   return result;
 }
 
+export async function getCharacterHistory(id) {
+  const response = await fetch(API + "/characters/" + id + "/history");
+  const result = await response.json();
+  return result;
+}
+
 export async function deleteCharacter(token, id) {
   const response = await fetch(API + "/characters/" + id, {
     method: "DELETE",
