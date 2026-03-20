@@ -1,5 +1,4 @@
-.character-browser,
-.character-details {
+.character-browser {
   padding: 1em;
   display: flex;
   flex-direction: column;
@@ -106,4 +105,34 @@
 
 p[role="alert"] {
   color: red;
+}
+
+.character-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1em;
+  gap: 1em;
+}
+
+.char-info,
+.char-stats {
+  display: grid;
+  justify-content: center;
+  gap: 1em;
+}
+
+.char-history {
+  grid-column: 2/3;
+  grid-row: 1/4;
+
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 20fr;
+}
+
+.char-history ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
