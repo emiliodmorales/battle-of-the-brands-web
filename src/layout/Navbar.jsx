@@ -9,20 +9,20 @@ export default function Navbar() {
       <NavLink id="brand" to="/">
         <p>Homepage</p>
       </NavLink>
-      <NavLink to={"/battle"}>Battle</NavLink>
       <nav>
+        <NavLink to={"/battle"}>Battle</NavLink>
         <NavLink to="/characters">Characters</NavLink>
+        <NavLink to="/teams">Teams</NavLink>
         {token ? (
           <>
-            {/* TODO - Change NavLinks depending on what we decide the paths are */}
-            <NavLink to="/create">CreateCreature</NavLink>
-            <NavLink to="/favorites">Favorites</NavLink>
-            <NavLink to="/teams">Teams</NavLink>
-            <NavLink to="/me">Account</NavLink>
+            <NavLink to={"/profile"}>Profile</NavLink>
             <button onClick={logout}>Log out</button>
           </>
         ) : (
-          <NavLink to="/login">Log in</NavLink>
+          <>
+            <NavLink to="/login">Log in</NavLink>
+            <NavLink to="/register">Register</NavLink>
+          </>
         )}
       </nav>
     </header>
