@@ -11,6 +11,21 @@ export default function CharacterDetails() {
   const [profile, setProfile] = useState();
   const navigate = useNavigate();
 
+  const [isFavorite, setIsFavorite] = useState(false);
+  useEffect(() => {
+    const tryGetIsFavorite = async () => {
+      const retrievedIsFavorite = await getIsFavorite(id, profile.id);
+      setIsFavorite(retrievedIsFavorite);
+    };
+    tryGetIsFavorite();
+  }, []);
+  const favoriteChar = async () => {
+    await addFavorite(id, profile.id);
+  };
+  const unfavoriteChar = async () => {
+    await removeFavorite(id, profile.id);
+  };
+
   useEffect(() => {
     const tryGetCharacter = async () => {
       const retrievedCharacter = await getCharacterDetails(id);
@@ -52,6 +67,11 @@ export default function CharacterDetails() {
       {profile?.id === character.user_id && <Link to="edit">Edit</Link>}
       {profile?.id === character.user_id && (
         <button onClick={deleteChar}>Delete</button>
+      )}
+      {token && isFavorite ? (
+        <button onClick={unfavoriteChar}>Unfavorite</button>
+      ) : (
+        <button onClick={favoriteChar}>Favorite</button>
       )}
       <section className="char-stats">
         <h2>Character Stats</h2>
