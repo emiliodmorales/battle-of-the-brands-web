@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import "./auth.css";
 
 import { useAuth } from "./AuthContext";
 
@@ -14,7 +15,7 @@ export default function Login() {
     const username = formData.get("username");
     const password = formData.get("password");
     try {
-      //await login({ username, password });
+      await login({ username, password });
       navigate("/profile");
     } catch (e) {
       setError(e.message);
@@ -23,20 +24,26 @@ export default function Login() {
 
   return (
     <>
-      <h1>Log in to your account</h1>
-      <form action={onLogin}>
-        <label>
-          Username
-          <input type="username" name="username" required />
-        </label>
-        <label>
-          Password
-          <input type="password" name="password" required />
-        </label>
-        <button>Login</button>
-        {error && <output>{error}</output>}
-      </form>
-      <Link to="/register">Need an account? Register here.</Link>
+      <div className="auth-container">
+        <div className="auth-form">
+          <h1>Log in to your account</h1>
+          <form action={onLogin}>
+            <label>
+              Username
+              <input type="username" name="username" required />
+            </label>
+            <label>
+              Password
+              <input type="password" name="password" required />
+            </label>
+            <button>Login</button>
+            {error && <output className="error">{error}</output>}
+          </form>
+          <Link to="/register" className="auth-link">
+            Need an account? Register here.
+          </Link>
+        </div>
+      </div>
     </>
   );
 }
