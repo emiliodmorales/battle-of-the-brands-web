@@ -25,3 +25,47 @@ export async function deleteCharacter(token, id) {
     throw Error(result.message);
   }
 }
+
+export async function createCharacter(charData, token) {
+  if (!token) {
+    throw Error("You must be signed in to create a character.");
+  }
+
+  const response = await fetch(API + "/characters", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(charData),
+  });
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw Error(result.message);
+  }
+
+  return result;
+}
+
+export async function updateCharacter(charData, token, id) {
+  if (!token) {
+    throw Error("You must be signed in to create a character.");
+  }
+
+  const response = await fetch(API + "/characters/" + id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(charData),
+  });
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw Error(result.message);
+  }
+
+  return result;
+}
