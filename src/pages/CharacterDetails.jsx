@@ -20,16 +20,16 @@ export default function CharacterDetails() {
   const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
     const tryGetIsFavorite = async () => {
-      const retrievedIsFavorite = await getIsFavoriteCharacter(id, profile.id);
+      const retrievedIsFavorite = await getIsFavoriteCharacter(id, token);
       setIsFavorite(retrievedIsFavorite);
     };
     tryGetIsFavorite();
   }, []);
   const favoriteChar = async () => {
-    await addFavoriteCharacter(id, profile.id);
+    await addFavoriteCharacter(id, token);
   };
   const unfavoriteChar = async () => {
-    await removeFavoriteCharacter(id, profile.id);
+    await removeFavoriteCharacter(id, token);
   };
 
   useEffect(() => {
