@@ -14,10 +14,11 @@ export default function Navbar() {
         <NavLink to="/characters">Characters</NavLink>
         {token ? (
           <>
-            <NavLink to="/">CreateCreature</NavLink>
-            <NavLink to="/">Favorites</NavLink>
-            <NavLink to="/">Teams</NavLink>
-            <NavLink to="/">Account</NavLink>
+            {/* TODO - Change NavLinks depending on what we decide the paths are */}
+            <NavLink to="/create">CreateCreature</NavLink>
+            <NavLink to="/favorites">Favorites</NavLink>
+            <NavLink to="/teams">Teams</NavLink>
+            <NavLink to="/me">Account</NavLink>
             <button onClick={logout}>Log out</button>
           </>
         ) : (
