@@ -2,13 +2,15 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import "../styles/characters.css";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { getCharacters } from "../api/characters";
 
 export default function CharacterBrowser() {
   const { token, getProfile } = useAuth();
   const [characters, setCharacters] = useState([]);
   const [userCharacters, setUserCharacters] = useState([]);
+  const [searchParams] = useSearchParams();
+  const searchText = searchParams.get("search");
 
   useEffect(() => {
     const tryGetCharacters = async () => {
@@ -33,7 +35,31 @@ export default function CharacterBrowser() {
   return (
     <section className="character-browser">
       <h1>Characters</h1>
-      <Link to="new">New Character</Link>
+      <button>
+        <Link to="new">New Character</Link>
+      </button>
+      <form>
+        <search>
+          <input type="text" name="search" defaultValue={searchText} />
+          <button>Search</button>
+        </search>
+      </form>
+      {searchText && searchText !== "" && (
+        <section className="search-characters">
+          <h2>Search Results</h2>
+          <ul>
+            {characters
+              .filter(
+                (char) =>
+                  char.name.toLowerCase().includes(searchText.toLowerCase()) ||
+                  char.description
+                    .toLowerCase()
+                    .includes(searchText.toLowerCase()),
+              )
+              .map(CharacterItem)}
+          </ul>
+        </section>
+      )}
       {token && (
         <section className="user-characters">
           <h2>Your Characters</h2>
