@@ -12,6 +12,20 @@ export async function getCharacterDetails(id) {
   return result;
 }
 
+export async function deleteCharacter(token, id) {
+  const response = await fetch(API + "/characters/" + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message);
+  }
+}
+
 export async function createCharacter(charData, token) {
   if (!token) {
     throw Error("You must be signed in to create a character.");

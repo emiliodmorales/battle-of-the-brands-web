@@ -9,6 +9,7 @@ export default function Navbar() {
       <NavLink id="brand" to="/">
         <p>Homepage</p>
       </NavLink>
+      <NavLink to={"/battle"}>Battle</NavLink>
       <nav>
         <NavLink to="/characters">Characters</NavLink>
         {token ? (

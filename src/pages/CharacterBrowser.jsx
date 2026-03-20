@@ -6,9 +6,9 @@ import { Link } from "react-router";
 import { getCharacters } from "../api/characters";
 
 export default function CharacterBrowser() {
-  const { token } = useAuth();
-  const [characters, setCharacters] = useState();
-  const [userCharacters, setUserCharacters] = useState();
+  const { token, getProfile } = useAuth();
+  const [characters, setCharacters] = useState([]);
+  const [userCharacters, setUserCharacters] = useState([]);
 
   useEffect(() => {
     const tryGetCharacters = async () => {
@@ -20,68 +20,15 @@ export default function CharacterBrowser() {
 
   useEffect(() => {
     const tryGetUserCharacters = async () => {
-      setUserCharacters([
-        {
-          id: 1,
-          user_id: 1,
-          name: "Pikachu",
-          description: "electric mouse",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 2,
-          user_id: 1,
-          name: "Charizard",
-          description: "fire lizard",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 3,
-          user_id: 1,
-          name: "Bulbasaur",
-          description: "grass lover",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 4,
-          user_id: 1,
-          name: "Geodude",
-          description: "floating rocks",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-        {
-          id: 5,
-          user_id: 1,
-          name: "Beedrill",
-          description: "big bee",
-          image: "",
-          hp: 5,
-          attack: 10,
-          defense: 2,
-          ability_id: null,
-        },
-      ]);
+      const profile = await getProfile();
+      setUserCharacters(
+        characters.filter((char) => char.user_id === profile.id),
+      );
     };
     tryGetUserCharacters();
-  }, []);
+  }, [characters]);
 
-  if (!characters) return <p>Loading characters...</p>;
+  if (characters.length === 0) return <p>Loading characters...</p>;
 
   return (
     <section className="character-browser">

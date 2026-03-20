@@ -1,0 +1,200 @@
+/* Change this later dark mode so I don't flashbang myself */
+/* Note 1rem = 16px */
+/* Will need to make add that the box shrinks when the window shrinks */
+/* Maybe remove the shake from rumble and add that to the sword when you hover over fight */
+body {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+}
+
+.battleBackground {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.battleBackground h1 {
+  font-family: papyrus;
+  text-transform: uppercase;
+}
+
+span.vertical-shake {
+  display: inline-block;
+  animation: vertical-shake 0.2s infinite;
+}
+
+span.challengerCharge {
+  display: inline-block;
+  animation: challengerCharge 0.75s infinite;
+}
+
+span.defenderCharge {
+  display: inline-block;
+  animation: defenderCharge 0.75s infinite;
+}
+.battleBox {
+  background-color: #808080;
+  width: 80vw;
+  min-width: 20vw;
+  max-height: 60vh;
+  min-height: 15vh;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 6fr 2fr;
+}
+
+.battleBoxFighting {
+  background-color: #808080;
+  width: 80vw;
+  min-width: 20vw;
+  max-height: 60vh;
+  min-height: 15vh;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 6fr 2fr;
+}
+
+.battleBox button {
+  grid-column: 2;
+  grid-row: 3;
+
+  height: 60%;
+  width: 90%;
+
+  justify-self: center;
+  align-self: center;
+
+  font-size: clamp(0.8rem, 2vw, 2rem);
+}
+
+.battleBoxFighting button {
+  grid-column: 2;
+  grid-row: 3;
+
+  visibility: hidden;
+}
+
+div.challenger {
+  grid-row: 2 / span 2;
+
+  justify-self: center;
+  align-self: center;
+}
+
+p.challenger {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+}
+
+div.defenderHidden {
+  grid-row: 2 / span 2;
+
+  justify-self: center;
+  align-self: center;
+
+  margin: 0;
+  font-size: 9rem;
+}
+
+div.defenderRevealed {
+  grid-row: 2 / span 2;
+
+  justify-self: center;
+  align-self: center;
+}
+
+p.defender {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: center;
+}
+
+p.sword {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+
+  justify-self: center;
+  align-self: center;
+
+  margin: 0;
+  font-size: clamp(2rem, 20vmin, 9rem);
+}
+
+@keyframes vertical-shake {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  75% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* tilt-n-move-shaking renamed charge for simplicity */
+@keyframes challengerCharge {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(5px, 5px) rotate(5deg);
+  }
+  50% {
+    transform: translate(0, 0) rotate(0eg);
+  }
+  75% {
+    transform: translate(-5px, 5px) rotate(-5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes defenderCharge {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-5px, 5px) rotate(-5deg);
+  }
+  50% {
+    transform: translate(0, 0) rotate(0eg);
+  }
+  75% {
+    transform: translate(5px, 5px) rotate(5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes challengerAttack {
+  0% {
+    transform: translate(50px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes defenderAttack {
+  0% {
+    transform: translate(-50px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
