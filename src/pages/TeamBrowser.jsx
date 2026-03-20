@@ -7,6 +7,7 @@ import "../styles/teams.css";
 
 import { Link } from "react-router";
 import { getTeams } from "../api/teams";
+import SearchTeams from "./SearchTeams";
 
 export default function TeamBrowser() {
   const { token, getProfile } = useAuth();
@@ -65,7 +66,7 @@ export default function TeamBrowser() {
       )}
       <section>
         {/*TODO - Entire search engine */}
-        <p>How do I make a search engine</p>
+        <SearchTeams />
       </section>
     </section>
   );
