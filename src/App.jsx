@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import CharacterBrowser from "./pages/CharacterBrowser";
 import CharacterDetails from "./pages/CharacterDetails";
 import TeamBrowser from "./pages/TeamBrowser";
+import Battle from "./pages/Battle";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/teams">
           <Route index element={<TeamBrowser />} />
         </Route>
+        <Route path="/battle" element={<Battle />} />
       </Route>
     </Routes>
   );
