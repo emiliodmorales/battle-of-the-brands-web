@@ -11,6 +11,7 @@ export default function Navbar() {
       </NavLink>
       <NavLink to={"/battle"}>Battle</NavLink>
       <nav>
+        <NavLink to="/characters">Characters</NavLink>
         {token ? (
           <button onClick={logout}>Log out</button>
         ) : (

@@ -1,0 +1,23 @@
+.team-browser {
+  display: flex;
+}
+.team-browser > section {
+  flex: 1;
+}
+
+/* When viewing team icons, always display in 2 rows */
+.icon-view {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+.icon-view > img {
+  width: 30%;
+}
+
+/* Smaller fixed width when viewing as part of a deck of team cards instead of one team */
+.team-deck {
+  background-color: gray;
+  max-width: 30vw;
+}
