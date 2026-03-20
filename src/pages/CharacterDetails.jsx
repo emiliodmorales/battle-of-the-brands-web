@@ -1,7 +1,13 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
-import { deleteCharacter, getCharacterDetails } from "../api/characters";
+import {
+  addFavoriteCharacter,
+  deleteCharacter,
+  getCharacterDetails,
+  getIsFavoriteCharacter,
+  removeFavoriteCharacter,
+} from "../api/characters";
 import { useAuth } from "../auth/AuthContext";
 
 export default function CharacterDetails() {
@@ -14,16 +20,16 @@ export default function CharacterDetails() {
   const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
     const tryGetIsFavorite = async () => {
-      const retrievedIsFavorite = await getIsFavorite(id, profile.id);
+      const retrievedIsFavorite = await getIsFavoriteCharacter(id, profile.id);
       setIsFavorite(retrievedIsFavorite);
     };
     tryGetIsFavorite();
   }, []);
   const favoriteChar = async () => {
-    await addFavorite(id, profile.id);
+    await addFavoriteCharacter(id, profile.id);
   };
   const unfavoriteChar = async () => {
-    await removeFavorite(id, profile.id);
+    await removeFavoriteCharacter(id, profile.id);
   };
 
   useEffect(() => {

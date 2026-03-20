@@ -69,3 +69,7 @@ export async function updateCharacter(charData, token, id) {
 
   return result;
 }
+
+export async function getIsFavoriteCharacter(id, userId) {}
+export async function addFavoriteCharacter(id, userId) {}
+export async function removeFavoriteCharacter(id, userId) {}
