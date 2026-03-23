@@ -18,6 +18,9 @@
 
 /* Smaller fixed width when viewing as part of a deck of team cards instead of one team */
 .team-deck {
-  background-color: gray;
   max-width: 30vw;
+  list-style: none;
+}
+.team-card {
+  background-color: gray;
 }

@@ -1,17 +1,41 @@
 const API = import.meta.env.VITE_API;
 
+/**
+ * @returns array of all characters
+ */
 export async function getCharacters() {
   const response = await fetch(API + "/characters");
   const result = await response.json();
   return result;
 }
 
+/**
+ * Get character details by id
+ * @param {number} id - The character id
+ * @returns the character
+ */
 export async function getCharacterDetails(id) {
   const response = await fetch(API + "/characters/" + id);
   const result = await response.json();
   return result;
 }
 
+/**
+ * Get battle history by character
+ * @param {number} id - The character id
+ * @returns the character's history
+ */
+export async function getCharacterHistory(id) {
+  const response = await fetch(API + "/characters/" + id + "/history");
+  const result = await response.json();
+  return result;
+}
+
+/**
+ * Delete a character by its id. Uses token to restrict deletion to the creator.
+ * @param {string} token - User's auth token
+ * @param {number} id - The character id
+ */
 export async function deleteCharacter(token, id) {
   const response = await fetch(API + "/characters/" + id, {
     method: "DELETE",
@@ -26,6 +50,24 @@ export async function deleteCharacter(token, id) {
   }
 }
 
+/**
+ * Represents a character
+ * @typedef {object} characterInfo
+ * @property {string} name - The name of the character
+ * @property {string} description - A short description of the character
+ * @property {string} image - A url to an image of the character
+ * @property {number} hp - Character's health
+ * @property {number} attack - Character's damage
+ * @property {number} defense - Character's block
+ * @property {number} abilityId - Id of character's ability
+ */
+/**
+ * Create a new character. Uses token to store creator id.
+ * @param {characterInfo} charData - The character to create
+ * @param {string} token - User's auth token
+ * @returns the newly created character
+ * @throws Will throw an error if the token is null
+ */
 export async function createCharacter(charData, token) {
   if (!token) {
     throw Error("You must be signed in to create a character.");
@@ -48,6 +90,14 @@ export async function createCharacter(charData, token) {
   return result;
 }
 
+/**
+ * Update a character by its id. Uses token to restrict update to the creator.
+ * @param {characterInfo} charData - The character to update
+ * @param {string} token - User's auth token
+ * @param {number} id - Character id to update
+ * @returns the updated character
+ * @throws Will throw an error if user is signed out
+ */
 export async function updateCharacter(charData, token, id) {
   if (!token) {
     throw Error("You must be signed in to create a character.");
@@ -68,4 +118,79 @@ export async function updateCharacter(charData, token, id) {
   }
 
   return result;
+}
+
+/**
+ * Check if the character is already favorited
+ * @param {number} id - The character id
+ * @param {string} token - User's auth token
+ * @throws Will throw an error if user is signed out
+ */
+export async function getIsFavoriteCharacter(id, token) {
+  if (!token) return false;
+
+  const response = await fetch(`${API}/characters/${id}/favorites`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw Error(result.message);
+  }
+
+  return result;
+}
+
+/**
+ * Favorite a character
+ * @param {number} id - The character id
+ * @param {string} token - User's auth token
+ * @throws Will throw an error if user is signed out
+ */
+export async function addFavoriteCharacter(id, token) {
+  if (!token) {
+    throw Error("You must be signed in to favorite a character.");
+  }
+
+  const response = await fetch(`${API}/characters/${id}/favorites`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message);
+  }
+}
+
+/**
+ * Unfavorite a character
+ * @param {number} id - The character id
+ * @param {string} token - User's auth token
+ * @throws Will throw an error if user is signed out
+ */
+export async function removeFavoriteCharacter(id, token) {
+  if (!token) {
+    throw Error("You must be signed in to favorite a character.");
+  }
+
+  const response = await fetch(`${API}/characters/${id}/favorites`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message);
+  }
 }
