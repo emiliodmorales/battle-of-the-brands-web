@@ -11,6 +11,7 @@ export default function CharacterBrowser() {
   const [userCharacters, setUserCharacters] = useState([]);
   const [searchParams] = useSearchParams();
   const searchText = searchParams.get("search");
+  const [faveCharacters, setFaveCharacters] = useState([]);
 
   useEffect(() => {
     const tryGetCharacters = async () => {
@@ -60,10 +61,16 @@ export default function CharacterBrowser() {
           </ul>
         </section>
       )}
-      {token && (
+      {token && userCharacters.length > 0 && (
         <section className="user-characters">
           <h2>Your Characters</h2>
           <ul>{userCharacters.map(CharacterItem)}</ul>
+        </section>
+      )}
+      {token && faveCharacters.length > 0 && (
+        <section className="fave-characters">
+          <h2>Favorite Characters</h2>
+          <ul>{faveCharacters.map(CharacterItem)}</ul>
         </section>
       )}
       <section className="all-characters">
