@@ -3,7 +3,6 @@ import { getAbilities } from "../api/abilities";
 import { useAuth } from "../auth/AuthContext";
 import { uploadImage } from "../api/images";
 import { useNavigate, useParams } from "react-router";
-import "../styles/characters.css";
 import { getCharacterDetails, updateCharacter } from "../api/characters";
 
 const STARTING_POINTS = 25;
@@ -79,9 +78,10 @@ export default function CharacterEditor() {
   if (!character) return <p>Loading character...</p>;
 
   return (
-    <section className="character-editor">
-      <h1>Character Editor</h1>
+    <section className="char grid grid-cols-2 gap-[2em] p-[2em]">
+      <h1 className="col-[1/3]">Character Editor</h1>
       <form
+        className="grid"
         action={async (formData) => {
           try {
             await submitCharacter(formData);
@@ -89,7 +89,6 @@ export default function CharacterEditor() {
             setError(e.message);
           }
         }}
-        className="char-form"
       >
         <label>
           Character Name
@@ -106,7 +105,7 @@ export default function CharacterEditor() {
         <label>
           Image
           <img
-            className="char-img"
+            className="max-w-[12em] max-h-[12em]"
             alt={"old image of " + character.name}
             src={character.image}
           />

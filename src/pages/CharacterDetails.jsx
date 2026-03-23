@@ -35,11 +35,11 @@ export default function CharacterDetails() {
   };
 
   return (
-    <section className="character-details">
+    <section className="p-[1em] flex flex-col gap-[1em]">
       <h1>{character.name}</h1>
       {character.image && character.image !== "" && (
         <img
-          className="char-img"
+          className="max-w-[12em] max-h-[12em]"
           alt={"image of " + character.name}
           src={character.image}
         />

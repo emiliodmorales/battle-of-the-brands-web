@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
-import "../styles/characters.css";
 import { Link } from "react-router";
 import { getCharacters } from "../api/characters";
 
@@ -31,18 +30,22 @@ export default function CharacterBrowser() {
   if (characters.length === 0) return <p>Loading characters...</p>;
 
   return (
-    <section className="character-browser">
+    <section className="p-[1em] flex flex-col gap-[1em]">
       <h1>Characters</h1>
       <Link to="new">New Character</Link>
       {token && (
-        <section className="user-characters">
+        <section>
           <h2>Your Characters</h2>
-          <ul>{userCharacters.map(CharacterItem)}</ul>
+          <ul className="list-none overflow-x-scroll flex gap-4">
+            {userCharacters.map(CharacterItem)}
+          </ul>
         </section>
       )}
-      <section className="all-characters">
+      <section>
         <h2>All Characters</h2>
-        <ul>{characters.map(CharacterItem)}</ul>
+        <ul className="list-none overflow-x-scroll flex gap-4">
+          {characters.map(CharacterItem)}
+        </ul>
       </section>
     </section>
   );
@@ -51,23 +54,23 @@ export default function CharacterBrowser() {
 function CharacterItem(character) {
   return (
     <li key={character.id}>
-      <Link to={"/characters/" + character.id} className="char-item">
-        <h3>{character.name}</h3>
+      <Link to={"/characters/" + character.id} className="char">
+        <h3 className="row-[1/2] col-[1/3]">{character.name}</h3>
         {character.username && (
-          <p className="char-user">Owner: {character.username}</p>
+          <p className="row-[1/2] col-[3/4]">Owner: {character.username}</p>
         )}
         {character.image && character.image !== "" && (
           <img
-            className="char-img"
+            className="max-w-[12em] max-h-[12em] row-[2/3] col-[1/4]"
             alt={"image of " + character.name}
             src={character.image}
           />
         )}
-        <p className="char-desc">{character.description}</p>
-        <p className="char-hp">{character.hp} HP</p>
-        <p className="char-atk">{character.attack} ATK</p>
-        <p className="char-def">{character.defense} DEF</p>
-        <p className="char-ability">
+        <p className="row-[3/4] col-[1/3]">{character.description}</p>
+        <p className="row-[3/4] col-[3/4]">{character.hp} HP</p>
+        <p className="row-[4/5] col-[1/2]">{character.attack} ATK</p>
+        <p className="row-[4/5] col-[2/3]">{character.defense} DEF</p>
+        <p className="row-[4/5] col-[3/4]">
           {character.ability_name
             ? `Ability: ${character.ability_name}`
             : "No Ability"}

@@ -1,9 +1,0 @@
-.battle-btn {
-  font-weight: bold;
-  font-size: 1rem;
-  transition:
-    background 0.2s,
-    color 0.2s;
-  cursor: pointer;
-  margin-left: 1rem;
-}

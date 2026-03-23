@@ -1,19 +1,15 @@
 @import "tailwindcss";
 
-/* Note to self see how this works with prettier there is an install called npm install -D prettier-plugin-tailwindcss */
+/* Note to self see how this works with prettier there is an install called
+npm install -D prettier-plugin-tailwindcss */
 /* These notes should be gone by the time we upload the final */
 
 /* Responsive design*/
 
-/* * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-} */
-
 /*All globals below this*/
 @theme {
-  /* Imports colors not in tailwinds default pallete if your planning to constantly use it otherwise enter color as [#hexcode]*/
+  /* Imports colors not in tailwinds default pallete if your planning to constantly use it
+  otherwise enter color as [#hexcode]*/
   --color-dark-bg: #242424;
 
   --animate-vertical-shake: vertical-shake 0.2s infinite;
@@ -29,9 +25,33 @@
 }
 
 /*Re-usable styling*/
+
+@layer components {
+  .char {
+    @apply min-w-[15em] p-[1ch] border border-black rounded-[1ch] grid grid-cols-3
+    grid-rows-[2em_12em_2em_2em] items-center justify-items-center text-black no-underline;
+  }
+  .char:hover,
+  .char:focus,
+  .char:active,
+  .char:visited {
+    @apply text-black no-underline;
+  }
+  p[role="alert"] {
+    @apply text-red-600;
+  }
+}
+
+.char-create label {
+  @apply h-fit flex justify-baseline gap-[1em];
+}
+/*Image global size set to max-w-[12em] max-h-[12em]?*/
+
+/* Make the battle button glow/catch on fire or something if we have more time*/
 #navbar nav a,
 #navbar button {
-  @apply text-white text-[1rem] font-medium py-2 px-4 rounded-md cursor-pointer transition-colors duration-200 hover:bg-[#444] hover:text-[#ffb300];
+  @apply text-white text-[1rem] font-medium py-2 px-4 rounded-md cursor-pointer transition-colors
+  duration-200 hover:bg-[#444] hover:text-[#ffb300];
 }
 
 .hover:hover {
