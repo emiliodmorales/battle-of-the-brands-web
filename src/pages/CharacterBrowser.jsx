@@ -36,9 +36,9 @@ export default function CharacterBrowser() {
   return (
     <section className="character-browser">
       <h1>Characters</h1>
-      <button>
-        <Link to="new">New Character</Link>
-      </button>
+      <Link to="new">
+        <button>New Character</button>
+      </Link>
       <form>
         <search>
           <input type="text" name="search" defaultValue={searchText} />
