@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../battle.css";
+import "../styles/battle.css";
 
 // Dummy Data
 // For the two teams fighting

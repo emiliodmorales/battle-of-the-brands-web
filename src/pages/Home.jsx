@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { useAuth } from "../auth/AuthContext";
-import "./home.css";
+import "../styles/home.css";
 
 // Create Homepage(edits will be made)
 export default function Home() {
