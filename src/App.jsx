@@ -6,6 +6,10 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import CharacterBrowser from "./pages/CharacterBrowser";
 import CharacterDetails from "./pages/CharacterDetails";
+import CharacterEditor from "./pages/CharacterEditor";
+import CharacterCreator from "./pages/CharacterCreator";
+import Battle from "./pages/Battle";
+import TeamBrowser from "./pages/TeamBrowser";
 
 export default function App() {
   return (
@@ -15,10 +19,15 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-
+        <Route path="/battle" element={<Battle />} />
         <Route path="/characters">
           <Route index element={<CharacterBrowser />} />
           <Route path=":id" element={<CharacterDetails />} />
+          <Route path=":id/edit" element={<CharacterEditor />} />
+          <Route path="new" element={<CharacterCreator />} />
+        </Route>
+        <Route path="/teams">
+          <Route index element={<TeamBrowser />} />
         </Route>
       </Route>
     </Routes>
