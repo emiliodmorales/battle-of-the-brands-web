@@ -1,0 +1,55 @@
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ff0101bd;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+#navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+#navbar nav a,
+#navbar nav button {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+#navbar nav a:hover,
+#navbar nav button:hover {
+  background: #444;
+  color: #ffb300;
+}
+
+.battle-btn {
+  color: #222;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-left: 1rem;
+}
