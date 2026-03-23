@@ -1,23 +1,25 @@
 import { NavLink } from "react-router";
-import "../styles/navbar.css";
 import { useAuth } from "../auth/AuthContext";
 
 export default function Navbar() {
   const { token, logout } = useAuth();
   return (
-    <header id="navbar">
-      <NavLink id="brand" to="/">
+    <header
+      id="navbar"
+      className="flex items-center justify-between bg-[#ff0101bd] py-3 px-8"
+    >
+      <NavLink to="/" className="text-[1.5rem] font-bold tracking-[1px]">
         <p>BotB</p>
       </NavLink>
-      <nav>
-        <NavLink to={"/battle"} className="battle-btn">
+      <nav className="flex items-center gap-6">
+        <NavLink to="/battle" className="font-bold">
           Battle
         </NavLink>
         <NavLink to="/characters">Characters</NavLink>
         {token ? (
           <>
             {/* TODO - Change NavLinks depending on what we decide the paths are */}
-            <NavLink to="/create">CreateCreature</NavLink>
+            <NavLink to="/create">Create Creature</NavLink>
             <NavLink to="/favorites">Favorites</NavLink>
             <NavLink to="/teams">Teams</NavLink>
             <NavLink to="/me">Account</NavLink>

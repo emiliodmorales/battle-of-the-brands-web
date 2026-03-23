@@ -28,9 +28,14 @@
   }
 }
 
-/*Re-usable styling/ styling I noticed was re-used not just in it's page*/
+/*Re-usable styling*/
+#navbar nav a,
+#navbar button {
+  @apply text-white text-[1rem] font-medium py-2 px-4 rounded-md cursor-pointer transition-colors duration-200 hover:bg-[#444] hover:text-[#ffb300];
+}
+
 .hover:hover {
-  @apply bg-[#666];
+  @apply bg-[#666] cursor-pointer;
 }
 
 /*All animation below this point*/
