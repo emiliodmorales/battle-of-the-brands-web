@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
 // TODO - I understand CSS, but I am absolutely terrible with design.
-import "../styles/teams.css";
 
 import { Link } from "react-router";
 import { getTeams } from "../api/teams";
@@ -38,9 +37,9 @@ export default function TeamBrowser() {
   }, [allTeams]);
 
   return (
-    <section className="team-browser">
+    <section className="flex">
       {token && (
-        <section>
+        <section className="flex-1">
           <TeamList
             heading="Your Teams"
             className="yourTeams"
@@ -63,7 +62,7 @@ export default function TeamBrowser() {
           </Link>
         </section>
       )}
-      <section>
+      <section className="flex-1">
         {/*TODO - Entire search engine */}
         <p>How do I make a search engine</p>
       </section>
@@ -77,21 +76,24 @@ function TeamList({ heading, className, teams }) {
     <section className={className}>
       <h3>{heading}</h3>
       {teams.length ? (
-        <ul className="team-deck">{teams.map(TeamCard)}</ul>
+        /* Smaller fixed width when viewing as part of a deck of team cards instead of one team */
+        <ul className="bg-[#808080] max-w-[30vw]">{teams.map(TeamCard)}</ul>
       ) : (
         "Looks like there's nothing here right now!"
       )}
     </section>
   );
 }
+
 function TeamCard(team) {
   return (
     <li key={team.id}>
       <Link to={String(team.id)}>
         <p>{team.name}</p>
-        <section className="icon-view">
+        {/* When viewing team icons, always display in 2 rows */}
+        <section className="flex flex-wrap flex-row justify-center">
           {team.characters.map((c) => (
-            <img key={c.id} src={c.image}></img>
+            <img className="w-[30%]" key={c.id} src={c.image}></img>
           ))}
         </section>
       </Link>
