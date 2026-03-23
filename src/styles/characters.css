@@ -7,11 +7,18 @@
 }
 
 .all-characters ul,
-.user-characters ul {
+.user-characters ul,
+.search-characters ul {
   list-style-type: none;
   overflow-x: scroll;
   display: flex;
   gap: 1rem;
+}
+
+.character-browser search {
+  display: grid;
+  grid-template-columns: 90% 1fr;
+  gap: 1em;
 }
 
 .char-item {
