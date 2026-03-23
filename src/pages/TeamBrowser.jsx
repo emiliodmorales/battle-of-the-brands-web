@@ -6,7 +6,7 @@ import { useAuth } from "../auth/AuthContext";
 import "../styles/teams.css";
 
 import { Link } from "react-router";
-import { getTeams } from "../api/teams";
+import { getTeams, getFavoriteTeams } from "../api/teams";
 import SearchTeams from "./SearchTeams";
 import TeamCard from "./TeamCard";
 
@@ -24,8 +24,8 @@ export default function TeamBrowser() {
   const filterTeams = async () => {
     const profile = await getProfile();
     setYourTeams(allTeams?.filter((t) => t.user_id === profile.id));
-    // TODO - Favorite teams (most used, or flagged?)
-    setFaveTeams(yourTeams?.filter(() => false));
+    const faves = await getFavoriteTeams();
+    setFaveTeams(faves);
     // TODO - Best teams (highest win ratio)
     setBestTeams(yourTeams?.filter(() => false));
   };

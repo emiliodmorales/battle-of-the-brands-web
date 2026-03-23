@@ -11,3 +11,9 @@ export async function getTeamById(id) {
   const team = await res.json();
   return team;
 }
+
+export async function getFavoriteTeams() {
+  const res = await fetch(API + "/favorite_teams");
+  const teams = await res.json();
+  return teams;
+}
