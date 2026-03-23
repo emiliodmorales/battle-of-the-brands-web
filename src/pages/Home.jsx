@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 
 const homeLink =
-  "hover p-25 font-[Papyrus] text-xl font-semibold bg-drk-gray rounded-lg";
+  "hover p-25 font-[Papyrus] text-xl font-semibold bg-[#333] rounded-lg";
 
 // Create Homepage(edits will be made)
 export default function Home() {
