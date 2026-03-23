@@ -1,8 +1,10 @@
 import { Link } from "react-router";
+import { useAuth } from "../auth/AuthContext";
 import "../styles/home.css";
 
 // Create Homepage(edits will be made)
 export default function Home() {
+  const { token } = useAuth();
   return (
     <section className="home">
       <h1>Battle of the Brands!</h1>
@@ -10,12 +12,28 @@ export default function Home() {
         Create your heroes, Forge your team, Battle your friends!
       </p>
       <div className="home-links">
-        <Link to="/login" className="home-link">
-          Login
-        </Link>
-        <Link to="/register" className="home-link">
-          Register
-        </Link>
+        {token ? (
+          <>
+            <Link to="/characters" className="home-link">
+              Characters
+            </Link>
+            <Link to="/teams" className="home-link">
+              Teams
+            </Link>
+            <Link to="/battle" className="home-link">
+              Battle
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="home-link">
+              Login
+            </Link>
+            <Link to="/register" className="home-link">
+              Register
+            </Link>
+          </>
+        )}
       </div>
     </section>
   );

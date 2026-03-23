@@ -6,7 +6,9 @@ import { useAuth } from "../auth/AuthContext";
 import "../styles/teams.css";
 
 import { Link } from "react-router";
-import { getTeams } from "../api/teams";
+import { getTeams, getFavoriteTeams } from "../api/teams";
+import SearchTeams from "./SearchTeams";
+import TeamCard from "./TeamCard";
 
 export default function TeamBrowser() {
   const { token, getProfile } = useAuth();
@@ -19,11 +21,11 @@ export default function TeamBrowser() {
     const teams = await getTeams();
     setAllTeams(teams);
   };
-  const filterTeams = async () => {
+  const filterTeams = async (token) => {
     const profile = await getProfile();
     setYourTeams(allTeams?.filter((t) => t.user_id === profile.id));
-    // TODO - Favorite teams (most used, or flagged?)
-    setFaveTeams(yourTeams?.filter(() => false));
+    const faves = await getFavoriteTeams(token);
+    setFaveTeams(faves);
     // TODO - Best teams (highest win ratio)
     setBestTeams(yourTeams?.filter(() => false));
   };
@@ -33,7 +35,7 @@ export default function TeamBrowser() {
   }, []);
   useEffect(() => {
     if (token) {
-      filterTeams();
+      filterTeams(token);
     }
   }, [allTeams]);
 
@@ -64,8 +66,7 @@ export default function TeamBrowser() {
         </section>
       )}
       <section>
-        {/*TODO - Entire search engine */}
-        <p>How do I make a search engine</p>
+        <SearchTeams />
       </section>
     </section>
   );
@@ -82,19 +83,5 @@ function TeamList({ heading, className, teams }) {
         "Looks like there's nothing here right now!"
       )}
     </section>
-  );
-}
-function TeamCard(team) {
-  return (
-    <li key={team.id}>
-      <Link to={String(team.id)}>
-        <p>{team.name}</p>
-        <section className="icon-view">
-          {team.characters.map((c) => (
-            <img key={c.id} src={c.image}></img>
-          ))}
-        </section>
-      </Link>
-    </li>
   );
 }
