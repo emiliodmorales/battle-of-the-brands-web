@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-
+import "../styles/navbar.css";
 import { useAuth } from "../auth/AuthContext";
 
 export default function Navbar() {
@@ -9,13 +9,10 @@ export default function Navbar() {
       <NavLink id="brand" to="/">
         <p>BotB</p>
       </NavLink>
-      <NavLink to={"/battle"}>Battle</NavLink>
       <nav>
-        {token && (
-          <NavLink to={"/battle"} className="battle-btn">
-            Battle
-          </NavLink>
-        )}
+        <NavLink to={"/battle"} className="battle-btn">
+          Battle
+        </NavLink>
         <NavLink to="/characters">Characters</NavLink>
         {token ? (
           <>
