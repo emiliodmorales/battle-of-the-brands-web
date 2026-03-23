@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import "./home.css";
+import "../styles/home.css";
 
 // Create Homepage(edits will be made)
 export default function Home() {

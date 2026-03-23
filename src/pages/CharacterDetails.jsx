@@ -2,9 +2,12 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import {
+  addFavoriteCharacter,
   deleteCharacter,
   getCharacterDetails,
   getCharacterHistory,
+  getIsFavoriteCharacter,
+  removeFavoriteCharacter,
 } from "../api/characters";
 import { useAuth } from "../auth/AuthContext";
 
@@ -14,7 +17,23 @@ export default function CharacterDetails() {
   const { token, getProfile } = useAuth();
   const [character, setCharacter] = useState();
   const [profile, setProfile] = useState();
+  const navigate = useNavigate();
   const [history, setHistory] = useState();
+
+  const [isFavorite, setIsFavorite] = useState(false);
+  useEffect(() => {
+    const tryGetIsFavorite = async () => {
+      const retrievedIsFavorite = await getIsFavoriteCharacter(id, token);
+      setIsFavorite(retrievedIsFavorite);
+    };
+    tryGetIsFavorite();
+  }, []);
+  const favoriteChar = async () => {
+    await addFavoriteCharacter(id, token);
+  };
+  const unfavoriteChar = async () => {
+    await removeFavoriteCharacter(id, token);
+  };
 
   useEffect(() => {
     const tryGetCharacter = async () => {
@@ -72,6 +91,11 @@ export default function CharacterDetails() {
           <button onClick={deleteChar}>Delete</button>
         )}
       </section>
+      {token && isFavorite ? (
+        <button onClick={unfavoriteChar}>Unfavorite</button>
+      ) : (
+        <button onClick={favoriteChar}>Favorite</button>
+      )}
       <section className="char-stats">
         <h2>Character Stats</h2>
         <p>{character.hp} HP</p>
