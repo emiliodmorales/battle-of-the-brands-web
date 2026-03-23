@@ -12,6 +12,7 @@
   font-weight: bold;
   color: #fff;
   letter-spacing: 1px;
+  font-family: papyrus;
 }
 
 #navbar nav {
@@ -47,4 +48,10 @@
     color 0.2s;
   cursor: pointer;
   margin-left: 1rem;
+}
+
+button {
+  background-color: #444;
+  font-family: "Times New Roman", Times, serif;
+  transition: color 0.2s;
 }

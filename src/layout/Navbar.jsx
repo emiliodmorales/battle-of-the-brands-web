@@ -20,7 +20,7 @@ export default function Navbar() {
             <NavLink to="/create">CreateCreature</NavLink>
             <NavLink to="/favorites">Favorites</NavLink>
             <NavLink to="/teams">Teams</NavLink>
-            <NavLink to="/me">Account</NavLink>
+            <NavLink to="/profile">Account</NavLink>
             <button onClick={logout}>Log out</button>
           </>
         ) : (
