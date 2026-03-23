@@ -17,7 +17,6 @@ export default function CharacterDetails() {
   const { token, getProfile } = useAuth();
   const [character, setCharacter] = useState();
   const [profile, setProfile] = useState();
-  const navigate = useNavigate();
   const [history, setHistory] = useState();
 
   const [isFavorite, setIsFavorite] = useState(false);
