@@ -8,6 +8,7 @@ import "../styles/teams.css";
 import { Link } from "react-router";
 import { getTeams } from "../api/teams";
 import SearchTeams from "./SearchTeams";
+import TeamCard from "./TeamCard";
 
 export default function TeamBrowser() {
   const { token, getProfile } = useAuth();
@@ -83,19 +84,5 @@ function TeamList({ heading, className, teams }) {
         "Looks like there's nothing here right now!"
       )}
     </section>
-  );
-}
-function TeamCard(team) {
-  return (
-    <li key={team.id}>
-      <Link to={String(team.id)}>
-        <p>{team.name}</p>
-        <section className="icon-view">
-          {team.characters.map((c) => (
-            <img key={c.id} src={c.image}></img>
-          ))}
-        </section>
-      </Link>
-    </li>
   );
 }
