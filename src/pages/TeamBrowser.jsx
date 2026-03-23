@@ -66,7 +66,6 @@ export default function TeamBrowser() {
         </section>
       )}
       <section>
-        {/*TODO - Entire search engine */}
         <SearchTeams />
       </section>
     </section>
