@@ -21,10 +21,10 @@ export default function TeamBrowser() {
     const teams = await getTeams();
     setAllTeams(teams);
   };
-  const filterTeams = async () => {
+  const filterTeams = async (token) => {
     const profile = await getProfile();
     setYourTeams(allTeams?.filter((t) => t.user_id === profile.id));
-    const faves = await getFavoriteTeams();
+    const faves = await getFavoriteTeams(token);
     setFaveTeams(faves);
     // TODO - Best teams (highest win ratio)
     setBestTeams(yourTeams?.filter(() => false));
@@ -35,7 +35,7 @@ export default function TeamBrowser() {
   }, []);
   useEffect(() => {
     if (token) {
-      filterTeams();
+      filterTeams(token);
     }
   }, [allTeams]);
 

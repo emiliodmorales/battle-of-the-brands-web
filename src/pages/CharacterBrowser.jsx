@@ -2,13 +2,16 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import "../styles/characters.css";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { getCharacters } from "../api/characters";
 
 export default function CharacterBrowser() {
   const { token, getProfile } = useAuth();
   const [characters, setCharacters] = useState([]);
   const [userCharacters, setUserCharacters] = useState([]);
+  const [searchParams] = useSearchParams();
+  const searchText = searchParams.get("search");
+  const [faveCharacters, setFaveCharacters] = useState([]);
 
   useEffect(() => {
     const tryGetCharacters = async () => {
@@ -33,11 +36,41 @@ export default function CharacterBrowser() {
   return (
     <section className="character-browser">
       <h1>Characters</h1>
-      <Link to="new">New Character</Link>
-      {token && (
+      <Link to="new">
+        <button>New Character</button>
+      </Link>
+      <form>
+        <search>
+          <input type="text" name="search" defaultValue={searchText} />
+          <button>Search</button>
+        </search>
+      </form>
+      {searchText && searchText !== "" && (
+        <section className="search-characters">
+          <h2>Search Results</h2>
+          <ul>
+            {characters
+              .filter(
+                (char) =>
+                  char.name.toLowerCase().includes(searchText.toLowerCase()) ||
+                  char.description
+                    .toLowerCase()
+                    .includes(searchText.toLowerCase()),
+              )
+              .map(CharacterItem)}
+          </ul>
+        </section>
+      )}
+      {token && userCharacters.length > 0 && (
         <section className="user-characters">
           <h2>Your Characters</h2>
           <ul>{userCharacters.map(CharacterItem)}</ul>
+        </section>
+      )}
+      {token && faveCharacters.length > 0 && (
+        <section className="fave-characters">
+          <h2>Favorite Characters</h2>
+          <ul>{faveCharacters.map(CharacterItem)}</ul>
         </section>
       )}
       <section className="all-characters">

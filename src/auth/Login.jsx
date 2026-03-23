@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import "./auth.css";
+import "../styles/auth.css";
 
 import { useAuth } from "./AuthContext";
 
