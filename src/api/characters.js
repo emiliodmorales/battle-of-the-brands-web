@@ -1,10 +1,11 @@
-const API = import.meta.env.VITE_API;
+const CHAR_API = import.meta.env.VITE_API + "/characters";
+const USER_API = import.meta.env.VITE_API + "/users";
 
 /**
  * @returns array of all characters
  */
 export async function getCharacters() {
-  const response = await fetch(API + "/characters");
+  const response = await fetch(CHAR_API);
   const result = await response.json();
   return result;
 }
@@ -15,7 +16,7 @@ export async function getCharacters() {
  * @returns the character
  */
 export async function getCharacterDetails(id) {
-  const response = await fetch(API + "/characters/" + id);
+  const response = await fetch(CHAR_API + "/" + id);
   const result = await response.json();
   return result;
 }
@@ -26,7 +27,7 @@ export async function getCharacterDetails(id) {
  * @returns the character's history
  */
 export async function getCharacterHistory(id) {
-  const response = await fetch(API + "/characters/" + id + "/history");
+  const response = await fetch(CHAR_API + "/" + id + "/history");
   const result = await response.json();
   return result;
 }
@@ -37,7 +38,7 @@ export async function getCharacterHistory(id) {
  * @param {number} id - The character id
  */
 export async function deleteCharacter(token, id) {
-  const response = await fetch(API + "/characters/" + id, {
+  const response = await fetch(CHAR_API + "/" + id, {
     method: "DELETE",
     headers: {
       Authorization: "Bearer " + token,
@@ -73,7 +74,7 @@ export async function createCharacter(charData, token) {
     throw Error("You must be signed in to create a character.");
   }
 
-  const response = await fetch(API + "/characters", {
+  const response = await fetch(CHAR_API, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -103,7 +104,7 @@ export async function updateCharacter(charData, token, id) {
     throw Error("You must be signed in to create a character.");
   }
 
-  const response = await fetch(API + "/characters/" + id, {
+  const response = await fetch(CHAR_API + "/" + id, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -129,7 +130,7 @@ export async function updateCharacter(charData, token, id) {
 export async function getIsFavoriteCharacter(id, token) {
   if (!token) return false;
 
-  const response = await fetch(`${API}/characters/${id}/favorites`, {
+  const response = await fetch(`${CHAR_API}/${id}/favorites`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -156,7 +157,7 @@ export async function addFavoriteCharacter(id, token) {
     throw Error("You must be signed in to favorite a character.");
   }
 
-  const response = await fetch(`${API}/characters/${id}/favorites`, {
+  const response = await fetch(`${CHAR_API}/${id}/favorites`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -181,7 +182,7 @@ export async function removeFavoriteCharacter(id, token) {
     throw Error("You must be signed in to favorite a character.");
   }
 
-  const response = await fetch(`${API}/characters/${id}/favorites`, {
+  const response = await fetch(`${CHAR_API}/${id}/favorites`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -193,4 +194,25 @@ export async function removeFavoriteCharacter(id, token) {
     const result = await response.json();
     throw Error(result.message);
   }
+}
+
+/**
+ * Get a user's favorite characters
+ * @param {string} token - User's auth token
+ * @returns array of favorite characters
+ * @throws Will throw an error if user is signed out
+ */
+export async function getFavoriteCharacters(token) {
+  if (!token) {
+    throw Error("You must be signed in to favorite a character.");
+  }
+
+  const response = await fetch(USER_API + "/favorite_characters", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  const result = await response.json();
+  return result;
 }
