@@ -84,9 +84,9 @@ export default function CharacterDetails() {
           <Link to={"/users/" + character.user_id}>{character.username}</Link>
         </p>
         {profile?.id === character.user_id && (
-          <button>
-            <Link to="edit">Edit</Link>
-          </button>
+          <Link to="edit">
+            <button>Edit</button>
+          </Link>
         )}
         {profile?.id === character.user_id && (
           <button onClick={deleteChar}>Delete</button>

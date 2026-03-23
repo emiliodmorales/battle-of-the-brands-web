@@ -126,6 +126,10 @@ p[role="alert"] {
   gap: 1em;
 }
 
+.char-info a button {
+  width: 100%;
+}
+
 .char-history {
   grid-column: 2/3;
   grid-row: 1/4;
