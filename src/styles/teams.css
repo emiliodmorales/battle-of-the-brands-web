@@ -6,13 +6,13 @@
 }
 
 /* When viewing team icons, always display in 2 rows */
-.icon-view {
+.team-view {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
 }
-.icon-view > img {
+.team-view > img {
   width: 30%;
 }
 
@@ -23,4 +23,20 @@
 }
 .team-card {
   background-color: gray;
+}
+
+.character {
+  width: 30%;
+}
+.character > img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.team-menu {
+  display: flex;
+}
+.team-menu > section {
+  flex: 1;
 }
