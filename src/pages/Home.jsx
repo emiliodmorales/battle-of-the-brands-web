@@ -1,19 +1,23 @@
 import { Link } from "react-router";
-import "../styles/home.css";
+
+const homeLink =
+  "hover p-25 font-[Papyrus] text-xl font-semibold bg-drk-gray rounded-lg";
 
 // Create Homepage(edits will be made)
 export default function Home() {
   return (
-    <section className="home">
-      <h1>Battle of the Brands!</h1>
-      <p className="motto">
+    <section className="flex flex-col items-center justify-center min-h-[80vh] text-center">
+      <h1 className="pb-5 font-[Papyrus] text-6xl uppercase">
+        Battle of the Brands!
+      </h1>
+      <p className=" pb-3 font-[Papyrus] text-3xl ">
         Create your heroes, Forge your team, Battle your friends!
       </p>
-      <div className="home-links">
-        <Link to="/login" className="home-link">
+      <div className="flex gap-6">
+        <Link to="/login" className={homeLink}>
           Login
         </Link>
-        <Link to="/register" className="home-link">
+        <Link to="/register" className={homeLink}>
           Register
         </Link>
       </div>
