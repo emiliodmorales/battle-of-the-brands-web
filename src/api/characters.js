@@ -130,10 +130,9 @@ export async function updateCharacter(charData, token, id) {
 export async function getIsFavoriteCharacter(id, token) {
   if (!token) return false;
 
-  const response = await fetch(`${CHAR_API}/${id}/favorites`, {
+  const response = await fetch(USER_API + "/favorite_characters/" + id, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
   });
@@ -157,12 +156,13 @@ export async function addFavoriteCharacter(id, token) {
     throw Error("You must be signed in to favorite a character.");
   }
 
-  const response = await fetch(`${CHAR_API}/${id}/favorites`, {
+  const response = await fetch(USER_API + "/favorite_characters", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
+    body: JSON.stringify({ id }),
   });
 
   if (!response.ok) {
@@ -182,12 +182,13 @@ export async function removeFavoriteCharacter(id, token) {
     throw Error("You must be signed in to favorite a character.");
   }
 
-  const response = await fetch(`${CHAR_API}/${id}/favorites`, {
+  const response = await fetch(USER_API + "/favorite_characters", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
+    body: JSON.stringify({ id }),
   });
 
   if (!response.ok) {
