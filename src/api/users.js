@@ -36,6 +36,17 @@ export async function getUserFollowing(id) {
   return result;
 }
 
+export async function getUserIsFollowing(id, token) {
+  const response = await fetch(USER_API + "/" + id + "/is_following", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  const result = await response.json();
+  return result;
+}
+
 export async function followUser(id, token) {
   await fetch(USER_API + "/" + id + "/following", {
     method: "POST",

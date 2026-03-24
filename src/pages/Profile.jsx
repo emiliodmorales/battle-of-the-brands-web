@@ -8,6 +8,7 @@ import {
   getUserFollowers,
   getUserFollowing,
   getUserHistory,
+  getUserIsFollowing,
   getUserTeams,
   unfollowUser,
 } from "../api/users";
@@ -73,7 +74,14 @@ export default function Profile() {
     tryGetFollowing();
   }, []);
 
-  const [isFollowing, setIsFollowing] = useState(false);
+  const [isFollowing, setIsFollowing] = useState();
+  useEffect(() => {
+    const tryGetIsFollowing = async () => {
+      const retrievedIsFollowing = await getUserIsFollowing(id, token);
+      setIsFollowing(retrievedIsFollowing);
+    };
+    tryGetIsFollowing();
+  }, []);
 
   if (!profile || !teams || !characters || !history || !followers || !following)
     return <p>Loading profile</p>;
