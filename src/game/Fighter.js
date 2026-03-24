@@ -52,7 +52,7 @@ export default class Fighter {
 
   defend(attacker, attack) {
     let dmg = attack - this.defense;
-    if (this.ability === "Dodge" && Math.floor(Math.random() * 4) === 0) {
+    if (this.ability === "Dodge" && Math.floor(Math.random() < 0.25)) {
       return 0;
     }
     if (this.ability === "Shield" && !this.shielded) {
