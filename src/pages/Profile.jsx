@@ -18,7 +18,7 @@ const defaultAvatar = "https://via.placeholder.com/150";
 
 export default function Profile() {
   const { id } = useParams();
-  const { token } = useAuth();
+  const { token, getProfile } = useAuth();
 
   const [profile, setProfile] = useState();
   useEffect(() => {
@@ -28,6 +28,16 @@ export default function Profile() {
     };
     tryGetProfile();
   }, []);
+
+  const [isSelf, setIsSelf] = useState();
+  useEffect(() => {
+    const tryGetIsSelf = async () => {
+      if (!profile) return;
+      const selfProfile = await getProfile();
+      setIsSelf(profile.id === selfProfile.id);
+    };
+    tryGetIsSelf();
+  }, [profile]);
 
   const [teams, setTeams] = useState([]);
   useEffect(() => {
@@ -103,11 +113,13 @@ export default function Profile() {
       <div className="profile-header">
         <img src={defaultAvatar} alt="Profile" className="profile-avatar" />
         <h1>{profile.username}'s Profile</h1>
-        {token && isFollowing ? (
-          <button onClick={tryUnfollow}>Unfollow</button>
-        ) : (
-          <button onClick={tryFollow}>Follow</button>
-        )}
+        {token &&
+          !isSelf &&
+          (isFollowing ? (
+            <button onClick={tryUnfollow}>Unfollow</button>
+          ) : (
+            <button onClick={tryFollow}>Follow</button>
+          ))}
       </div>
 
       <div className="profile-section">
