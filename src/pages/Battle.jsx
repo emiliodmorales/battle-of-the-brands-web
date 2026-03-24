@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "../styles/battle.css";
 
 // Dummy Data
 // For the two teams fighting
@@ -52,29 +51,33 @@ export default function Battle() {
   };
 
   return (
-    <div className="battleBackground">
-      <h1>
-        Get ready to <span className="vertical-shake">rumble</span>
+    <div className="flex flex-col justify-center items-center p-6">
+      <h1 className="font-[papyrus] uppercase">
+        Get ready to{" "}
+        <span className="inline-block animate-verticalShake">rumble</span>
       </h1>
-      {/* No styling change but left in case we want to change the box when the fight starts */}
-      <div className={`battleBox${isFighting ? "Fighting" : ""}`}>
-        <p className="challenger">Challenger</p>
-        <div className="challenger">
+      <div className="grid grid-cols-3 grid-rows-[1fr_6fr_2fr] bg-[#808080] w-[80vw] min-w-[20vw] max-h-[60vh] min-h-[15vh]">
+        <p className="col-start-1 place-self-center">Challenger</p>
+        <div className="row-[2/4] place-self-center">
           {challenger.map((character) => (
             <p key={character.character_id}>
-              <span className={`${isFighting ? "challengerCharge" : ""}`}>
+              <span
+                className={`${isFighting ? "inline-block animate-challengerCharge" : ""}`}
+              >
                 {character.name}
               </span>
             </p>
           ))}
         </div>
 
-        <p className="defender">Defender</p>
-        <div className={`defender${isFighting ? "Revealed" : "Hidden"}`}>
+        <p className="col-start-3 row-start-1 place-self-center">Defender</p>
+        <div
+          className={`col-start-3 row-[2/4] place-self-center ${isFighting ? "" : "text-[9rem]"}`}
+        >
           {isFighting ? (
             defender.map((character) => (
               <p key={character.character_id}>
-                <span className={`${isFighting ? "defenderCharge" : ""}`}>
+                <span className="inline-block animate-defenderCharge">
                   {character.name}
                 </span>
               </p>
@@ -84,11 +87,16 @@ export default function Battle() {
           )}
         </div>
 
-        <p className="sword">
+        <p className="row-[1/3] place-self-center text-[clamp(2rem,20vmin,9rem)]">
           {isFighting ? "" : isCounting ? countdown : "⚔️"}
         </p>
 
-        <button onClick={toggleFighting} disabled={isCounting}>
+        <button
+          className={`col-start-2 row-start-3 bg-neutral-400 border border-black rounded-md
+          h-[60%] w-[90%] place-self-center text-[clamp(0.8rem,2vw,2rem)]
+          ${isCounting ? "disabled opacity-50" : isFighting ? "hidden" : "hover"}`}
+          onClick={toggleFighting}
+        >
           FIGHT!
         </button>
       </div>
