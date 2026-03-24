@@ -10,6 +10,7 @@ import CharacterEditor from "./pages/CharacterEditor";
 import CharacterCreator from "./pages/CharacterCreator";
 import Battle from "./pages/Battle";
 import TeamBrowser from "./pages/TeamBrowser";
+import TeamViewer from "./pages/TeamViewer";
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         </Route>
         <Route path="/teams">
           <Route index element={<TeamBrowser />} />
+          <Route path=":id" element={<TeamViewer />} />
         </Route>
       </Route>
     </Routes>
