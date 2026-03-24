@@ -9,12 +9,20 @@ npm install -D prettier-plugin-tailwindcss */
 /*All globals below this*/
 @theme {
   /* Imports colors not in tailwinds default pallete if your planning to constantly use it
-  otherwise enter color as [#hexcode]*/
+  otherwise enter color as [#hexcode], only here for example*/
   --color-dark-bg: #242424;
 
-  --animate-vertical-shake: vertical-shake 0.2s infinite;
+  --animate-verticalShake: verticalShake 0.2s infinite;
+  --animate-challengerCharge: challengerCharge 0.75s infinite;
+  --animate-defenderCharge: defenderCharge 0.75s infinite;
+  --animate-challengerAttack: challengerAttack 0.2s infinite;
+  --animate-defenderAttack: defenderAttack 0.2s infinite;
 }
 
+/* 
+When changing the background on other pages we want to write the following so it covers the entire page
+min-h-screen bg-color
+*/
 /* Created Darkmode First one is default, second is when darkmode is used*/
 @layer base {
   html {
@@ -45,7 +53,6 @@ npm install -D prettier-plugin-tailwindcss */
 .char-create label {
   @apply h-fit flex justify-baseline gap-[1em];
 }
-/*Image global size set to max-w-[12em] max-h-[12em]?*/
 
 /* Make the battle button glow/catch on fire or something if we have more time*/
 #navbar nav a,
@@ -60,7 +67,7 @@ npm install -D prettier-plugin-tailwindcss */
 
 /*All animation below this point*/
 /* prettier-ignore*/
-@keyframes vertical-shake {
+@keyframes verticalShake {
   0% {transform: translateY(0);}
   25% {transform: translateY(5px);}
   50% {transform: translateY(-5px);}
@@ -68,11 +75,32 @@ npm install -D prettier-plugin-tailwindcss */
   100% {transform: translateY(0);}
 }
 
-/* 
-When changing the background on other pages we want to write the following so it covers the entire page
-min-h-screen bg-color
-*/
+/* prettier-ignore*/
+@keyframes challengerCharge {
+  0% {transform: translate(0, 0) rotate(0deg);}
+  25% {transform: translate(5px, 5px) rotate(5deg);}
+  50% {transform: translate(0, 0) rotate(0eg);}
+  75% {transform: translate(-5px, 5px) rotate(-5deg);}
+  100% {transform: translate(0, 0) rotate(0deg);}
+}
 
-/* colors removed but may use later
-  background-color: #808080;
-*/
+/* prettier-ignore*/
+@keyframes defenderCharge {
+  0% {transform: translate(0, 0) rotate(0deg);}
+  25% {transform: translate(-5px, 5px) rotate(-5deg);}
+  50% {transform: translate(0, 0) rotate(0eg);}
+  75% {transform: translate(5px, 5px) rotate(5deg);}
+  100% {transform: translate(0, 0) rotate(0deg);}
+}
+
+/* prettier-ignore*/
+@keyframes challengerAttack {
+  0% {transform: translate(50px);}
+  100% {transform: translate(0);}
+}
+
+/* prettier-ignore*/
+@keyframes defenderAttack {
+  0% {transform: translate(-50px);}
+  100% {transform: translate(0);}
+}
