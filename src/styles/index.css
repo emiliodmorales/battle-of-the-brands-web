@@ -37,13 +37,15 @@ min-h-screen bg-color
 @layer components {
   .char {
     @apply min-w-[15em] p-[1ch] border border-black rounded-[1ch] grid grid-cols-3
-    grid-rows-[2em_12em_2em_2em] items-center justify-items-center text-black no-underline;
+    grid-rows-[2em_12em_2em_2em] place-items-center;
   }
-  .char:hover,
+  .char:hover
+  /* 
   .char:focus,
   .char:active,
-  .char:visited {
-    @apply text-black no-underline;
+  .char:visited
+  */ {
+    @apply text-[#524FFF] no-underline;
   }
   p[role="alert"] {
     @apply text-red-600;
@@ -63,6 +65,9 @@ min-h-screen bg-color
 
 .hover:hover {
   @apply bg-[#666] cursor-pointer;
+}
+.overflowScroll {
+  @apply list-none overflow-x-scroll flex gap-4;
 }
 
 /*All animation below this point*/
