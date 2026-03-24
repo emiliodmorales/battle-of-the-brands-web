@@ -11,6 +11,8 @@ import CharacterCreator from "./pages/CharacterCreator";
 import Battle from "./pages/Battle";
 import TeamBrowser from "./pages/TeamBrowser";
 import TeamViewer from "./pages/TeamViewer";
+import FollowerList from "./pages/FollowerList";
+import FollowingList from "./pages/FollowingList";
 
 export default function App() {
   return (
@@ -19,7 +21,11 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/users/:id" element={<Profile />} />
+        <Route path="/users">
+          <Route path=":id" element={<Profile />} />
+          <Route path=":id/followers" element={<FollowerList />} />
+          <Route path=":id/following" element={<FollowingList />} />
+        </Route>
         <Route path="/battle" element={<Battle />} />
         <Route path="/characters">
           <Route index element={<CharacterBrowser />} />
