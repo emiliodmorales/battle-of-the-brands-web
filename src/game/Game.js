@@ -87,3 +87,24 @@ class Fighter {
     }
   }
 }
+
+class Battle {
+  constructor(home_team, away_team) {
+    this.home_team = home_team.map((character) =>
+      Fighter(
+        character.hp,
+        character.attack,
+        character.defense,
+        character.ability_name,
+      ),
+    );
+    this.away_team = away_team.map((character) =>
+      Fighter(
+        character.hp,
+        character.attack,
+        character.defense,
+        character.ability_name,
+      ),
+    );
+  }
+}
