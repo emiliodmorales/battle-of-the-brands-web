@@ -1,6 +1,7 @@
 import { NavLink } from "react-router";
 import "../styles/navbar.css";
 import { useAuth } from "../auth/AuthContext";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const { token, logout, getProfile } = useAuth();
@@ -13,6 +14,8 @@ export default function Navbar() {
     };
     tryGetProfile();
   }, []);
+
+  if (!profile) return <></>;
 
   return (
     <header id="navbar">
