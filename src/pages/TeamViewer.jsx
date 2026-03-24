@@ -56,7 +56,7 @@ export default function TeamViewer() {
       </section>
       <section className="team-view">
         {team.characters.map((c) => (
-          <section key={c.id} className="character">
+          <section key={c.id} className="w-[30%] ">
             <section className="char-info">
               <Link to={`/characters/${c.id}`}>
                 <h2>{c.name}</h2>
@@ -68,7 +68,11 @@ export default function TeamViewer() {
                 {c.ability_name ? `Ability: ${c.ability_name}` : "No Ability"}
               </p>
             </section>
-            <img src={c.image} alt={c.name}></img>
+            <img
+              className="w-full max-w-full max-h-full object-contain"
+              src={c.image}
+              alt={c.name}
+            ></img>
           </section>
         ))}
       </section>

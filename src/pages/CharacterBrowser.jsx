@@ -49,8 +49,13 @@ export default function CharacterBrowser() {
         </Link>
       )}
       <form>
-        <search className="grid grid-cols-[90%_1fr] gap 1em">
-          <input type="text" name="search" defaultValue={searchText} />
+        <search className="grid grid-cols-[90%_1fr] gap-[1em]">
+          <input
+            className="border border-white rounded-md"
+            type="text"
+            name="search"
+            defaultValue={searchText}
+          />
           <button>Search</button>
         </search>
       </form>
