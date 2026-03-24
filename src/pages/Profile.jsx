@@ -9,6 +9,7 @@ import {
   getUserFollowing,
   getUserHistory,
   getUserTeams,
+  unfollowUser,
 } from "../api/users";
 import { useAuth } from "../auth/AuthContext";
 
@@ -54,12 +55,12 @@ export default function Profile() {
     tryGetHistory();
   }, []);
 
+  const tryGetFollowers = async () => {
+    const retrievedFollowers = await getUserFollowers(id);
+    setFollowers(retrievedFollowers);
+  };
   const [followers, setFollowers] = useState();
   useEffect(() => {
-    const tryGetFollowers = async () => {
-      const retrievedFollowers = await getUserFollowers(id);
-      setFollowers(retrievedFollowers);
-    };
     tryGetFollowers();
   }, []);
 
@@ -80,10 +81,13 @@ export default function Profile() {
   const tryFollow = async () => {
     await followUser(id, token);
     setIsFollowing(true);
+    tryGetFollowers();
   };
 
   const tryUnfollow = async () => {
+    await unfollowUser(id, token);
     setIsFollowing(false);
+    tryGetFollowers();
   };
 
   return (

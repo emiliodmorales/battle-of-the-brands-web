@@ -44,3 +44,12 @@ export async function followUser(id, token) {
     },
   });
 }
+
+export async function unfollowUser(id, token) {
+  await fetch(USER_API + "/" + id + "/following", {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
