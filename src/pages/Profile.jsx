@@ -1,10 +1,21 @@
 import { useAuth } from "../auth/AuthContext";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import "../styles/profile.css";
 
 const defaultAvatar = "https://via.placeholder.com/150";
 
 export default function Profile() {
+  const { id } = useParams();
+
+  const [profile, setProfile] = useState();
+  useEffect(() => {
+    const tryGetProfile = async () => {
+      const retrievedProfile = await getProfile();
+      setProfile(retrievedProfile);
+    };
+    tryGetProfile();
+  }, []);
+
   // Dummy data
   const username = "Player1";
   const wins = 12;
