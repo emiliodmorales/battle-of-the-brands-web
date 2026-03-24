@@ -24,6 +24,18 @@ class Fighter {
     this.shielded = false;
   }
 
+  isAlive() {
+    return this.hp > 0;
+  }
+
+  getTarget(enemyTeam) {
+    // Remember to filter for living enemies before passing in
+    if (this.ability === "Reach" && enemyTeam.length > 1) {
+      return enemyTeam[1];
+    }
+    return enemyTeam[0];
+  }
+
   doAttack(target) {
     const strikes = this.ability === "Double Strike" ? 2 : 1;
     for (let i = 0; i < strikes; i++) {
@@ -66,6 +78,12 @@ class Fighter {
     this.hp -= dmg;
     if (this.hp < 0) {
       this.hp = 0;
+    }
+  }
+  heal(hp) {
+    this.hp += hp;
+    if (this.hp > this.maxHp) {
+      this.hp = this.maxHp;
     }
   }
 }
