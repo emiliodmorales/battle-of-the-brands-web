@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router";
 import { useAuth } from "../auth/AuthContext";
 
 import { getTeamById, getTeamHistory } from "../api/teams";
-import "../styles/teams.css";
 
 export default function TeamViewer() {
   const { token, getProfile } = useAuth();

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
 // TODO - I understand CSS, but I am absolutely terrible with design.
-import "../styles/teams.css";
 
 import { Link } from "react-router";
 import { getTeams, getFavoriteTeams } from "../api/teams";
