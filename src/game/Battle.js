@@ -69,6 +69,9 @@ export default class Battle {
     if (this.first === this.home_team_id) {
       this.homeAlive.forEach((f) => act(f, this.awayAlive));
       this.awayAlive.forEach((f) => act(f, this.homeAlive));
+    } else {
+      this.awayAlive.forEach((f) => act(f, this.homeAlive));
+      this.homeAlive.forEach((f) => act(f, this.awayAlive));
     }
 
     this.all.forEach((fighter) => {
