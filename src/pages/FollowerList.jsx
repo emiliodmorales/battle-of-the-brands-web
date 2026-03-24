@@ -39,7 +39,7 @@ export default function FollowerList() {
         <ul>
           {followers.map((user) => (
             <li key={user.id}>
-              <Link to={"/users/" + user.id}>{user.name}</Link>
+              <Link to={"/users/" + user.id}>{user.username}</Link>
             </li>
           ))}
         </ul>
