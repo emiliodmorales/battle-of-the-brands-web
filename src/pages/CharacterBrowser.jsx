@@ -44,11 +44,11 @@ export default function CharacterBrowser() {
   return (
     <section className="character-browser">
       <h1>Characters</h1>
-      {token && (
-        <button>
-          <Link to="new">New Character</Link>
-        </button>
-      )}
+    { token &&
+      <Link to="new">
+        <button>New Character</button>
+      </Link>
+    }
       <form>
         <search>
           <input type="text" name="search" defaultValue={searchText} />
