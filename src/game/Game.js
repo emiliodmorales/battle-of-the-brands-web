@@ -24,7 +24,7 @@ class Fighter {
     this.shielded = false;
   }
 
-  isAlive() {
+  get isAlive() {
     return this.hp > 0;
   }
 
@@ -107,4 +107,6 @@ class Battle {
       ),
     );
   }
+
+  takeTurn() {}
 }
