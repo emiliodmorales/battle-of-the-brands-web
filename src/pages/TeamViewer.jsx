@@ -33,7 +33,7 @@ export default function TeamViewer() {
 
   return (
     <>
-      <section className="team-menu">
+      <section className="flex [&>section]:flex-1">
         <section>
           <p>{team.name}</p>
           <p>Created by {team.username}</p>
@@ -54,7 +54,7 @@ export default function TeamViewer() {
           </section>
         )}
       </section>
-      <section className="team-view">
+      <section className="flex flex-wrap flex-row justify-center [&>img]:w-[30%]">
         {team.characters.map((c) => (
           <section key={c.id} className="w-[30%] ">
             <section className="char-info">
