@@ -37,3 +37,13 @@ export async function getFavoriteTeams(token) {
   const teams = await res.json();
   return teams;
 }
+
+/**
+ * Get a team's battle history
+ * @returns battle history
+ */
+export async function getTeamHistory(id) {
+  const res = await fetch(API + `/${id}/history`);
+  const teams = await res.json();
+  return teams;
+}
