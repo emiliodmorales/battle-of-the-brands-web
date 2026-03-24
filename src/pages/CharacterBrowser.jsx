@@ -22,6 +22,7 @@ export default function CharacterBrowser() {
 
   useEffect(() => {
     const tryGetUserCharacters = async () => {
+      if (!token) return;
       const profile = await getProfile();
       setUserCharacters(
         characters.filter((char) => char.user_id === profile.id),
@@ -32,11 +33,12 @@ export default function CharacterBrowser() {
 
   useEffect(() => {
     const tryGetFaveCharacters = async () => {
+      if (!token) return;
       const retrievedCharacters = await getFavoriteCharacters(token);
       setFaveCharacters(retrievedCharacters);
     };
     tryGetFaveCharacters();
-  }, [characters]);
+  }, []);
 
   if (characters.length === 0) return <p>Loading characters...</p>;
 
