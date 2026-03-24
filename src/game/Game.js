@@ -90,23 +90,74 @@ class Fighter {
 
 class Battle {
   constructor(home_team, away_team) {
-    this.home_team = home_team.map((character) =>
-      Fighter(
-        character.hp,
-        character.attack,
-        character.defense,
-        character.ability_name,
-      ),
+    this.home_team_id = home_team.id;
+    this.away_team_id = away_team.id;
+    this.home_team = home_team.characters.map(
+      (character) =>
+        new Fighter(
+          character.hp,
+          character.attack,
+          character.defense,
+          character.ability_name,
+        ),
     );
-    this.away_team = away_team.map((character) =>
-      Fighter(
-        character.hp,
-        character.attack,
-        character.defense,
-        character.ability_name,
-      ),
+    this.away_team = away_team.characters.map(
+      (character) =>
+        new Fighter(
+          character.hp,
+          character.attack,
+          character.defense,
+          character.ability_name,
+        ),
     );
+    this.winner = undefined;
   }
 
-  takeTurn() {}
+  get homeAlive() {
+    return this.home_team.filter((f) => f.isAlive);
+  }
+  get awayAlive() {
+    return this.away_team.filter((f) => f.isAlive);
+  }
+  get allAlive() {
+    return [...this.homeAlive, ...this.awayAlive];
+  }
+
+  tryResolveBattle() {
+    if (this.homeAlive.length === 0) {
+      this.winner = this.away_team_id;
+    } else {
+      this.winner = this.home_team_id;
+    }
+    return this.winner;
+  }
+
+  takeTurn() {
+    const all = [...this.home_team, ...this.away_team];
+
+    all.forEach((f) => f.flipCoin());
+
+    function act() {}
+    function react() {}
+
+    all.forEach((f) => {
+      if (!f.isAlive) return;
+      if (f.burnStacks > 0) {
+        f.takeDamage(f.burnStacks);
+      }
+      if (f.ability === "Regen") {
+        f.heal(1);
+      }
+      if (f.ability === "Shield") {
+        f.raiseShield();
+      }
+    });
+  }
+
+  doBattle() {
+    while (!this.tryResolveBattle) {
+      this.takeTurn();
+    }
+    return this.winner;
+  }
 }
