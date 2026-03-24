@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router";
 import "../styles/profile.css";
 import { useState, useEffect } from "react";
 import {
+  followUser,
   getUser,
   getUserCharacters,
   getUserFollowers,
@@ -9,11 +10,13 @@ import {
   getUserHistory,
   getUserTeams,
 } from "../api/users";
+import { useAuth } from "../auth/AuthContext";
 
 const defaultAvatar = "https://via.placeholder.com/150";
 
 export default function Profile() {
   const { id } = useParams();
+  const { token } = useAuth();
 
   const [profile, setProfile] = useState();
   useEffect(() => {
@@ -69,14 +72,30 @@ export default function Profile() {
     tryGetFollowing();
   }, []);
 
+  const [isFollowing, setIsFollowing] = useState(false);
+
   if (!profile || !teams || !characters || !history || !followers || !following)
     return <p>Loading profile</p>;
+
+  const tryFollow = async () => {
+    await followUser(id, token);
+    setIsFollowing(true);
+  };
+
+  const tryUnfollow = async () => {
+    setIsFollowing(false);
+  };
 
   return (
     <section className="profile">
       <div className="profile-header">
         <img src={defaultAvatar} alt="Profile" className="profile-avatar" />
         <h1>{profile.username}'s Profile</h1>
+        {token && isFollowing ? (
+          <button onClick={tryUnfollow}>Unfollow</button>
+        ) : (
+          <button onClick={tryFollow}>Follow</button>
+        )}
       </div>
 
       <div className="profile-section">
