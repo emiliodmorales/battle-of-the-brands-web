@@ -7,6 +7,7 @@
 
 .all-characters ul,
 .user-characters ul,
+.fave-characters ul,
 .search-characters ul {
   list-style-type: none;
   overflow-x: scroll;

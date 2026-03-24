@@ -29,9 +29,11 @@ export default function CharacterDetails() {
   }, []);
   const favoriteChar = async () => {
     await addFavoriteCharacter(id, token);
+    setIsFavorite(true);
   };
   const unfavoriteChar = async () => {
     await removeFavoriteCharacter(id, token);
+    setIsFavorite(false);
   };
 
   useEffect(() => {
@@ -89,12 +91,12 @@ export default function CharacterDetails() {
         {profile?.id === character.user_id && (
           <button onClick={deleteChar}>Delete</button>
         )}
+        {token && isFavorite ? (
+          <button onClick={unfavoriteChar}>Unfavorite</button>
+        ) : (
+          <button onClick={favoriteChar}>Favorite</button>
+        )}
       </section>
-      {token && isFavorite ? (
-        <button onClick={unfavoriteChar}>Unfavorite</button>
-      ) : (
-        <button onClick={favoriteChar}>Favorite</button>
-      )}
       <section className="char-stats">
         <h2>Character Stats</h2>
         <p>{character.hp} HP</p>

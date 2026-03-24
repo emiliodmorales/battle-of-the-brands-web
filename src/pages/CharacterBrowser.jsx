@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import "../styles/characters.css";
 import { Link, useSearchParams } from "react-router";
-import { getCharacters } from "../api/characters";
+import { getCharacters, getFavoriteCharacters } from "../api/characters";
 
 export default function CharacterBrowser() {
   const { token, getProfile } = useAuth();
@@ -31,14 +31,24 @@ export default function CharacterBrowser() {
     tryGetUserCharacters();
   }, [characters]);
 
+  useEffect(() => {
+    const tryGetFaveCharacters = async () => {
+      const retrievedCharacters = await getFavoriteCharacters(token);
+      setFaveCharacters(retrievedCharacters);
+    };
+    tryGetFaveCharacters();
+  }, [characters]);
+
   if (characters.length === 0) return <p>Loading characters...</p>;
 
   return (
     <section className="character-browser">
       <h1>Characters</h1>
+    { token &&
       <Link to="new">
         <button>New Character</button>
       </Link>
+    }
       <form>
         <search>
           <input type="text" name="search" defaultValue={searchText} />
