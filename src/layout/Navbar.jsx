@@ -16,8 +16,7 @@ export default function Navbar() {
         <NavLink to="/characters">Characters</NavLink>
         {token ? (
           <>
-            {/* TODO - Change NavLinks depending on what we decide the paths are */}
-            <NavLink to="/create">CreateCreature</NavLink>
+            <NavLink to="/characters/new">CreateCreature</NavLink>
             <NavLink to="/favorites">Favorites</NavLink>
             <NavLink to="/teams">Teams</NavLink>
             <NavLink to="/profile">Account</NavLink>
