@@ -30,6 +30,10 @@ min-h-screen bg-color
 
     @apply text-black dark:text-white;
   }
+
+  button {
+    @apply bg-[#444] font-['Times_New_Roman',Times,serif] hover:bg-[#666] cursor-pointer;
+  }
 }
 
 /*Re-usable styling*/
@@ -52,7 +56,7 @@ min-h-screen bg-color
   }
 }
 
-.char-create label {
+.char-creator label {
   @apply h-fit flex justify-baseline gap-[1em];
 }
 
