@@ -60,7 +60,7 @@ export default class Fighter {
       this.useShield();
     }
     if (this.ability === "Durable") {
-      dmg *= 0.8;
+      dmg = Math.floor(dmg * 0.8);
     }
     if (this.ability === "Gamble" && !this.coinGood) {
       dmg *= 2;
