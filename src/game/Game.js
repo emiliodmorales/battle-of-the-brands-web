@@ -110,7 +110,14 @@ class Battle {
           character.ability_name,
         ),
     );
+    this.first = Math.floor(Math.random() * 2)
+      ? this.home_team_id
+      : this.away_team_id; // Which team goes first
     this.winner = undefined;
+  }
+
+  get allTeams() {
+    return [...this.home_team, ...this.away_team];
   }
 
   get homeAlive() {
@@ -133,23 +140,35 @@ class Battle {
   }
 
   takeTurn() {
-    const all = [...this.home_team, ...this.away_team];
+    this.all.forEach((fighter) => fighter.flipCoin());
 
-    all.forEach((f) => f.flipCoin());
-
-    function act() {}
-    function react() {}
-
-    all.forEach((f) => {
-      if (!f.isAlive) return;
-      if (f.burnStacks > 0) {
-        f.takeDamage(f.burnStacks);
+    const act = (fighter, enemyTeam) => {
+      if (!fighter.isAlive) return;
+      const target = fighter.getTarget(enemyTeam);
+      if (target.ability === "First Strike") {
+        target.doAttack(fighter);
+        fighter.doAttack(target);
+      } else {
+        fighter.doAttack(target);
+        target.doAttack(fighter);
       }
-      if (f.ability === "Regen") {
-        f.heal(1);
+    };
+
+    if (this.first === this.home_team_id) {
+      this.homeAlive.forEach((f) => act(f, this.awayAlive));
+      this.awayAlive.forEach((f) => act(f, this.homeAlive));
+    }
+
+    this.all.forEach((fighter) => {
+      if (!fighter.isAlive) return;
+      if (fighter.burnStacks > 0) {
+        fighter.takeDamage(fighter.burnStacks);
       }
-      if (f.ability === "Shield") {
-        f.raiseShield();
+      if (fighter.isAlive && fighter.ability === "Regen") {
+        fighter.heal(1);
+      }
+      if (fighter.ability === "Shield") {
+        fighter.raiseShield();
       }
     });
   }
