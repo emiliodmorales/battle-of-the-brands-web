@@ -32,11 +32,12 @@ export default function CharacterBrowser() {
 
   useEffect(() => {
     const tryGetFaveCharacters = async () => {
+      if (!token) return;
       const retrievedCharacters = await getFavoriteCharacters(token);
       setFaveCharacters(retrievedCharacters);
     };
     tryGetFaveCharacters();
-  }, [characters]);
+  }, []);
 
   if (characters.length === 0) return <p>Loading characters...</p>;
 
