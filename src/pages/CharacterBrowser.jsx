@@ -22,6 +22,7 @@ export default function CharacterBrowser() {
 
   useEffect(() => {
     const tryGetUserCharacters = async () => {
+      if (!token) return;
       const profile = await getProfile();
       setUserCharacters(
         characters.filter((char) => char.user_id === profile.id),
