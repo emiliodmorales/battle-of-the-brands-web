@@ -75,11 +75,11 @@ export default class Battle {
     }
 
     this.all.forEach((fighter) => {
-      if (!fighter.isAlive) return;
       if (fighter.burnStacks > 0) {
         fighter.takeDamage(fighter.burnStacks);
       }
-      if (fighter.isAlive && fighter.ability === "Regen") {
+      if (!fighter.isAlive) return;
+      if (fighter.ability === "Regen") {
         fighter.heal(1);
       }
       if (fighter.ability === "Shield") {
