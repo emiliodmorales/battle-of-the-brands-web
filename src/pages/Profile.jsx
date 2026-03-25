@@ -42,6 +42,10 @@ export default function Profile() {
         </div>
       </div>
 
+      <Link to="/team-builder" className="mb-4 block font-bold text-red-600">
+        Go to Team Builder
+      </Link>
+
       <div className="mb-8">
         <h2>My Teams</h2>
         <ul>
