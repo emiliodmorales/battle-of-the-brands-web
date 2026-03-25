@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { getCharacters } from "../api/characters";
 import { createTeam } from "../api/teams";
-import { useAuth } from "../auth/AuthContext"
-import { getCharacters } from "../api/characters";
+import { useAuth } from "../auth/AuthContext";
 
 export default function TeamBuilder({ availableCharacters }) {
   const [teamName, setTeamName] = useState("");
