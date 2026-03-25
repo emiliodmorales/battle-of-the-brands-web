@@ -78,7 +78,7 @@ export default function CharacterEditor() {
   if (!character) return <p>Loading character...</p>;
 
   return (
-    <section className="char grid grid-cols-2 gap-[2em] p-[2em]">
+    <section className="char-creator grid grid-cols-2 gap-[2em] p-[2em]">
       <h1 className="col-[1/3]">Character Editor</h1>
       <form
         className="grid"
