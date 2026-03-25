@@ -26,7 +26,7 @@ export default function Navbar() {
           <>
             <NavLink to="/characters/new">Create Creature</NavLink>
             <NavLink to="/teams">Teams</NavLink>
-            <NavLink to="/team-builder">Team Builder</NavLink>
+            <NavLink to="/teams/new">Team Builder</NavLink>
             {profile && <NavLink to={"/users/" + profile.id}>Account</NavLink>}
             <button onClick={logout}>Log out</button>
           </>

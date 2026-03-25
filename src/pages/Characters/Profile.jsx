@@ -171,7 +171,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <Link to="/team-builder" className="mb-4 block font-bold text-red-600">
+      <Link to="/teams/new" className="mb-4 block font-bold text-red-600">
         Go to Team Builder
       </Link>
 
