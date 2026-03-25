@@ -3,18 +3,7 @@ import { useAuth } from "../auth/AuthContext";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const { token, logout, getProfile } = useAuth();
-
-  const [profile, setProfile] = useState();
-  useEffect(() => {
-    const tryGetProfile = async () => {
-      const retrievedProfile = await getProfile();
-      setProfile(retrievedProfile);
-    };
-    tryGetProfile();
-  }, []);
-
-  if (token && !profile) return <></>;
+  const { token, logout, profile } = useAuth();
 
   return (
     <header
@@ -35,7 +24,7 @@ export default function Navbar() {
             <NavLink to="/characters/new">Create Creature</NavLink>
             <NavLink to="/teams">Teams</NavLink>
             <NavLink to="/team-builder">Team Builder</NavLink>
-            <NavLink to={"/users/" + profile.id}>Account</NavLink>
+            {profile && <NavLink to={"/users/" + profile.id}>Account</NavLink>}
             <button onClick={logout}>Log out</button>
           </>
         ) : (

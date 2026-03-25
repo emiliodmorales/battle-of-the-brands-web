@@ -14,9 +14,8 @@ import { useAuth } from "../auth/AuthContext";
 export default function CharacterDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { token, getProfile } = useAuth();
+  const { token, profile } = useAuth();
   const [character, setCharacter] = useState();
-  const [profile, setProfile] = useState();
   const [history, setHistory] = useState();
 
   const [isFavorite, setIsFavorite] = useState(false);
@@ -43,14 +42,6 @@ export default function CharacterDetails() {
     };
     tryGetCharacter();
   }, [id]);
-
-  useEffect(() => {
-    const tryGetProfile = async () => {
-      const retrievedProfile = await getProfile();
-      setProfile(retrievedProfile);
-    };
-    tryGetProfile();
-  }, []);
 
   useEffect(() => {
     const tryGetHistory = async () => {

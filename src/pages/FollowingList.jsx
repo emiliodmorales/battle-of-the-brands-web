@@ -1,20 +1,13 @@
 import { Link, useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { getUser, getUserFollowing } from "../api/users";
+import { getUserFollowing } from "../api/users";
+import { useAuth } from "../auth/AuthContext";
 
 const defaultAvatar = "https://via.placeholder.com/150";
 
 export default function FollowingList() {
   const { id } = useParams();
-
-  const [profile, setProfile] = useState();
-  useEffect(() => {
-    const tryGetProfile = async () => {
-      const retrievedProfile = await getUser(id);
-      setProfile(retrievedProfile);
-    };
-    tryGetProfile();
-  }, []);
+  const { profile } = useAuth();
 
   const [following, setFollowing] = useState();
   useEffect(() => {

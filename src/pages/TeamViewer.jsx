@@ -5,9 +5,8 @@ import { useAuth } from "../auth/AuthContext";
 import { getTeamById, getTeamHistory } from "../api/teams";
 
 export default function TeamViewer() {
-  const { token, getProfile } = useAuth();
+  const { token, profile } = useAuth();
   const [team, setTeam] = useState();
-  const [profile, setProfile] = useState();
 
   const { id } = useParams();
 
@@ -17,12 +16,6 @@ export default function TeamViewer() {
       const h = await getTeamHistory(id);
       setTeam({ ...t, history: h });
     };
-    const tryGetProfile = async () => {
-      const retrievedProfile = await getProfile();
-      setProfile(retrievedProfile);
-    };
-
-    tryGetProfile();
     getTeamDetails();
   }, []);
 

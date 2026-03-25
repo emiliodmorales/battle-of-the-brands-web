@@ -7,8 +7,23 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(sessionStorage.getItem("token"));
 
+  const [profile, setProfile] = useState();
+
   useEffect(() => {
     if (token) sessionStorage.setItem("token", token);
+  }, [token]);
+
+  useEffect(() => {
+    if (!token) return;
+    const tryGetProfile = async () => {
+      const response = await fetch(API + "/users/profile", {
+        method: "GET",
+        headers: { Authorization: "Bearer " + token },
+      });
+      const result = await response.json();
+      setProfile(result);
+    };
+    tryGetProfile();
   }, [token]);
 
   const register = async (credentials) => {
@@ -38,18 +53,7 @@ export function AuthProvider({ children }) {
     sessionStorage.removeItem("token");
   };
 
-  const getProfile = async () => {
-    if (!token) return;
-    const response = await fetch(API + "/users/profile", {
-      method: "GET",
-      headers: { Authorization: "Bearer " + token },
-    });
-    const result = await response.json();
-    if (!response.ok) throw Error(result);
-    return result;
-  };
-
-  const value = { token, register, login, logout, getProfile };
+  const value = { token, register, login, logout, profile };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 

@@ -10,7 +10,7 @@ import SearchTeams from "./SearchTeams";
 import TeamCard from "./TeamCard";
 
 export default function TeamBrowser() {
-  const { token, getProfile } = useAuth();
+  const { token, profile } = useAuth();
   const [allTeams, setAllTeams] = useState([]);
   const [yourTeams, setYourTeams] = useState([]);
   const [faveTeams, setFaveTeams] = useState([]);
@@ -21,7 +21,6 @@ export default function TeamBrowser() {
     setAllTeams(teams);
   };
   const filterTeams = async (token) => {
-    const profile = await getProfile();
     setYourTeams(allTeams?.filter((t) => t.user_id === profile.id));
     const faves = await getFavoriteTeams(token);
     setFaveTeams(faves);

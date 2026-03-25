@@ -17,26 +17,25 @@ const defaultAvatar = "https://via.placeholder.com/150";
 
 export default function Profile() {
   const { id } = useParams();
-  const { token, getProfile } = useAuth();
+  const { token, profile } = useAuth();
 
-  const [profile, setProfile] = useState();
+  const [aboutProfile, setAboutProfile] = useState();
   useEffect(() => {
-    const tryGetProfile = async () => {
-      const retrievedProfile = await getUser(id);
-      setProfile(retrievedProfile);
+    const tryGetAboutProfile = async () => {
+      const retrievedAboutProfile = await getUser(id);
+      setAboutProfile(retrievedAboutProfile);
     };
-    tryGetProfile();
+    tryGetAboutProfile();
   }, []);
 
   const [isSelf, setIsSelf] = useState();
   useEffect(() => {
     const tryGetIsSelf = async () => {
-      if (!profile) return;
-      const selfProfile = await getProfile();
-      setIsSelf(profile.id === selfProfile.id);
+      if (!aboutProfile) return;
+      setIsSelf(aboutProfile.id === profile.id);
     };
     tryGetIsSelf();
-  }, [profile]);
+  }, [aboutProfile]);
 
   const [teams, setTeams] = useState([]);
   useEffect(() => {
@@ -92,7 +91,14 @@ export default function Profile() {
     tryGetIsFollowing();
   }, []);
 
-  if (!profile || !teams || !characters || !history || !followers || !following)
+  if (
+    !aboutProfile ||
+    !teams ||
+    !characters ||
+    !history ||
+    !followers ||
+    !following
+  )
     return <p>Loading profile</p>;
 
   const tryFollow = async () => {
@@ -115,7 +121,7 @@ export default function Profile() {
           alt="Profile"
           className="w-25 h-25 border-[3px] border-red-600 rounded-[50%] object-cover"
         />
-        <h1>{profile.username}'s Profile</h1>
+        <h1>{aboutProfile.username}'s Profile</h1>
         {token &&
           !isSelf &&
           (isFollowing ? (
