@@ -13,7 +13,11 @@ export default function Navbar() {
         className="text-[1.5rem] font-bold font-[papyrus] tracking-[1px]"
         to="/"
       >
-        <img alt="battle of the brands logo" src="./public/botb-logo.png" />
+        <img
+          className="w-[3em] h-[3em]"
+          alt="battle of the brands logo"
+          src="./public/botb-logo.png"
+        />
       </NavLink>
       <nav className="flex items-center gap-6">
         <NavLink to={"/battle"}>Battle</NavLink>
