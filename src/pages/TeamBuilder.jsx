@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
+<<<<<<< Updated upstream
+=======
+import { useNavigate } from "react-router";
+import { getCharacters } from "../api/characters";
+import { createTeam } from "../api/teams";
+import { useAuth } from "../auth/AuthContext";
+>>>>>>> Stashed changes
 
-export default function TeamBuilder({ availableCharacters, onSubmit }) {
+export default function TeamBuilder({ availableCharacters }) {
   const [teamName, setTeamName] = useState("");
   const [selected, setSelected] = useState([]);
   const [characters, setCharacters] = useState([]);
   const [search, setSearch] = useState("");
   const [filtered, setFiltered] = useState([]);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { token } = useAuth();
 
   useEffect(() => {
     async function fetchCharacters() {
@@ -42,10 +52,15 @@ export default function TeamBuilder({ availableCharacters, onSubmit }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (selected.length === 5 && teamName.trim()) {
-      onSubmit({ name: teamName, characterIds: selected });
+    setError("");
+    if (selected.length !== 5 || !teamName.trim()) return;
+    try {
+      await createTeam({ name: teamName, characterIds: selected }, token);
+      navigate("/profile");
+    } catch (err) {
+      setError(err.message || "Failed to create team.");
     }
   };
 
@@ -86,6 +101,7 @@ export default function TeamBuilder({ availableCharacters, onSubmit }) {
         </ul>
         <div>{selected.length}/5 selected</div>
       </div>
+      {error && <div className="text-red-600 mb-2">{error}</div>}
       <button
         type="submit"
         disabled={selected.length !== 5 || !teamName.trim()}

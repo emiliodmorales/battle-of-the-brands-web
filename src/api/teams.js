@@ -47,3 +47,29 @@ export async function getTeamHistory(id) {
   const teams = await res.json();
   return teams;
 }
+
+/**
+ * Create a new team
+ * @returns the newly created team
+ */
+export async function createTeam(teamData, token) {
+  if (!token) {
+    throw Error("You must be signed in to create a team.");
+  }
+
+  const response = await fetch(API, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(teamData),
+  });
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message || "Failed to create team.");
+  }
+
+  return await response.json();
+}
