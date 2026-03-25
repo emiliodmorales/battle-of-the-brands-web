@@ -78,20 +78,34 @@ export default function CharacterCreator() {
       >
         <label>
           Character Name
-          <input type="text" name="name" />
+          <input
+            className="border border-white rounded-md"
+            type="text"
+            name="name"
+          />
         </label>
         <label>
           Description
-          <input type="text" name="description" />
+          <input
+            className="border border-white rounded-md"
+            type="text"
+            name="description"
+          />
         </label>
         <label>
           Image
-          <input type="file" name="image" accept="image/*" />
+          <input
+            className="border border-white rounded-md"
+            type="file"
+            name="image"
+            accept="image/*"
+          />
         </label>
         <p>{points} Points</p>
         <label>
           HP - 1 point
           <input
+            className="border border-white rounded-md"
             type="number"
             name="hp"
             min={0}
@@ -102,6 +116,7 @@ export default function CharacterCreator() {
         <label>
           Attack - 1 point
           <input
+            className="border border-white rounded-md"
             type="number"
             name="attack"
             min={0}
@@ -112,6 +127,7 @@ export default function CharacterCreator() {
         <label>
           Defense - 1 point
           <input
+            className="border border-white rounded-md"
             type="number"
             name="defense"
             min={0}
@@ -121,7 +137,11 @@ export default function CharacterCreator() {
         </label>
         <label>
           Select Ability
-          <select name="ability" onChange={calculatePoints}>
+          <select
+            className="border border-white rounded-md"
+            name="ability"
+            onChange={calculatePoints}
+          >
             <option value="none">None</option>
             {abilities.map((ability) => (
               <option key={ability.id} value={ability.id}>
