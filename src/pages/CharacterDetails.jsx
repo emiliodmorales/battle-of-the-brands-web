@@ -85,7 +85,7 @@ export default function CharacterDetails() {
         </p>
         {profile?.id === character.user_id && (
           <Link to="edit">
-            <button>Edit</button>
+            <button className="w-full">Edit</button>
           </Link>
         )}
         {profile?.id === character.user_id && (
