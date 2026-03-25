@@ -1,20 +1,20 @@
 import { Route, Routes } from "react-router";
-import Layout from "./layout/Layout";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
-import Home from "./pages/Home";
-import Profile from "./pages/Characters/Profile";
+import Layout from "./layout/Layout";
+import Battle from "./pages/Battle";
 import CharacterBrowser from "./pages/Characters/CharacterBrowser";
+import CharacterCreator from "./pages/Characters/CharacterCreator";
 import CharacterDetails from "./pages/Characters/CharacterDetails";
 import CharacterEditor from "./pages/Characters/CharacterEditor";
-import CharacterCreator from "./pages/Characters/CharacterCreator";
-import Battle from "./pages/Battle";
-import FollowerList from "./pages/Characters/FollowerList";
-import FollowingList from "./pages/Characters/FollowingList";
 import Error404 from "./pages/Error404";
+import Home from "./pages/Home";
+import FollowerList from "./pages/Social/FollowerList";
+import FollowingList from "./pages/Social/FollowingList";
+import Profile from "./pages/Social/Profile";
+import TeamBrowser from "./pages/Teams/TeamBrowser";
 import TeamBuilder from "./pages/Teams/TeamBuilder";
 import TeamViewer from "./pages/Teams/TeamViewer";
-import TeamBrowser from "./pages/Teams/TeamBrowser";
 
 export default function App() {
   return (
