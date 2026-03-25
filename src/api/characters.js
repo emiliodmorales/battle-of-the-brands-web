@@ -2,6 +2,18 @@ const CHAR_API = import.meta.env.VITE_API + "/characters";
 const USER_API = import.meta.env.VITE_API + "/users";
 
 /**
+ * Represents a character
+ * @typedef {object} CharacterInfo
+ * @property {string} name - The name of the character
+ * @property {string} description - A short description of the character
+ * @property {string} image - A url to an image of the character
+ * @property {number} hp - Character's health
+ * @property {number} attack - Character's damage
+ * @property {number} defense - Character's block
+ * @property {number} abilityId - Id of character's ability
+ */
+
+/**
  * @returns array of all characters
  */
 export async function getCharacters() {
@@ -52,19 +64,8 @@ export async function deleteCharacter(token, id) {
 }
 
 /**
- * Represents a character
- * @typedef {object} characterInfo
- * @property {string} name - The name of the character
- * @property {string} description - A short description of the character
- * @property {string} image - A url to an image of the character
- * @property {number} hp - Character's health
- * @property {number} attack - Character's damage
- * @property {number} defense - Character's block
- * @property {number} abilityId - Id of character's ability
- */
-/**
  * Create a new character. Uses token to store creator id.
- * @param {characterInfo} charData - The character to create
+ * @param {CharacterInfo} charData - The character to create
  * @param {string} token - User's auth token
  * @returns the newly created character
  * @throws Will throw an error if the token is null
@@ -93,7 +94,7 @@ export async function createCharacter(charData, token) {
 
 /**
  * Update a character by its id. Uses token to restrict update to the creator.
- * @param {characterInfo} charData - The character to update
+ * @param {CharacterInfo} charData - The character to update
  * @param {string} token - User's auth token
  * @param {number} id - Character id to update
  * @returns the updated character
