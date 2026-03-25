@@ -32,7 +32,7 @@ export default function CharacterBrowser() {
 
   useEffect(() => {
     const tryGetFaveCharacters = async () => {
-      if (!token) return;
+      if (!token || !profile) return;
       const retrievedCharacters = await getFavoriteCharacters(token);
       setFaveCharacters(retrievedCharacters);
     };
