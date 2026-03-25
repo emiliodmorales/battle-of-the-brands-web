@@ -14,6 +14,7 @@ import TeamViewer from "./pages/TeamViewer";
 import TeamBuilder from "./pages/TeamBuilder";
 import FollowerList from "./pages/FollowerList";
 import FollowingList from "./pages/FollowingList";
+import Error404 from "./pages/Error404";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/users">
+          <Route index element={<Error404 />} />
           <Route path=":id" element={<Profile />} />
           <Route path=":id/followers" element={<FollowerList />} />
           <Route path=":id/following" element={<FollowingList />} />
@@ -39,6 +41,8 @@ export default function App() {
           <Route index element={<TeamBrowser />} />
           <Route path=":id" element={<TeamViewer />} />
         </Route>
+
+        <Route path="*" element={<Error404 />} />
       </Route>
     </Routes>
   );
