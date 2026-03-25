@@ -33,7 +33,6 @@ export default function Navbar() {
         {token ? (
           <>
             <NavLink to="/characters/new">Create Creature</NavLink>
-            <NavLink to="/favorites">Favorites</NavLink>
             <NavLink to="/teams">Teams</NavLink>
             <NavLink to={"/users/" + profile.id}>Account</NavLink>
             <NavLink to="/team-builder">Team Builder</NavLink>
