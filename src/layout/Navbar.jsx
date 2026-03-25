@@ -23,6 +23,7 @@ export default function Navbar() {
             <NavLink to="/favorites">Favorites</NavLink>
             <NavLink to="/teams">Teams</NavLink>
             <NavLink to="/profile">Account</NavLink>
+            <NavLink to="/team-builder">Team Builder</NavLink>
             <button onClick={logout}>Log out</button>
           </>
         ) : (
