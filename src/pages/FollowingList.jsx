@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router";
-import "../styles/profile.css";
 import { useState, useEffect } from "react";
 import { getUser, getUserFollowing } from "../api/users";
 
