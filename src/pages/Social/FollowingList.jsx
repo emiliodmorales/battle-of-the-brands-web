@@ -21,13 +21,17 @@ export default function FollowingList() {
   if (!profile || !following) return <p>Loading following</p>;
 
   return (
-    <section className="profile">
-      <div className="profile-header">
-        <img src={defaultAvatar} alt="Profile" className="profile-avatar" />
+    <section className="max-w-150 m-[40px_auto] bg-neutral-600 rounded-2xl p-8">
+      <div className="flex items-center gap-6 mb-8">
+        <img
+          src={defaultAvatar}
+          alt="Profile"
+          className="w-25 h-25 border-[3px] border-red-600 rounded-[50%] object-cover"
+        />
         <h1>{profile.username}'s Following</h1>
       </div>
 
-      <div className="profile-section">
+      <div className="mb-8">
         <ul>
           {following.map((user) => (
             <li key={user.id}>
