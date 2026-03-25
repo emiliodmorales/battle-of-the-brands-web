@@ -102,24 +102,27 @@ export default function CharacterDetails() {
       {history && history.battle_history ? (
         <section className="col-[2/3] row-[1/4] grid justify-center grid-cols-1 grid-rows-[1fr_1fr_1fr_1fr_20fr]">
           <h2>Battle History</h2>
-          <p>Total Battles: {history.total_battles}</p>
-          <p>Wins: {history.wins}</p>
-          <h3>Battles</h3>
-          <ul className="flex flex-col gap-[1em]">
-            {history.battle_history.map((battle, i) => (
-              <li key={i}>
-                <p>
-                  {battle.challenger.name} vs {battle.defender.name}
-                </p>
-                <p>Winner: {battle.winner.name}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : (
-        <p className="col-[2/3] row-[1/4]">
-          {character.name} is yet to see battle
-        </p>
+          <section className="grid grid-cols-3 gap-6 mt-4">
+            <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+              <p className="text-[2rem] font-bold text-red-600">
+                {history.wins}
+              </p>
+              <p className="block mt-2 text-[#555] text-[2rem]">Wins</p>
+            </section>
+            <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+              <p className="text-[2rem] font-bold text-red-600">
+                {history.losses}
+              </p>
+              <p className="block mt-2 text-[#555] text-[2rem]">Losses</p>
+            </section>
+            <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+              <p className="text-[2rem] font-bold text-red-600">
+                {history.draws}
+              </p>
+              <p className="block mt-2 text-[#555] text-[2rem]">Draws</p>
+            </section>
+          </section>
+        </div>
       )}
     </section>
   );
