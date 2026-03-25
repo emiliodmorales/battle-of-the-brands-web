@@ -31,7 +31,8 @@ export default function CharacterCreator() {
     const hp = formData.get("hp");
     const attack = formData.get("attack");
     const defense = formData.get("defense");
-    const abilityId = formData.get("ability");
+    const ability = formData.get("ability");
+    const abilityId = ability === "None" ? null : ability;
 
     const imageFile = formData.get("image");
     const image = await uploadImage(imageFile);
@@ -137,7 +138,7 @@ export default function CharacterCreator() {
             name="ability"
             onChange={calculatePoints}
           >
-            <option value="none">None</option>
+            <option value={null}>None</option>
             {abilities.map((ability) => (
               <option key={ability.id} value={ability.id}>
                 {ability.name}
