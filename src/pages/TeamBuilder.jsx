@@ -10,7 +10,6 @@ export default function TeamBuilder({ availableCharacters, onSubmit }) {
   useEffect(() => {
     async function fetchCharacters() {
       try {
-        // Adjust the endpoint as needed for your API
         const res = await fetch("/api/characters");
         const data = await res.json();
         setCharacters(data);
@@ -27,7 +26,6 @@ export default function TeamBuilder({ availableCharacters, onSubmit }) {
     }
   }, [availableCharacters]);
 
-  // Filter characters by search input
   useEffect(() => {
     setFiltered(
       characters.filter((char) =>
