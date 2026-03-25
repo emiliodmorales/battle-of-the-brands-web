@@ -131,18 +131,22 @@ export default function Profile() {
           ))}
       </div>
 
-      <div className="profile-section">
+      <div className="mb-8">
         <h2>Social</h2>
-        <div className="stats">
-          <div className="stat-card">
-            <span className="stat-number">{followers.length}</span>
-            <span className="stat-label">
+        <div className="flex gap-6 mt-4">
+          <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center w-[clamp(100px,150px,200px)]">
+            <span className="text-[2rem] font-bold text-red-600">
+              {followers.length}
+            </span>
+            <span className="block mt-2 text-[#555] text-[2rem]">
               <Link to="followers">Followers</Link>
             </span>
           </div>
-          <div className="stat-card">
-            <span className="stat-number">{following.length}</span>
-            <span className="stat-label">
+          <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center w-[clamp(100px,150px,200px)]">
+            <span className="text-[2rem] font-bold text-red-600">
+              {following.length}
+            </span>
+            <span className="block mt-2 text-[#555] text-[2rem]">
               <Link to="following">Following</Link>
             </span>
           </div>
