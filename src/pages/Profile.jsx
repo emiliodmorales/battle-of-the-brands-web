@@ -13,7 +13,6 @@ import {
   unfollowUser,
 } from "../api/users";
 import { useAuth } from "../auth/AuthContext";
-import { Link } from "react-router";
 
 const defaultAvatar = "https://via.placeholder.com/150";
 
