@@ -14,7 +14,7 @@ export default function Navbar() {
     tryGetProfile();
   }, []);
 
-  if (!profile) return <></>;
+  if (token && !profile) return <></>;
 
   return (
     <header
