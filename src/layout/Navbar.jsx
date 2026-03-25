@@ -1,5 +1,4 @@
 import { NavLink } from "react-router";
-import "../styles/navbar.css";
 import { useAuth } from "../auth/AuthContext";
 import { useState, useEffect } from "react";
 
@@ -18,14 +17,18 @@ export default function Navbar() {
   if (!profile) return <></>;
 
   return (
-    <header id="navbar">
-      <NavLink id="brand" to="/">
+    <header
+      id="navbar"
+      className="flex items-center justify-between bg-[#ff0101bd] py-3 px-8"
+    >
+      <NavLink
+        className="text-[1.5rem] font-bold font-[papyrus] tracking-[1px]"
+        to="/"
+      >
         <p>BotB</p>
       </NavLink>
-      <nav>
-        <NavLink to={"/battle"} className="battle-btn">
-          Battle
-        </NavLink>
+      <nav className="flex items-center gap-6">
+        <NavLink to={"/battle"}>Battle</NavLink>
         <NavLink to="/characters">Characters</NavLink>
         {token ? (
           <>
@@ -33,6 +36,7 @@ export default function Navbar() {
             <NavLink to="/favorites">Favorites</NavLink>
             <NavLink to="/teams">Teams</NavLink>
             <NavLink to={"/users/" + profile.id}>Account</NavLink>
+            <NavLink to="/team-builder">Team Builder</NavLink>
             <button onClick={logout}>Log out</button>
           </>
         ) : (

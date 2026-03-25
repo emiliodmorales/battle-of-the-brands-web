@@ -28,7 +28,8 @@ export default function SearchTeams() {
       {searchText && searchText !== "" && (
         <section className="search-teams">
           <h2>Search Results</h2>
-          <ul className="team-deck">
+          {/* Smaller fixed width when viewing as part of a deck of team cards instead of one team */}
+          <ul className="max-w-[30vw] list-none">
             {teams
               .filter((team) =>
                 team.name.toLowerCase().includes(searchText.toLowerCase()),

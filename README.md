@@ -1,10 +1,40 @@
-# Frontend Template
+# Battle of the Brands (Web)
 
-You can use this repository as a template for your frontend. It provides a very simple
-React Router layout with a navbar and an `AuthContext` with login and register pages.
+## Overview
 
-## Usage
+## Features
 
-1. Change the name of the package in `package.json`.
-2. Update the environment variables in `example.env` and rename the file to `.env`.
-3. Build components and add routes to them in `App.jsx`.
+### Characters
+
+The character browser lets you create new characters, edit your characters, and see other characters. You can favorite characters to add them to a separate list.
+
+### Teams
+
+The team browser shows all teams, your favorite teams, and the best teams.
+
+### Social System
+
+Users can follow each other and see both their following and follower list from their profile.
+
+### Battles
+
+Visualizes two teams fighting in turn based combat.
+
+## Tech Stack
+
+### [Image Upload](https://api.market/store/magicapi/image-upload)
+
+We use an image upload api to allow users to upload any image they want for their characters. This lets us save on space by storing the url given by the image upload api.
+
+## Architecture
+
+## Folder Structure
+
+- api - api endpoints
+- auth - auth context and login/register pages
+- layout - layout wrapper and navbar
+- pages - react components
+- styles - css sheets
+
+- App.jsx - react routes
+- main.jsx - entry point
