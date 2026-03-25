@@ -29,9 +29,11 @@ export default function CharacterDetails() {
   }, []);
   const favoriteChar = async () => {
     await addFavoriteCharacter(id, token);
+    setIsFavorite(true);
   };
   const unfavoriteChar = async () => {
     await removeFavoriteCharacter(id, token);
+    setIsFavorite(false);
   };
 
   useEffect(() => {
@@ -66,12 +68,12 @@ export default function CharacterDetails() {
   };
 
   return (
-    <section className="character-details">
-      <section className="char-info">
+    <section className="grid grid-cols-2 p-[1em] gap-[1em]">
+      <section className="grid justify-center gap-[1em]">
         <h1>{character.name}</h1>
         {character.image && character.image !== "" && (
           <img
-            className="char-img"
+            className="max-w-[12em] max-h-[12em]"
             alt={"image of " + character.name}
             src={character.image}
           />
@@ -89,13 +91,13 @@ export default function CharacterDetails() {
         {profile?.id === character.user_id && (
           <button onClick={deleteChar}>Delete</button>
         )}
+        {token && isFavorite ? (
+          <button onClick={unfavoriteChar}>Unfavorite</button>
+        ) : (
+          <button onClick={favoriteChar}>Favorite</button>
+        )}
       </section>
-      {token && isFavorite ? (
-        <button onClick={unfavoriteChar}>Unfavorite</button>
-      ) : (
-        <button onClick={favoriteChar}>Favorite</button>
-      )}
-      <section className="char-stats">
+      <section className="grid justify-center gap-[1em]">
         <h2>Character Stats</h2>
         <p>{character.hp} HP</p>
         <p>{character.attack} ATK</p>
@@ -107,12 +109,12 @@ export default function CharacterDetails() {
         </p>
       </section>
       {history && (
-        <section className="char-history">
+        <section className="col-[2/3] row-[1/4] grid justify-center grid-cols-1 grid-rows-[1fr_1fr_1fr_1fr_20fr]">
           <h2>Battle History</h2>
           <p>Total Battles: {history.total_battles}</p>
           <p>Wins: {history.wins}</p>
           <h3>Battles</h3>
-          <ul>
+          <ul className="flex flex-col gap-[1em]">
             {history.battle_history.map((battle, i) => (
               <li key={i}>
                 <p>

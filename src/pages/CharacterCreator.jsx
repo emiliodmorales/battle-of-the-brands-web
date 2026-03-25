@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAbilities } from "../api/abilities";
 import { useAuth } from "../auth/AuthContext";
-import "../styles/characters.css";
 import { createCharacter } from "../api/characters";
 import { uploadImage } from "../api/images";
 import { useNavigate } from "react-router";
@@ -65,9 +64,10 @@ export default function CharacterCreator() {
   };
 
   return (
-    <section className="character-creator">
-      <h1>Character Creator</h1>
+    <section className="char-creator grid grid-cols-2 gap-[2em] p-[2em]">
+      <h1 className="col-[1/3]">Character Creator</h1>
       <form
+        className="grid"
         action={async (formData) => {
           try {
             await submitCharacter(formData);
@@ -75,7 +75,6 @@ export default function CharacterCreator() {
             setError(e.message);
           }
         }}
-        className="char-form"
       >
         <label>
           Character Name
@@ -134,7 +133,7 @@ export default function CharacterCreator() {
         {error && <p role="alert">{error}</p>}
         <button>Create</button>
       </form>
-      <section className="ability-list">
+      <section>
         <h2>Abilities</h2>
         <ul>
           {abilities.map((ability) => (

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
 // TODO - I understand CSS, but I am absolutely terrible with design.
-import "../styles/teams.css";
 
 import { Link } from "react-router";
 import { getTeams, getFavoriteTeams } from "../api/teams";
@@ -40,7 +39,7 @@ export default function TeamBrowser() {
   }, [allTeams]);
 
   return (
-    <section className="team-browser">
+    <section className="flex [&>section]:flex-1">
       {token && (
         <section>
           <TeamList
@@ -78,7 +77,7 @@ function TeamList({ heading, className, teams }) {
     <section className={className}>
       <h3>{heading}</h3>
       {teams.length ? (
-        <ul className="team-deck">{teams.map(TeamCard)}</ul>
+        <ul className="max-w-[30vw] list-none">{teams.map(TeamCard)}</ul>
       ) : (
         "Looks like there's nothing here right now!"
       )}

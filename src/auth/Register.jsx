@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import "../styles/auth.css";
 
 import { useAuth } from "./AuthContext";
+
+const labelStyle =
+  "flex flex-col text-left font-semibold text-[0.9rem] mb-4 text-[#333]";
+const inputStyle =
+  "mt-[0.3rem] p-[0.7rem] border border-[#ccc] rounded-md font-[1rem]";
 
 /** A form that allows users to register for a new account */
 export default function Register() {
@@ -24,22 +28,40 @@ export default function Register() {
 
   return (
     <>
-      <div className="auth-container">
-        <div className="auth-form">
-          <h1>Register for an account</h1>
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <div className="bg-[#f9f9f9] p-10 rounded-xl container max-w-100 text-center font-[papyrus] shadow-[0_4px_12px_#0000001A]">
+          <h1 className="mb-6 text-[1.8rem] text-[#333]">
+            Register for an account
+          </h1>
           <form action={onRegister}>
-            <label>
+            <label className={labelStyle}>
               Username
-              <input type="text" name="username" />
+              <input
+                className={inputStyle}
+                type="text"
+                name="username"
+                required
+              />
             </label>
-            <label>
+            <label className={labelStyle}>
               Password
-              <input type="password" name="password" required />
+              <input
+                className={inputStyle}
+                type="password"
+                name="password"
+                required
+              />
             </label>
-            <button>Register</button>
-            {error && <output className="error">{error}</output>}
+            <button className="container p-3 mt-2 text-[1.1rem] font-semibold text-[#ff0000] bg-black rounded-md cursor-pointer font-[Papyrus] hover">
+              Register
+            </button>
+            {error && (
+              <output className="mt-3 text-[0.9rem] text-[#ff0000]">
+                {error}
+              </output>
+            )}
           </form>
-          <Link to="/login" className="auth-link">
+          <Link to="/login" className="block mt-5 text-[#444] text-[0.9rem]">
             Already have an account? Log in here.
           </Link>
         </div>

@@ -39,6 +39,7 @@ export function AuthProvider({ children }) {
   };
 
   const getProfile = async () => {
+    if (!token) return;
     const response = await fetch(API + "/users/profile", {
       method: "GET",
       headers: { Authorization: "Bearer " + token },

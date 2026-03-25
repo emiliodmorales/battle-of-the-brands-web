@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router";
 import { useAuth } from "../auth/AuthContext";
 
 import { getTeamById, getTeamHistory } from "../api/teams";
-import "../styles/teams.css";
 
 export default function TeamViewer() {
   const { token, getProfile } = useAuth();
@@ -33,7 +32,7 @@ export default function TeamViewer() {
 
   return (
     <>
-      <section className="team-menu">
+      <section className="flex [&>section]:flex-1">
         <section>
           <p>{team.name}</p>
           <p>Created by {team.username}</p>
@@ -54,9 +53,9 @@ export default function TeamViewer() {
           </section>
         )}
       </section>
-      <section className="team-view">
+      <section className="flex flex-wrap flex-row justify-center [&>img]:w-[30%]">
         {team.characters.map((c) => (
-          <section key={c.id} className="character">
+          <section key={c.id} className="w-[30%] ">
             <section className="char-info">
               <Link to={`/characters/${c.id}`}>
                 <h2>{c.name}</h2>
@@ -68,7 +67,11 @@ export default function TeamViewer() {
                 {c.ability_name ? `Ability: ${c.ability_name}` : "No Ability"}
               </p>
             </section>
-            <img src={c.image} alt={c.name}></img>
+            <img
+              className="w-full max-w-full max-h-full object-contain"
+              src={c.image}
+              alt={c.name}
+            ></img>
           </section>
         ))}
       </section>
