@@ -94,12 +94,7 @@ export default function CharacterCreator() {
         </label>
         <label>
           Image
-          <input
-            className="border border-white rounded-md"
-            type="file"
-            name="image"
-            accept="image/*"
-          />
+          <input type="file" name="image" accept="image/*" />
         </label>
         <p>{points} Points</p>
         <label>

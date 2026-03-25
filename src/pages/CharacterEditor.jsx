@@ -92,11 +92,17 @@ export default function CharacterEditor() {
       >
         <label>
           Character Name
-          <input type="text" name="name" defaultValue={character.name} />
+          <input
+            className="border border-white rounded-md"
+            type="text"
+            name="name"
+            defaultValue={character.name}
+          />
         </label>
         <label>
           Description
           <input
+            className="border border-white rounded-md"
             type="text"
             name="description"
             defaultValue={character.description}
@@ -115,6 +121,7 @@ export default function CharacterEditor() {
         <label>
           HP - 1 point
           <input
+            className="border border-white rounded-md"
             type="number"
             name="hp"
             min={0}
@@ -125,6 +132,7 @@ export default function CharacterEditor() {
         <label>
           Attack - 1 point
           <input
+            className="border border-white rounded-md"
             type="number"
             name="attack"
             min={0}
@@ -135,6 +143,7 @@ export default function CharacterEditor() {
         <label>
           Defense - 1 point
           <input
+            className="border border-white rounded-md"
             type="number"
             name="defense"
             min={0}
@@ -144,7 +153,11 @@ export default function CharacterEditor() {
         </label>
         <label>
           Select Ability
-          <select name="ability" onChange={calculatePoints}>
+          <select
+            className="border border-white rounded-md"
+            name="ability"
+            onChange={calculatePoints}
+          >
             <option value="none">None</option>
             {abilities.map((ability) => (
               <option key={ability.id} value={ability.id}>
