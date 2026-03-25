@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { useAuth } from "./AuthContext";
@@ -10,7 +10,7 @@ const inputStyle =
 
 /** A form that allows users to register for a new account */
 export default function Register() {
-  const { register, getProfile } = useAuth();
+  const { token, register, getProfile } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -26,6 +26,10 @@ export default function Register() {
       setError(e.message);
     }
   };
+
+  useEffect(() => {
+    if (token) navigate("/");
+  }, []);
 
   return (
     <>

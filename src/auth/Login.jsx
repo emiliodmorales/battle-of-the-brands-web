@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { useAuth } from "./AuthContext";
@@ -10,7 +10,7 @@ const inputStyle =
 
 /** A form that allows users to log into an existing account. */
 export default function Login() {
-  const { login, getProfile } = useAuth();
+  const { token, login, getProfile } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -26,6 +26,10 @@ export default function Login() {
       setError(e.message);
     }
   };
+
+  useEffect(() => {
+    if (token) navigate("/");
+  }, []);
 
   return (
     <>
