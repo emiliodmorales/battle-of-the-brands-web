@@ -120,9 +120,7 @@ function CharacterItem(character) {
         <p className="row-[4/5] col-[1/2]">{character.attack} ATK</p>
         <p className="row-[4/5] col-[2/3]">{character.defense} DEF</p>
         <p className="row-[4/5] col-[3/4]">
-          {character.ability_name
-            ? `Ability: ${character.ability_name}`
-            : "No Ability"}
+          {character.ability_name || "No Ability"}
         </p>
       </Link>
     </li>
