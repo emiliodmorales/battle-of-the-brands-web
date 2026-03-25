@@ -88,19 +88,36 @@ export default function CharacterDetails() {
           <button onClick={favoriteChar}>Favorite</button>
         )}
       </section>
-      <section className="grid justify-center gap-[1em]">
+      <div className="mb-8">
         <h2>Character Stats</h2>
-        <p>{character.hp} HP</p>
-        <p>{character.attack} ATK</p>
-        <p>{character.defense} DEF</p>
-        <p>
-          {character.ability_name
-            ? `Ability: ${character.ability_name}`
-            : "No Ability"}
-        </p>
-      </section>
-      {history && history.battle_history ? (
-        <section className="col-[2/3] row-[1/4] grid justify-center grid-cols-1 grid-rows-[1fr_1fr_1fr_1fr_20fr]">
+
+        <section className="grid grid-cols-3 gap-6 mt-4">
+          <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+            <p className="text-[2rem] font-bold text-red-600">{character.hp}</p>
+            <h3 className="block mt-2 text-[#555] text-[2rem]">HP</h3>
+          </section>
+          <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+            <p className="text-[2rem] font-bold text-red-600">
+              {character.attack}
+            </p>
+            <h3 className="block mt-2 text-[#555] text-[2rem]">ATK</h3>
+          </section>
+          <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+            <p className="text-[2rem] font-bold text-red-600">
+              {character.defense}
+            </p>
+            <h3 className="block mt-2 text-[#555] text-[2rem]">DEF</h3>
+          </section>
+          <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center col-span-full">
+            <p className="text-[2rem] font-bold text-red-600">
+              {character.ability_name || "No Ability"}
+            </p>
+            <h3 className="block mt-2 text-[#555] text-[2rem]">Ability</h3>
+          </section>
+        </section>
+      </div>
+      {history && (
+        <div className="mb-8">
           <h2>Battle History</h2>
           <section className="grid grid-cols-3 gap-6 mt-4">
             <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
