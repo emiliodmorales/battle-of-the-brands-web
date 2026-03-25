@@ -93,7 +93,7 @@ export default function Battle() {
 
         <button
           className={`col-start-2 row-start-3 bg-neutral-400 border border-black rounded-md
-          h-[60%] w-[90%] place-self-center text-[clamp(0.8rem,2vw,2rem)]
+          h-[60%] w-[90%] place-self-center  text-[clamp(0.8rem,2vw,2rem)]
           ${isCounting ? "disabled opacity-50" : isFighting ? "hidden" : "hover"}`}
           onClick={toggleFighting}
         >
