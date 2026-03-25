@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { useAuth } from "./AuthContext";
@@ -10,7 +10,7 @@ const inputStyle =
 
 /** A form that allows users to log into an existing account. */
 export default function Login() {
-  const { login } = useAuth();
+  const { token, login } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -20,11 +20,15 @@ export default function Login() {
     const password = formData.get("password");
     try {
       await login({ username, password });
-      navigate("/profile");
+      navigate("/");
     } catch (e) {
       setError(e.message);
     }
   };
+
+  useEffect(() => {
+    if (token) navigate("/");
+  }, []);
 
   return (
     <>

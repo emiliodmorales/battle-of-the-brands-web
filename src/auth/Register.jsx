@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { useAuth } from "./AuthContext";
@@ -10,7 +10,7 @@ const inputStyle =
 
 /** A form that allows users to register for a new account */
 export default function Register() {
-  const { register } = useAuth();
+  const { token, register } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -20,11 +20,15 @@ export default function Register() {
     const password = formData.get("password");
     try {
       await register({ username, password });
-      navigate("/profile");
+      navigate("/");
     } catch (e) {
       setError(e.message);
     }
   };
+
+  useEffect(() => {
+    if (token) navigate("/");
+  }, []);
 
   return (
     <>
