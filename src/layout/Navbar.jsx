@@ -16,7 +16,7 @@ export default function Navbar() {
         <img
           className="w-[3em] h-[3em]"
           alt="battle of the brands logo"
-          src="./public/botb-logo.png"
+          src="/botb-logo.png"
         />
       </NavLink>
       <nav className="flex items-center gap-6">
