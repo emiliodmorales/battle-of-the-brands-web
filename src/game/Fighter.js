@@ -42,34 +42,30 @@ export default class Fighter {
       if (this.ability === "Burn") {
         target.addBurn();
       }
-      let dmg = target.defend(this, this.attack);
+      let dmg = target.defend(this.attack);
       if (this.ability === "Gamble" && this.coinGood) {
         dmg *= 2;
+      } else if (this.ability === "Thorn") {
+        dmg++;
       }
       target.takeDamage(dmg);
     }
   }
 
-  defend(attacker, attack) {
+  defend(attack) {
     let dmg = attack - this.defense;
     if (this.ability === "Dodge" && Math.random() < 0.25) {
       return 0;
-    }
-    if (this.ability === "Shield" && !this.shielded) {
+    } else if (this.ability === "Shield" && !this.shielded) {
       dmg = 0;
       this.useShield();
-    }
-    if (this.ability === "Durable") {
+    } else if (this.ability === "Durable") {
       dmg = Math.floor(dmg * 0.8);
-    }
-    if (this.ability === "Gamble" && !this.coinGood) {
+    } else if (this.ability === "Gamble" && !this.coinGood) {
       dmg *= 2;
     }
     if (dmg < 0) {
       dmg = 0;
-    }
-    if (attacker.ability === "Thorn") {
-      dmg++;
     }
     return dmg;
   }
