@@ -10,7 +10,7 @@ const inputStyle =
 
 /** A form that allows users to log into an existing account. */
 export default function Login() {
-  const { login } = useAuth();
+  const { login, getProfile } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -20,7 +20,8 @@ export default function Login() {
     const password = formData.get("password");
     try {
       await login({ username, password });
-      navigate("/profile");
+      const profile = await getProfile();
+      navigate("/users/" + profile.id);
     } catch (e) {
       setError(e.message);
     }

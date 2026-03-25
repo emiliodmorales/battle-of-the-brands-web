@@ -10,7 +10,7 @@ const inputStyle =
 
 /** A form that allows users to register for a new account */
 export default function Register() {
-  const { register } = useAuth();
+  const { register, getProfile } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -20,7 +20,8 @@ export default function Register() {
     const password = formData.get("password");
     try {
       await register({ username, password });
-      navigate("/profile");
+      const profile = await getProfile();
+      navigate("/users/" + profile.id);
     } catch (e) {
       setError(e.message);
     }
