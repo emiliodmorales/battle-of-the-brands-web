@@ -2,6 +2,10 @@
 
 ## Overview
 
+### Preview
+
+![preview](./preview.png)
+
 ## Features
 
 ### Characters
