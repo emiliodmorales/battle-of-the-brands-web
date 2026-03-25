@@ -45,14 +45,14 @@ export default class Battle {
   tryResolveBattle() {
     if (this.homeAlive.length === 0) {
       this.winner = this.away_team_id;
-    } else {
+    } else if (this.awayAlive.length === 0) {
       this.winner = this.home_team_id;
     }
     return this.winner;
   }
 
   takeTurn() {
-    this.all.forEach((fighter) => fighter.flipCoin());
+    this.allAlive.forEach((fighter) => fighter.flipCoin());
 
     const act = (fighter, enemyTeam) => {
       if (!fighter.isAlive) return;
@@ -89,7 +89,7 @@ export default class Battle {
   }
 
   doBattle() {
-    while (!this.tryResolveBattle) {
+    while (!this.tryResolveBattle()) {
       this.takeTurn();
     }
     return this.winner;
