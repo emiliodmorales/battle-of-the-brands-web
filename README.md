@@ -34,11 +34,15 @@ We use an image upload api to allow users to upload any image they want for thei
 
 ## Folder Structure
 
-- api - api endpoints
-- auth - auth context and login/register pages
-- layout - layout wrapper and navbar
-- pages - react components
-- styles - css sheets
-
-- App.jsx - react routes
-- main.jsx - entry point
+```text
+.
+├── public/
+└── src/
+    ├── api/
+    ├── auth/
+    ├── layout/
+    ├── pages/
+    ├── styles/
+    ├── App.jsx
+    └── main.jsx
+```
