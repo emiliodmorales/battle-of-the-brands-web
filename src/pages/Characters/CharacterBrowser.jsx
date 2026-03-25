@@ -22,7 +22,7 @@ export default function CharacterBrowser() {
 
   useEffect(() => {
     const tryGetUserCharacters = async () => {
-      if (!token) return;
+      if (!token || !profile) return;
       setUserCharacters(
         characters.filter((char) => char.user_id === profile.id),
       );
@@ -32,7 +32,7 @@ export default function CharacterBrowser() {
 
   useEffect(() => {
     const tryGetFaveCharacters = async () => {
-      if (!token) return;
+      if (!token || !profile) return;
       const retrievedCharacters = await getFavoriteCharacters(token);
       setFaveCharacters(retrievedCharacters);
     };
@@ -52,7 +52,7 @@ export default function CharacterBrowser() {
       <form>
         <search className="grid grid-cols-[90%_1fr] gap-[1em]">
           <input
-            className="border border-white rounded-md"
+            className="border border-white rounded-md p-1"
             type="text"
             name="search"
             defaultValue={searchText}
