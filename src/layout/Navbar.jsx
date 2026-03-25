@@ -1,6 +1,5 @@
 import { NavLink } from "react-router";
 import { useAuth } from "../auth/AuthContext";
-import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const { token, logout, profile } = useAuth();
@@ -14,7 +13,7 @@ export default function Navbar() {
         className="text-[1.5rem] font-bold font-[papyrus] tracking-[1px]"
         to="/"
       >
-        <p>BotB</p>
+        <img alt="battle of the brands logo" src="./public/botb-logo.png" />
       </NavLink>
       <nav className="flex items-center gap-6">
         <NavLink to={"/battle"}>Battle</NavLink>
