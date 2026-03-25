@@ -3,17 +3,17 @@ import Layout from "./layout/Layout";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import CharacterBrowser from "./pages/CharacterBrowser";
-import CharacterDetails from "./pages/CharacterDetails";
-import CharacterEditor from "./pages/CharacterEditor";
-import CharacterCreator from "./pages/CharacterCreator";
+import Profile from "./pages/Characters/Profile";
+import CharacterBrowser from "./pages/Characters/CharacterBrowser";
+import CharacterDetails from "./pages/Characters/CharacterDetails";
+import CharacterEditor from "./pages/Characters/CharacterEditor";
+import CharacterCreator from "./pages/Characters/CharacterCreator";
 import Battle from "./pages/Battle";
 import TeamBrowser from "./pages/TeamBrowser";
 import TeamViewer from "./pages/TeamViewer";
 import TeamBuilder from "./pages/TeamBuilder";
-import FollowerList from "./pages/FollowerList";
-import FollowingList from "./pages/FollowingList";
+import FollowerList from "./pages/Characters/FollowerList";
+import FollowingList from "./pages/Characters/FollowingList";
 import Error404 from "./pages/Error404";
 
 export default function App() {

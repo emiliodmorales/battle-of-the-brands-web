@@ -10,8 +10,8 @@ import {
   getUserIsFollowing,
   getUserTeams,
   unfollowUser,
-} from "../api/users";
-import { useAuth } from "../auth/AuthContext";
+} from "../../api/users";
+import { useAuth } from "../../auth/AuthContext";
 
 const defaultAvatar = "https://via.placeholder.com/150";
 

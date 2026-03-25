@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../../auth/AuthContext";
 import { Link, useSearchParams } from "react-router";
-import { getCharacters, getFavoriteCharacters } from "../api/characters";
+import { getCharacters, getFavoriteCharacters } from "../../api/characters";
 
 export default function CharacterBrowser() {
   const { token, profile } = useAuth();
