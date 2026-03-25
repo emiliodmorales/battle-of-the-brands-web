@@ -59,34 +59,43 @@ export default function CharacterDetails() {
   };
 
   return (
-    <section className="grid grid-cols-2 p-[1em] gap-[1em]">
-      <section className="grid justify-center gap-[1em]">
-        <h1>{character.name}</h1>
-        {character.image && character.image !== "" && (
-          <img
-            className="max-w-[12em] max-h-[12em]"
-            alt={"image of " + character.name}
-            src={character.image}
-          />
-        )}
-        <p>{character.description}</p>
-        <p>
-          {"Owner: "}
-          <Link to={"/users/" + character.user_id}>{character.username}</Link>
-        </p>
-        {profile?.id === character.user_id && (
-          <Link to="edit">
-            <button className="w-full">Edit</button>
+    <section className="max-w-150 m-[40px_auto] bg-neutral-600 rounded-2xl p-8">
+      <section className="flex items-center gap-6 mb-8">
+        <img
+          src={character.image}
+          alt="character"
+          className="w-25 h-25 border-[3px] border-red-600 rounded-[50%] object-cover"
+        />
+        <h1 className="text-[2rem] font-bold">{character.name}</h1>
+      </section>
+      <section className="mb-8">
+        <h2>Character Desciption</h2>
+
+        <section className="grid grid-cols-3 gap-6 mt-4">
+          <p className="col-span-2 text-center">{character.description}</p>
+          <Link to={"/users/" + character.user_id}>
+            <p className="hover:underline">
+              {"Creator: " + character.username}
+            </p>
           </Link>
-        )}
-        {profile?.id === character.user_id && (
-          <button onClick={deleteChar}>Delete</button>
-        )}
-        {token && isFavorite ? (
-          <button onClick={unfavoriteChar}>Unfavorite</button>
-        ) : (
-          <button onClick={favoriteChar}>Favorite</button>
-        )}
+          {profile?.id === character.user_id && (
+            <Link to="edit">
+              <button className="w-full">Edit</button>
+            </Link>
+          )}
+          {token && isFavorite ? (
+            <button className="col-start-2" onClick={unfavoriteChar}>
+              Unfavorite
+            </button>
+          ) : (
+            <button className="col-start-2" onClick={favoriteChar}>
+              Favorite
+            </button>
+          )}
+          {profile?.id === character.user_id && (
+            <button onClick={deleteChar}>Delete</button>
+          )}
+        </section>
       </section>
       <div className="mb-8">
         <h2>Character Stats</h2>
