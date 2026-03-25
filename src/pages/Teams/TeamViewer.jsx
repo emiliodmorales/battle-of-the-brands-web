@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../../auth/AuthContext";
 
-import { getTeamById, getTeamHistory } from "../api/teams";
+import { getTeamById, getTeamHistory } from "../../api/teams";
 
 export default function TeamViewer() {
   const { token, profile } = useAuth();

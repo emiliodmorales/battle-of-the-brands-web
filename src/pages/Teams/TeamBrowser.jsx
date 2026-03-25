@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useAuth } from "../auth/AuthContext";
 
 // TODO - I understand CSS, but I am absolutely terrible with design.
 
 import { Link } from "react-router";
-import { getTeams, getFavoriteTeams } from "../api/teams";
+import { getTeams, getFavoriteTeams } from "../../api/teams";
 import SearchTeams from "./SearchTeams";
 import TeamCard from "./TeamCard";
+import { useAuth } from "../../auth/AuthContext";
 
 export default function TeamBrowser() {
   const { token, profile } = useAuth();

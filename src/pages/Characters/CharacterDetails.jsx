@@ -8,8 +8,8 @@ import {
   getCharacterHistory,
   getIsFavoriteCharacter,
   removeFavoriteCharacter,
-} from "../api/characters";
-import { useAuth } from "../auth/AuthContext";
+} from "../../api/characters";
+import { useAuth } from "../../auth/AuthContext";
 
 export default function CharacterDetails() {
   const { id } = useParams();

@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
-import { getAbilities } from "../api/abilities";
-import { useAuth } from "../auth/AuthContext";
-import { uploadImage } from "../api/images";
-import { useNavigate, useParams } from "react-router";
-import { getCharacterDetails, updateCharacter } from "../api/characters";
+import { getAbilities } from "../../api/abilities";
+import { useAuth } from "../../auth/AuthContext";
+import { createCharacter } from "../../api/characters";
+import { uploadImage } from "../../api/images";
+import { useNavigate } from "react-router";
 
 const STARTING_POINTS = 25;
 
-export default function CharacterEditor() {
-  const { id } = useParams();
-  const [character, setCharacter] = useState();
-
+export default function CharacterCreator() {
   const navigate = useNavigate();
   const { token } = useAuth();
   const [points, setPoints] = useState(STARTING_POINTS);
@@ -25,14 +22,6 @@ export default function CharacterEditor() {
     tryGetAbilities();
   }, []);
 
-  useEffect(() => {
-    const tryGetCharacter = async () => {
-      const retrievedCharacter = await getCharacterDetails(id);
-      setCharacter(retrievedCharacter);
-    };
-    tryGetCharacter();
-  }, []);
-
   const submitCharacter = async (formData) => {
     if (points > 0) throw Error("You have unused points");
     if (points < 0) throw Error("Cannot have negative points");
@@ -45,8 +34,7 @@ export default function CharacterEditor() {
     const abilityId = formData.get("ability");
 
     const imageFile = formData.get("image");
-    const image =
-      imageFile.size === 0 ? character.image : await uploadImage(imageFile);
+    const image = await uploadImage(imageFile);
 
     const charData = {
       name,
@@ -58,7 +46,7 @@ export default function CharacterEditor() {
       abilityId,
     };
 
-    await updateCharacter(charData, token, id);
+    const character = await createCharacter(charData, token);
     navigate("/characters/" + character.id);
   };
 
@@ -75,11 +63,9 @@ export default function CharacterEditor() {
     setPoints(STARTING_POINTS - hp - attack - defense - abilityCost);
   };
 
-  if (!character) return <p>Loading character...</p>;
-
   return (
     <section className="char-creator grid grid-cols-2 gap-[2em] p-[2em]">
-      <h1 className="col-[1/3]">Character Editor</h1>
+      <h1 className="col-[1/3]">Character Creator</h1>
       <form
         className="grid"
         action={async (formData) => {
@@ -96,7 +82,6 @@ export default function CharacterEditor() {
             className="border border-white rounded-md"
             type="text"
             name="name"
-            defaultValue={character.name}
           />
         </label>
         <label>
@@ -105,16 +90,10 @@ export default function CharacterEditor() {
             className="border border-white rounded-md"
             type="text"
             name="description"
-            defaultValue={character.description}
           />
         </label>
         <label>
           Image
-          <img
-            className="max-w-[12em] max-h-[12em]"
-            alt={"old image of " + character.name}
-            src={character.image}
-          />
           <input type="file" name="image" accept="image/*" />
         </label>
         <p>{points} Points</p>
@@ -125,7 +104,7 @@ export default function CharacterEditor() {
             type="number"
             name="hp"
             min={0}
-            defaultValue={character.hp}
+            defaultValue={0}
             onChange={calculatePoints}
           />
         </label>
@@ -136,7 +115,7 @@ export default function CharacterEditor() {
             type="number"
             name="attack"
             min={0}
-            defaultValue={character.attack}
+            defaultValue={0}
             onChange={calculatePoints}
           />
         </label>
@@ -147,7 +126,7 @@ export default function CharacterEditor() {
             type="number"
             name="defense"
             min={0}
-            defaultValue={character.defense}
+            defaultValue={0}
             onChange={calculatePoints}
           />
         </label>
@@ -167,7 +146,7 @@ export default function CharacterEditor() {
           </select>
         </label>
         {error && <p role="alert">{error}</p>}
-        <button>Update</button>
+        <button>Create</button>
       </form>
       <section>
         <h2>Abilities</h2>
