@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getCharacters } from "../api/characters";
 
 export default function TeamBuilder({ availableCharacters, onSubmit }) {
   const [teamName, setTeamName] = useState("");
@@ -10,8 +11,7 @@ export default function TeamBuilder({ availableCharacters, onSubmit }) {
   useEffect(() => {
     async function fetchCharacters() {
       try {
-        const res = await fetch("/api/characters");
-        const data = await res.json();
+        const data = await getCharacters();
         setCharacters(data);
         setFiltered(data);
       } catch (err) {
