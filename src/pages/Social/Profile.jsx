@@ -171,7 +171,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <Link to="/team-builder" className="mb-4 block font-bold text-red-600">
+      <Link to="/teams/new" className="mb-4 block font-bold text-red-600">
         Go to Team Builder
       </Link>
 
@@ -180,7 +180,10 @@ export default function Profile() {
         <ul>
           {teams.map((team) => (
             <li className="mb-2" key={team.id}>
-              <Link className="text-red-600 hover:underline" to="/teams">
+              <Link
+                className="text-red-600 hover:underline"
+                to={"/teams/" + team.id}
+              >
                 {team.name}
               </Link>
             </li>
