@@ -3,19 +3,6 @@ import FighterDetails from "./FighterDetails";
 import CombatTeamSearch from "./CombatTeamSearch";
 import { getTeamById } from "../../api/teams";
 
-// Dummy Data
-// For the two teams fighting
-
-const defender = [
-  { team_id: 2, character_id: 6, position: 1, name: "Hunter" },
-  { team_id: 2, character_id: 15, position: 2, name: "Priest" },
-  { team_id: 2, character_id: 7, position: 3, name: "Palladin" },
-  { team_id: 2, character_id: 8, position: 4, name: "Bard" },
-  { team_id: 2, character_id: 1, position: 5, name: "Hero" },
-];
-
-// Might want to import useState and other functions into a GameContext if there's a lot
-
 const COUNTDOWN_TIME = 3;
 
 export default function Battle() {
@@ -23,13 +10,30 @@ export default function Battle() {
   const [countdown, setCountdown] = useState(COUNTDOWN_TIME);
   const [isCounting, setIsCounting] = useState(false);
   const [challengerTeam, setChallengerTeam] = useState([]);
+  const [defenderTeam, setdefenderTeam] = useState([]);
 
-  const selectTeam = async (teamId) => {
+  const selectChallengerTeam = async (teamId) => {
     const team = await getTeamById(teamId);
     if (!team) {
       return;
     }
     setChallengerTeam(team.characters);
+  };
+
+  const selectDefenderTeam = async (teamId) => {
+    const team = await getTeamById(teamId);
+    if (!team) {
+      return;
+    }
+    setdefenderTeam(team.characters);
+  };
+
+  // Fix this later to select random team
+  const startBattle = () => {
+    if (defenderTeam.length === 0) {
+      selectDefenderTeam(2);
+    }
+    toggleFighting();
   };
 
   const toggleFighting = () => {
@@ -64,8 +68,10 @@ export default function Battle() {
       <div className="grid grid-cols-3 grid-rows-[1fr_6fr_2fr] bg-[#808080] w-[80vw] min-w-[20vw] max-h-[60vh] min-h-[15vh]">
         <p className="col-start-1 place-self-center">Challenger</p>
         <ul className="row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2 ">
-          <li className="col-span-full mb-2">
-            <CombatTeamSearch onTeamSelect={selectTeam} />
+          <li
+            className={`col-span-full mb-2 ${isCounting || isFighting ? "hidden" : ""}`}
+          >
+            <CombatTeamSearch onTeamSelect={selectChallengerTeam} />
           </li>
           {challengerTeam.map((character) => (
             <li key={character.id}>
@@ -79,19 +85,17 @@ export default function Battle() {
         </ul>
 
         <p className="col-start-3 row-start-1 place-self-center">Defender</p>
-        <ul
-          className={`col-start-3 row-[2/4] flex flex-row place-self-center ${isFighting ? "" : "text-[9rem]"}`}
-        >
+        <ul className="col-start-3 row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2">
           {isFighting ? (
-            defender.map((character) => (
-              <li className="list-none" key={character.character_id}>
+            defenderTeam.map((character) => (
+              <li key={character.character_id}>
                 <span className="inline-block animate-defenderCharge">
-                  <FighterDetails characterId={character.character_id} />
+                  <FighterDetails characterId={character.id} />
                 </span>
               </li>
             ))
           ) : (
-            <div>❔</div>
+            <div className="text-[9rem]">❔</div>
           )}
         </ul>
 
@@ -103,7 +107,7 @@ export default function Battle() {
           className={`col-start-2 row-start-3 bg-neutral-400 border border-black rounded-md
           h-[60%] w-[90%] place-self-center text-[clamp(0.8rem,1.5vw,1.5rem)]
           ${isCounting ? "disabled opacity-50" : isFighting ? "hidden" : "hover"}`}
-          onClick={toggleFighting}
+          onClick={startBattle}
         >
           FIGHT!
         </button>
