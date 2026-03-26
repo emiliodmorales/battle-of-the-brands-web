@@ -54,7 +54,7 @@ export default function TeamBuilder({ availableCharacters }) {
     if (selected.length !== 5 || !teamName.trim()) return;
     try {
       await createTeam({ name: teamName, characterIds: selected }, token);
-      navigate("/profile");
+      navigate("/teams");
     } catch (err) {
       setError(err.message || "Failed to create team.");
     }
