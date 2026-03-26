@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { useAuth } from "./AuthContext";
+import { uploadImage } from "../api/images";
 
 const labelStyle =
   "flex flex-col text-left font-semibold text-[0.9rem] mb-4 text-[#333]";
@@ -66,6 +67,7 @@ export default function Register() {
                 type="file"
                 name="image"
                 accept="image/*"
+                required
               />
             </label>
             <button className="container p-3 mt-2 text-[1.1rem] font-semibold text-[#ff0000] bg-black rounded-md cursor-pointer font-[Papyrus] hover">

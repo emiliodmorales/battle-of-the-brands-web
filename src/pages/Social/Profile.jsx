@@ -13,8 +13,6 @@ import {
 } from "../../api/users";
 import { useAuth } from "../../auth/AuthContext";
 
-const defaultAvatar = "https://via.placeholder.com/150";
-
 export default function Profile() {
   const { id } = useParams();
   const { token, profile } = useAuth();
@@ -117,7 +115,7 @@ export default function Profile() {
     <section className="max-w-150 m-[40px_auto] bg-neutral-600 rounded-2xl p-8">
       <div className="flex items-center gap-6 mb-8">
         <img
-          src={defaultAvatar}
+          src={aboutProfile.image}
           alt="Profile"
           className="w-25 h-25 border-[3px] border-red-600 rounded-[50%] object-cover"
         />
