@@ -34,11 +34,15 @@ export default function CharacterEditor() {
       const retrievedCharacter = await getCharacterDetails(id);
       setCharacter(retrievedCharacter);
 
-      const { hp, attack, defense } = retrievedCharacter;
-      setPoints(STARTING_POINTS - hp - attack - defense);
+      const { hp, attack, defense, ability_id } = retrievedCharacter;
+      const ability = abilities.filter(
+        (ability) => ability.id === ability_id,
+      )[0];
+      const abilityCost = ability?.cost ?? 0;
+      setPoints(STARTING_POINTS - hp - attack - defense - abilityCost);
     };
     tryGetCharacter();
-  }, []);
+  }, [abilities]);
 
   const submitCharacter = async (formData) => {
     if (points > 0) throw Error("You have unused points");
@@ -172,12 +176,20 @@ export default function CharacterEditor() {
               name="ability"
               onChange={calculatePoints}
             >
-              <option value={null}>None</option>
-              {abilities.map((ability) => (
-                <option key={ability.id} value={ability.id}>
-                  {ability.name}
-                </option>
-              ))}
+              {abilities
+                .concat([{ id: null, name: "None" }])
+                .sort((a, b) =>
+                  a.id === character.ability_id
+                    ? -1
+                    : b.id === character.ability_id
+                      ? 1
+                      : 0,
+                )
+                .map((ability) => (
+                  <option key={ability.id} value={ability.id}>
+                    {ability.name}
+                  </option>
+                ))}
             </select>
           </label>
           {error && <p role="alert">{error}</p>}
