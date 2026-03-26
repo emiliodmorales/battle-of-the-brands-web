@@ -1,109 +1,124 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { getCharacters } from "../../api/characters";
 import { createTeam } from "../../api/teams";
 import { useAuth } from "../../auth/AuthContext";
+import { getCharacters } from "../../api/characters";
+import Select from "react-select";
 
-export default function TeamBuilder({ availableCharacters }) {
-  const [teamName, setTeamName] = useState("");
-  const [selected, setSelected] = useState([]);
-  const [characters, setCharacters] = useState([]);
-  const [search, setSearch] = useState("");
-  const [filtered, setFiltered] = useState([]);
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+const LABEL_STYLE =
+  "flex flex-col text-left font-semibold text-[0.9rem] mb-4 text-[#333]";
+const INPUT_STYLE =
+  "mt-[0.3rem] p-[0.7rem] border border-[#ccc] rounded-md font-[1rem] bg-[#f9f9f9]";
+
+export default function TeamBuilder() {
   const { token } = useAuth();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [charOptions, setCharOptions] = useState([]);
 
   useEffect(() => {
-    async function fetchCharacters() {
-      try {
-        const data = await getCharacters();
-        setCharacters(data);
-        setFiltered(data);
-      } catch (err) {
-        console.error("Failed to fetch characters:", err);
-      }
-    }
-    if (!availableCharacters) {
-      fetchCharacters();
-    } else {
-      setCharacters(availableCharacters);
-      setFiltered(availableCharacters);
-    }
-  }, [availableCharacters]);
+    const tryGetCharacters = async () => {
+      const characters = await getCharacters();
+      const newCharOptions = characters.map((char) => {
+        return { value: char.id, label: char.name };
+      });
+      setCharOptions(newCharOptions);
+    };
+    tryGetCharacters();
+  }, []);
 
-  useEffect(() => {
-    setFiltered(
-      characters.filter((char) =>
-        char.name.toLowerCase().includes(search.toLowerCase()),
-      ),
-    );
-  }, [search, characters]);
-
-  const toggleCharacter = (char) => {
-    if (selected.includes(char.id)) {
-      setSelected(selected.filter((id) => id !== char.id));
-    } else if (selected.length < 5) {
-      setSelected([...selected, char.id]);
-    }
-  };
-
-  const handleSubmit = async (e) => {
+  const tryCreateTeam = async (e) => {
     e.preventDefault();
-    setError("");
-    if (selected.length !== 5 || !teamName.trim()) return;
+    const formData = new FormData(e.target);
     try {
-      await createTeam({ name: teamName, characterIds: selected }, token);
-      navigate("/teams");
+      const name = formData.get("name");
+
+      const pos1 = formData.get("pos1");
+      if (!pos1) throw Error("Missing 1st character");
+
+      const pos2 = formData.get("pos2");
+      if (!pos2) throw Error("Missing 2nd character");
+
+      const pos3 = formData.get("pos3");
+      if (!pos3) throw Error("Missing 3rd character");
+
+      const pos4 = formData.get("pos4");
+      if (!pos4) throw Error("Missing 4th character");
+
+      const pos5 = formData.get("pos5");
+      if (!pos5) throw Error("Missing 5th character");
+
+      const selection = [pos1, pos2, pos3, pos4, pos5];
+      const selectionSet = new Set(selection);
+      if (selection.length !== selectionSet.size)
+        throw Error("Duplicate character");
+
+      const team = await createTeam({ name, characterIds: selection }, token);
+      navigate("/teams/" + team.id);
     } catch (err) {
       setError(err.message || "Failed to create team.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="team-builder">
-      <label>
-        Team Name:
-        <input
-          type="text"
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
-          placeholder="Enter team name"
-        />
-      </label>
-      <div className="my-4">
-        <input
-          type="text"
-          placeholder="Search characters..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="border p-2 mb-4 w-full"
-        />
-        <h3>Select 5 Characters:</h3>
-        <ul className="character-list">
-          {filtered.map((char) => (
-            <li
-              key={char.id}
-              className={selected.includes(char.id) ? "selected" : ""}
-              onClick={() => toggleCharacter(char)}
-              style={{
-                cursor: "pointer",
-                fontWeight: selected.includes(char.id) ? "bold" : "normal",
-              }}
-            >
-              {char.name}
-            </li>
-          ))}
-        </ul>
-        <div>{selected.length}/5 selected</div>
+    <div className="grid place-items-center h-full">
+      <div className="bg-[#f9f9f9] p-10 rounded-xl container max-w-100 text-center font-[papyrus] shadow-[0_4px_12px_#0000001A]">
+        <h1 className="mb-6 text-[1.8rem] text-[#333]">Team Builder</h1>
+        <form onSubmit={tryCreateTeam} className="flex flex-col">
+          <label className={LABEL_STYLE}>
+            Team Name:
+            <input
+              className={INPUT_STYLE}
+              type="text"
+              name="name"
+              placeholder="Enter team name"
+              required
+            />
+          </label>
+          <label className={LABEL_STYLE}>
+            1st Position:
+            <Select
+              name="pos1"
+              placeholder="Select a character"
+              options={charOptions}
+            />
+          </label>
+          <label className={LABEL_STYLE}>
+            2nd Position:
+            <Select
+              name="pos2"
+              placeholder="Select a character"
+              options={charOptions}
+            />
+          </label>
+          <label className={LABEL_STYLE}>
+            3rd Position:
+            <Select
+              name="pos3"
+              placeholder="Select a character"
+              options={charOptions}
+            />
+          </label>
+          <label className={LABEL_STYLE}>
+            4th Position:
+            <Select
+              name="pos4"
+              placeholder="Select a character"
+              options={charOptions}
+            />
+          </label>
+          <label className={LABEL_STYLE}>
+            5th Position:
+            <Select
+              name="pos5"
+              placeholder="Select a character"
+              options={charOptions}
+            />
+          </label>
+          {error && <p className="text-red-600 mb-2">{error}</p>}
+          <button>Save Team</button>
+        </form>
       </div>
-      {error && <div className="text-red-600 mb-2">{error}</div>}
-      <button
-        type="submit"
-        disabled={selected.length !== 5 || !teamName.trim()}
-      >
-        Save Team
-      </button>
-    </form>
+    </div>
   );
 }
