@@ -31,6 +31,11 @@ min-h-screen bg-color
     @apply text-black dark:text-white;
   }
 
+  body,
+  #root {
+    @apply h-screen;
+  }
+
   button {
     @apply bg-[#444] font-['Times_New_Roman',Times,serif] hover:bg-[#666] cursor-pointer;
   }

@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <header
       id="navbar"
-      className="flex items-center justify-between bg-[#ff0101bd] py-3 px-8"
+      className="flex items-center justify-between bg-[#ff0101bd] py-3 px-8 h-1/15"
     >
       <NavLink
         className="text-[1.5rem] font-bold font-[papyrus] tracking-[1px]"

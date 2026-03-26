@@ -6,6 +6,10 @@ import { uploadImage } from "../../api/images";
 import { useNavigate } from "react-router";
 
 const STARTING_POINTS = 25;
+const LABEL_STYLE =
+  "flex flex-col text-left font-semibold text-[0.9rem] mb-4 text-[#333]";
+const INPUT_STYLE =
+  "mt-[0.3rem] p-[0.7rem] border border-[#ccc] rounded-md font-[1rem] bg-[#f9f9f9]";
 
 export default function CharacterCreator() {
   const navigate = useNavigate();
@@ -65,103 +69,102 @@ export default function CharacterCreator() {
   };
 
   return (
-    <section className="char-creator grid grid-cols-2 gap-[2em] p-[2em]">
-      <h1 className="col-[1/3]">Character Creator</h1>
-      <form
-        className="grid"
-        action={async (formData) => {
-          try {
-            await submitCharacter(formData);
-          } catch (e) {
-            setError(e.message);
-          }
-        }}
-      >
-        <label>
-          Character Name
-          <input
-            className="border border-white rounded-md"
-            type="text"
-            name="name"
-          />
-        </label>
-        <label>
-          Description
-          <input
-            className="border border-white rounded-md"
-            type="text"
-            name="description"
-          />
-        </label>
-        <label>
-          Image
-          <input type="file" name="image" accept="image/*" />
-        </label>
-        <p>{points} Points</p>
-        <label>
-          HP - 1 point
-          <input
-            className="border border-white rounded-md"
-            type="number"
-            name="hp"
-            min={0}
-            defaultValue={0}
-            onChange={calculatePoints}
-          />
-        </label>
-        <label>
-          Attack - 1 point
-          <input
-            className="border border-white rounded-md"
-            type="number"
-            name="attack"
-            min={0}
-            defaultValue={0}
-            onChange={calculatePoints}
-          />
-        </label>
-        <label>
-          Defense - 1 point
-          <input
-            className="border border-white rounded-md"
-            type="number"
-            name="defense"
-            min={0}
-            defaultValue={0}
-            onChange={calculatePoints}
-          />
-        </label>
-        <label>
-          Select Ability
-          <select
-            className="border border-white rounded-md"
-            name="ability"
-            onChange={calculatePoints}
-          >
-            <option value={null}>None</option>
-            {abilities.map((ability) => (
-              <option key={ability.id} value={ability.id}>
-                {ability.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        {error && <p role="alert">{error}</p>}
-        <button>Create</button>
-      </form>
-      <section>
-        <h2>Abilities</h2>
-        <ul>
+    <div className="grid grid-cols-2 place-items-center h-full">
+      <div className="bg-[#f9f9f9] p-10 rounded-xl container max-w-100 text-center font-[papyrus] shadow-[0_4px_12px_#0000001A]">
+        <h1 className="mb-6 text-[1.8rem] text-[#333]">Character Creator</h1>
+        <form
+          className="grid overflow-scroll max-h-150"
+          action={async (formData) => {
+            try {
+              await submitCharacter(formData);
+            } catch (e) {
+              setError(e.message);
+            }
+          }}
+        >
+          <label className={LABEL_STYLE}>
+            Character Name
+            <input className={INPUT_STYLE} type="text" name="name" />
+          </label>
+          <label className={LABEL_STYLE}>
+            Description
+            <input className={INPUT_STYLE} type="text" name="description" />
+          </label>
+          <label className={LABEL_STYLE}>
+            Image
+            <input
+              className={INPUT_STYLE}
+              type="file"
+              name="image"
+              accept="image/*"
+            />
+          </label>
+          <label className={LABEL_STYLE}>{points} Points</label>
+          <label className={LABEL_STYLE}>
+            HP - 1 point
+            <input
+              className={INPUT_STYLE}
+              type="number"
+              name="hp"
+              min={0}
+              defaultValue={0}
+              onChange={calculatePoints}
+            />
+          </label>
+          <label className={LABEL_STYLE}>
+            Attack - 1 point
+            <input
+              className={INPUT_STYLE}
+              type="number"
+              name="attack"
+              min={0}
+              defaultValue={0}
+              onChange={calculatePoints}
+            />
+          </label>
+          <label className={LABEL_STYLE}>
+            Defense - 1 point
+            <input
+              className={INPUT_STYLE}
+              type="number"
+              name="defense"
+              min={0}
+              defaultValue={0}
+              onChange={calculatePoints}
+            />
+          </label>
+          <label className={LABEL_STYLE}>
+            Select Ability
+            <select
+              className={INPUT_STYLE}
+              name="ability"
+              onChange={calculatePoints}
+            >
+              <option value={null}>None</option>
+              {abilities.map((ability) => (
+                <option key={ability.id} value={ability.id}>
+                  {ability.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          {error && <p role="alert">{error}</p>}
+          <button>Create</button>
+        </form>
+      </div>
+      <div className="p-10 rounded-xl container text-center font-[papyrus] shadow-[0_4px_12px_#0000001A]">
+        <h2 className="mb-6 text-[1.8rem]">Abilities</h2>
+        <ul className="grid grid-cols-2 gap-1">
           {abilities.map((ability) => (
-            <li key={ability.id}>
-              <h3>
+            <li key={ability.id} className={INPUT_STYLE}>
+              <h3 className={LABEL_STYLE}>
                 {ability.name} - {ability.cost} point(s)
               </h3>
-              <p>{ability.description}</p>
+              <p className={LABEL_STYLE}>{ability.description}</p>
             </li>
           ))}
         </ul>
-      </section>
-    </section>
+      </div>
+    </div>
   );
 }
