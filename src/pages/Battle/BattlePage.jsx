@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+import FighterDetails from "./FighterDetails";
 
 // Dummy Data
 // For the two teams fighting
 const challenger = [
   { team_id: 1, character_id: 10, position: 1, name: "Knight" },
-  { team_id: 1, character_id: 12, position: 2, name: "Mage" },
+  { team_id: 1, character_id: 8, position: 2, name: "Mage" },
   { team_id: 1, character_id: 2, position: 3, name: "Rouge" },
-  { team_id: 1, character_id: 15, position: 4, name: "Priest" },
+  { team_id: 1, character_id: 7, position: 4, name: "Priest" },
   { team_id: 1, character_id: 6, position: 5, name: "Hunter" },
 ];
 
@@ -58,34 +59,34 @@ export default function Battle() {
       </h1>
       <div className="grid grid-cols-3 grid-rows-[1fr_6fr_2fr] bg-[#808080] w-[80vw] min-w-[20vw] max-h-[60vh] min-h-[15vh]">
         <p className="col-start-1 place-self-center">Challenger</p>
-        <div className="row-[2/4] place-self-center">
+        <ul className="row-[2/4] flex flex-row-reverse place-self-center">
           {challenger.map((character) => (
-            <p key={character.character_id}>
+            <li className="list-none w-1/3" key={character.character_id}>
               <span
                 className={`${isFighting ? "inline-block animate-challengerCharge" : ""}`}
               >
-                {character.name}
+                <FighterDetails characterId={character.character_id} />
               </span>
-            </p>
+            </li>
           ))}
-        </div>
+        </ul>
 
         <p className="col-start-3 row-start-1 place-self-center">Defender</p>
-        <div
-          className={`col-start-3 row-[2/4] place-self-center ${isFighting ? "" : "text-[9rem]"}`}
+        <ul
+          className={`col-start-3 row-[2/4] flex flex-row place-self-center ${isFighting ? "" : "text-[9rem]"}`}
         >
           {isFighting ? (
             defender.map((character) => (
-              <p key={character.character_id}>
+              <li className="list-none" key={character.character_id}>
                 <span className="inline-block animate-defenderCharge">
-                  {character.name}
+                  <FighterDetails characterId={character.character_id} />
                 </span>
-              </p>
+              </li>
             ))
           ) : (
             <div>❔</div>
           )}
-        </div>
+        </ul>
 
         <p className="row-[1/3] place-self-center text-[clamp(2rem,20vmin,9rem)]">
           {isFighting ? "" : isCounting ? countdown : "⚔️"}

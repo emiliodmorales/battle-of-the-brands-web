@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Layout from "./layout/Layout";
-import Battle from "./pages/Battle";
+import Battle from "./pages/Battle/BattlePage";
 import CharacterBrowser from "./pages/Characters/CharacterBrowser";
 import CharacterCreator from "./pages/Characters/CharacterCreator";
 import CharacterDetails from "./pages/Characters/CharacterDetails";
