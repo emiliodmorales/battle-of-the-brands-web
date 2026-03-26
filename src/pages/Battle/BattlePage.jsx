@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import FighterDetails from "./FighterDetails";
 import CombatTeamSearch from "./CombatTeamSearch";
+import { getTeamById } from "../../api/teams";
 
 // Dummy Data
 // For the two teams fighting
-const challenger = [
-  { team_id: 1, character_id: 10, position: 1, name: "Knight" },
-  { team_id: 1, character_id: 8, position: 2, name: "Mage" },
-  { team_id: 1, character_id: 2, position: 3, name: "Rouge" },
-  { team_id: 1, character_id: 7, position: 4, name: "Priest" },
-  { team_id: 1, character_id: 6, position: 5, name: "Hunter" },
-];
 
 const defender = [
   { team_id: 2, character_id: 6, position: 1, name: "Hunter" },
@@ -28,6 +22,15 @@ export default function Battle() {
   const [isFighting, setIsFighting] = useState(false);
   const [countdown, setCountdown] = useState(COUNTDOWN_TIME);
   const [isCounting, setIsCounting] = useState(false);
+  const [challengerTeam, setChallengerTeam] = useState([]);
+
+  const selectTeam = async (teamId) => {
+    const team = await getTeamById(teamId);
+    if (!team) {
+      return;
+    }
+    setChallengerTeam(team.characters);
+  };
 
   const toggleFighting = () => {
     setIsCounting(true);
@@ -62,10 +65,10 @@ export default function Battle() {
         <p className="col-start-1 place-self-center">Challenger</p>
         <ul className="row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2 ">
           <li className="col-span-full mb-2">
-            <CombatTeamSearch />
+            <CombatTeamSearch onTeamSelect={selectTeam} />
           </li>
-          {challenger.map((character) => (
-            <li key={character.character_id}>
+          {challengerTeam.map((character) => (
+            <li key={character.id}>
               <span
                 className={`${isFighting ? "inline-block animate-challengerCharge" : ""}`}
               >
