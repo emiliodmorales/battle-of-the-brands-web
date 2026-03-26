@@ -155,7 +155,7 @@ export default function Profile() {
 
       <div className="mb-8">
         <h2>Battle History</h2>
-        <div className="flex gap-6 mt-4">
+        <div className="grid grid-cols-3 gap-6 mt-4">
           <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center w-[clamp(100px,150px,200px)]">
             <span className="text-[2rem] font-bold text-red-600">
               {history.wins}
@@ -164,9 +164,15 @@ export default function Profile() {
           </div>
           <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center w-[clamp(100px,150px,200px)]">
             <span className="text-[2rem] font-bold text-red-600">
-              {history.total_battles}
+              {history.losses}
             </span>
-            <span className="block mt-2 text-[#555] text-[2rem]">Battles</span>
+            <span className="block mt-2 text-[#555] text-[2rem]">Losses</span>
+          </div>
+          <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center w-[clamp(100px,150px,200px)]">
+            <span className="text-[2rem] font-bold text-red-600">
+              {history.draws}
+            </span>
+            <span className="block mt-2 text-[#555] text-[2rem]">Draws</span>
           </div>
         </div>
       </div>
