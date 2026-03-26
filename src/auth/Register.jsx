@@ -18,8 +18,11 @@ export default function Register() {
   const onRegister = async (formData) => {
     const username = formData.get("username");
     const password = formData.get("password");
+
+    const imageFile = formData.get("image");
+    const image = await uploadImage(imageFile);
     try {
-      await register({ username, password });
+      await register({ username, password, image });
       navigate("/");
     } catch (e) {
       setError(e.message);
@@ -54,6 +57,15 @@ export default function Register() {
                 type="password"
                 name="password"
                 required
+              />
+            </label>
+            <label className={labelStyle}>
+              Profile Picture
+              <input
+                className={inputStyle}
+                type="file"
+                name="image"
+                accept="image/*"
               />
             </label>
             <button className="container p-3 mt-2 text-[1.1rem] font-semibold text-[#ff0000] bg-black rounded-md cursor-pointer font-[Papyrus] hover">
