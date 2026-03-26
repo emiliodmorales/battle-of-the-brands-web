@@ -33,7 +33,7 @@ min-h-screen bg-color
 
   body,
   #root {
-    @apply h-screen;
+    @apply h-screen overflow-hidden;
   }
 
   button {
