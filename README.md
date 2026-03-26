@@ -30,6 +30,10 @@ Visualizes two teams fighting in turn based combat.
 
 We use an image upload api to allow users to upload any image they want for their characters. This lets us save on space by storing the url given by the image upload api.
 
+### [React Select](https://react-select.com/home)
+
+We use a special select dropdown for the team builder to allow users to search for characters.
+
 ## Architecture
 
 ## Folder Structure
