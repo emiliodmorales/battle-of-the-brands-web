@@ -40,7 +40,7 @@ min-h-screen bg-color
 
 @layer components {
   .char {
-    @apply min-w-[15em] p-[1ch] border border-black rounded-[1ch] grid grid-cols-3
+    @apply min-w-60 p-1 bg-[#f9f9f9] text-[#333] rounded-md grid grid-cols-3
     grid-rows-[2em_12em_2em_2em] place-items-center;
   }
   .char:hover
