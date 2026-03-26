@@ -29,11 +29,11 @@ export default function Profile() {
   const [isSelf, setIsSelf] = useState();
   useEffect(() => {
     const tryGetIsSelf = async () => {
-      if (!aboutProfile) return;
+      if (!aboutProfile || !profile) return;
       setIsSelf(aboutProfile.id === profile.id);
     };
     tryGetIsSelf();
-  }, [aboutProfile]);
+  }, [aboutProfile, profile]);
 
   const [teams, setTeams] = useState([]);
   useEffect(() => {
