@@ -48,7 +48,7 @@ export default function TeamViewer() {
 
   return (
     <>
-      <section className="flex [&>section]:flex-1">
+      <section className="flex [&>section]:flex-1 text-center">
         <section>
           <p>{team.name}</p>
           <p>Created by {team.username}</p>
@@ -76,8 +76,8 @@ export default function TeamViewer() {
       </section>
       <section className="flex flex-wrap flex-row justify-center [&>img]:w-[30%]">
         {team.characters.map((c) => (
-          <section key={c.id} className="w-[30%] ">
-            <section className="char-info">
+          <section key={c.id} className="w-[25%] flex flex-row char m-5 p-5">
+            <section className="flex-1 text-center">
               <Link to={`/characters/${c.id}`}>
                 <h2>{c.name}</h2>
               </Link>
@@ -89,7 +89,7 @@ export default function TeamViewer() {
               </p>
             </section>
             <img
-              className="w-full max-w-full max-h-full object-contain"
+              className="w-[75%] max-w-full max-h-full object-contain"
               src={c.image}
               alt={c.name}
             ></img>

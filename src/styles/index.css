@@ -65,6 +65,10 @@ min-h-screen bg-color
   @apply h-fit flex justify-baseline gap-[1em];
 }
 
+.teamCard {
+  @apply p-1 bg-[#f9f9f9] text-[#333] rounded-md;
+}
+
 /* Make the battle button glow/catch on fire or something if we have more time*/
 #navbar nav a,
 #navbar button {

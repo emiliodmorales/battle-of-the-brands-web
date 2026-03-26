@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 export default function TeamCard(team) {
   return (
-    <li className="bg-neutral-400" key={team.id}>
+    <li className="teamCard" key={team.id}>
       <Link to={String(team.id)}>
         <p>{team.name}</p>
         {/* When viewing team icons, always display in 2 rows  */}

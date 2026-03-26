@@ -20,8 +20,13 @@ export default function SearchTeams() {
   return (
     <>
       <form>
-        <search>
-          <input type="text" name="search" defaultValue={searchText} />
+        <search className="grid grid-cols-[90%_1fr] gap-[1em]">
+          <input
+            type="text"
+            name="search"
+            defaultValue={searchText}
+            className="border border-white rounded-md p-1"
+          />
           <button>Search</button>
         </search>
       </form>

@@ -70,11 +70,9 @@ export default function TeamBrowser() {
 function TeamList({ heading, className, teams }) {
   return (
     <section className={className}>
-      <h3>{heading}</h3>
+      <h1>{heading}</h1>
       {teams.length ? (
-        <ul className="max-w-[30vw] list-none overflowScroll">
-          {teams.map(TeamCard)}
-        </ul>
+        <ul className="max-w-[30vw] list-none m-5">{teams.map(TeamCard)}</ul>
       ) : (
         "Looks like there's nothing here right now!"
       )}
