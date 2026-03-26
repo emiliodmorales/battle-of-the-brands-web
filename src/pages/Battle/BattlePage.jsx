@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import FighterDetails from "./FighterDetails";
+import CombatTeamSearch from "./CombatTeamSearch";
 
 // Dummy Data
 // For the two teams fighting
@@ -59,9 +60,12 @@ export default function Battle() {
       </h1>
       <div className="grid grid-cols-3 grid-rows-[1fr_6fr_2fr] bg-[#808080] w-[80vw] min-w-[20vw] max-h-[60vh] min-h-[15vh]">
         <p className="col-start-1 place-self-center">Challenger</p>
-        <ul className="row-[2/4] flex flex-row-reverse place-self-center">
+        <ul className="row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2 ">
+          <li className="col-span-full mb-2">
+            <CombatTeamSearch />
+          </li>
           {challenger.map((character) => (
-            <li className="list-none w-1/3" key={character.character_id}>
+            <li key={character.character_id}>
               <span
                 className={`${isFighting ? "inline-block animate-challengerCharge" : ""}`}
               >
@@ -104,14 +108,3 @@ export default function Battle() {
     </div>
   );
 }
-
-// Questions to ask
-
-// setinterval vs setTimeout
-// Avoid stacking intervals and recommended for countdown
-
-// Changing
-// const timer = setInterval(() => setCountdown(countdown - 1), 1000);
-// to
-// const timer = setInterval(() => {setCountdown((prev) => prev - 1);}, 1000);
-// because stale state bugs are captured from render when effect is ran?

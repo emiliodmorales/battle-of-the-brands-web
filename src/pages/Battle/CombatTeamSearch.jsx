@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { getTeams } from "../../api/teams";
+import CombatCard from "./CombatCard";
 
-import TeamCard from "./TeamCard";
-
-export default function SearchTeams() {
+export default function CombatTeamSearch({ onSelectTeam }) {
   const [teams, setTeams] = useState([]);
   const [searchParams] = useSearchParams();
   const searchText = searchParams.get("search");
@@ -39,7 +38,11 @@ export default function SearchTeams() {
               .filter((team) =>
                 team.name.toLowerCase().includes(searchText.toLowerCase()),
               )
-              .map(TeamCard)}
+              .map((team) => (
+                <div onClick={() => onSelectTeam(team.id)} key={team.id}>
+                  <CombatCard team={team} />
+                </div>
+              ))}
           </ul>
         </section>
       )}
