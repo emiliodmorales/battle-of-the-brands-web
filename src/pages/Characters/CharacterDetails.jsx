@@ -99,7 +99,7 @@ export default function CharacterDetails() {
             : "No Ability"}
         </p>
       </section>
-      {history && (
+      {history && history.battle_history ? (
         <section className="col-[2/3] row-[1/4] grid justify-center grid-cols-1 grid-rows-[1fr_1fr_1fr_1fr_20fr]">
           <h2>Battle History</h2>
           <p>Total Battles: {history.total_battles}</p>
@@ -116,6 +116,10 @@ export default function CharacterDetails() {
             ))}
           </ul>
         </section>
+      ) : (
+        <p className="col-[2/3] row-[1/4]">
+          {character.name} is yet to see battle
+        </p>
       )}
     </section>
   );

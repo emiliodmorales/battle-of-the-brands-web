@@ -1,8 +1,9 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useAuth } from "../auth/AuthContext";
 
 export default function Navbar() {
   const { token, logout, profile } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header
@@ -28,7 +29,14 @@ export default function Navbar() {
             <NavLink to="/teams">Teams</NavLink>
             <NavLink to="/teams/new">Team Builder</NavLink>
             {profile && <NavLink to={"/users/" + profile.id}>Account</NavLink>}
-            <button onClick={logout}>Log out</button>
+            <button
+              onClick={() => {
+                navigate("/");
+                logout();
+              }}
+            >
+              Log out
+            </button>
           </>
         ) : (
           <>

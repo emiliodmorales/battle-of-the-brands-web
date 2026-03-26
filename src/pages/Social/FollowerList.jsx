@@ -1,13 +1,20 @@
 import { Link, useParams } from "react-router";
 import { useState, useEffect } from "react";
 import { getUser, getUserFollowers } from "../../api/users";
-import { useAuth } from "../../auth/AuthContext";
 
 const defaultAvatar = "https://via.placeholder.com/150";
 
 export default function FollowerList() {
   const { id } = useParams();
-  const { profile } = useAuth();
+
+  const [aboutProfile, setAboutProfile] = useState();
+  useEffect(() => {
+    const tryGetAboutProfile = async () => {
+      const retrievedAboutProfile = await getUser(id);
+      setAboutProfile(retrievedAboutProfile);
+    };
+    tryGetAboutProfile();
+  }, []);
 
   const [followers, setFollowers] = useState();
   useEffect(() => {
@@ -18,16 +25,20 @@ export default function FollowerList() {
     tryGetFollowers();
   }, []);
 
-  if (!profile || !followers) return <p>Loading followers</p>;
+  if (!aboutProfile || !followers) return <p>Loading followers</p>;
 
   return (
-    <section className="profile">
-      <div className="profile-header">
-        <img src={defaultAvatar} alt="Profile" className="profile-avatar" />
-        <h1>{profile.username}'s Followers</h1>
+    <section className="max-w-150 m-[40px_auto] bg-neutral-600 rounded-2xl p-8">
+      <div className="flex items-center gap-6 mb-8">
+        <img
+          src={defaultAvatar}
+          alt="Profile"
+          className="w-25 h-25 border-[3px] border-red-600 rounded-[50%] object-cover"
+        />
+        <h1>{aboutProfile.username}'s Followers</h1>
       </div>
 
-      <div className="profile-section">
+      <div className="mb-8">
         <ul>
           {followers.map((user) => (
             <li key={user.id}>

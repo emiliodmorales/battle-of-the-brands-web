@@ -113,13 +113,11 @@ export async function updateCharacter(charData, token, id) {
     },
     body: JSON.stringify(charData),
   });
-  const result = await response.json();
 
   if (!response.ok) {
+    const result = await response.json();
     throw Error(result.message);
   }
-
-  return result;
 }
 
 /**

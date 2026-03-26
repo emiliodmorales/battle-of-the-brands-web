@@ -133,8 +133,8 @@ export default function Profile() {
 
       <div className="mb-8">
         <h2>Social</h2>
-        <div className="flex gap-6 mt-4">
-          <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center w-[clamp(100px,150px,200px)]">
+        <div className="grid gap-6 mt-4 grid-cols-2">
+          <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center">
             <span className="text-[2rem] font-bold text-red-600">
               {followers.length}
             </span>
@@ -142,7 +142,7 @@ export default function Profile() {
               <Link to="followers">Followers</Link>
             </span>
           </div>
-          <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center w-[clamp(100px,150px,200px)]">
+          <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center">
             <span className="text-[2rem] font-bold text-red-600">
               {following.length}
             </span>
@@ -180,7 +180,10 @@ export default function Profile() {
         <ul>
           {teams.map((team) => (
             <li className="mb-2" key={team.id}>
-              <Link className="text-red-600 hover:underline" to="/teams">
+              <Link
+                className="text-red-600 hover:underline"
+                to={"/teams/" + team.id}
+              >
                 {team.name}
               </Link>
             </li>
