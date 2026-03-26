@@ -72,7 +72,7 @@ export default function Battle() {
               <span
                 className={`${isFighting ? "inline-block animate-challengerCharge" : ""}`}
               >
-                <FighterDetails characterId={character.character_id} />
+                <FighterDetails characterId={character.id} />
               </span>
             </li>
           ))}
