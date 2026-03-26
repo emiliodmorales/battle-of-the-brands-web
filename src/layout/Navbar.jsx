@@ -14,7 +14,11 @@ export default function Navbar() {
         className="text-[1.5rem] font-bold font-[papyrus] tracking-[1px]"
         to="/"
       >
-        <p>BotB</p>
+        <img
+          className="w-[3em] h-[3em]"
+          alt="battle of the brands logo"
+          src="/botb-logo.png"
+        />
       </NavLink>
       <nav className="flex items-center gap-6">
         <NavLink to={"/battle"}>Battle</NavLink>
@@ -23,7 +27,7 @@ export default function Navbar() {
           <>
             <NavLink to="/characters/new">Create Creature</NavLink>
             <NavLink to="/teams">Teams</NavLink>
-            <NavLink to="/team-builder">Team Builder</NavLink>
+            <NavLink to="/teams/new">Team Builder</NavLink>
             {profile && <NavLink to={"/users/" + profile.id}>Account</NavLink>}
             <button
               onClick={() => {
