@@ -31,6 +31,11 @@ min-h-screen bg-color
     @apply text-black dark:text-white;
   }
 
+  body,
+  #root {
+    @apply h-screen overflow-hidden;
+  }
+
   button {
     @apply bg-[#444] font-['Times_New_Roman',Times,serif] hover:bg-[#666] cursor-pointer;
   }
@@ -40,7 +45,7 @@ min-h-screen bg-color
 
 @layer components {
   .char {
-    @apply min-w-[15em] p-[1ch] border border-black rounded-[1ch] grid grid-cols-3
+    @apply min-w-60 p-1 bg-[#f9f9f9] text-[#333] rounded-md grid grid-cols-3
     grid-rows-[2em_12em_2em_2em] place-items-center;
   }
   .char:hover

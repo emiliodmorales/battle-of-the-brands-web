@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { useAuth } from "./AuthContext";
+import { uploadImage } from "../api/images";
 
 const labelStyle =
   "flex flex-col text-left font-semibold text-[0.9rem] mb-4 text-[#333]";
@@ -18,8 +19,11 @@ export default function Register() {
   const onRegister = async (formData) => {
     const username = formData.get("username");
     const password = formData.get("password");
+
+    const imageFile = formData.get("image");
+    const image = await uploadImage(imageFile);
     try {
-      await register({ username, password });
+      await register({ username, password, image });
       navigate("/");
     } catch (e) {
       setError(e.message);
@@ -53,6 +57,16 @@ export default function Register() {
                 className={inputStyle}
                 type="password"
                 name="password"
+                required
+              />
+            </label>
+            <label className={labelStyle}>
+              Profile Picture
+              <input
+                className={inputStyle}
+                type="file"
+                name="image"
+                accept="image/*"
                 required
               />
             </label>

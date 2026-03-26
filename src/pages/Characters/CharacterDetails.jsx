@@ -59,67 +59,96 @@ export default function CharacterDetails() {
   };
 
   return (
-    <section className="grid grid-cols-2 p-[1em] gap-[1em]">
-      <section className="grid justify-center gap-[1em]">
-        <h1>{character.name}</h1>
-        {character.image && character.image !== "" && (
-          <img
-            className="max-w-[12em] max-h-[12em]"
-            alt={"image of " + character.name}
-            src={character.image}
-          />
-        )}
-        <p>{character.description}</p>
-        <p>
-          {"Owner: "}
-          <Link to={"/users/" + character.user_id}>{character.username}</Link>
-        </p>
-        {profile?.id === character.user_id && (
-          <Link to="edit">
-            <button className="w-full">Edit</button>
+    <section className="max-w-150 m-[40px_auto] bg-neutral-600 rounded-2xl p-8">
+      <section className="flex items-center gap-6 mb-8">
+        <img
+          src={character.image}
+          alt="character"
+          className="w-25 h-25 border-[3px] border-red-600 rounded-[50%] object-cover"
+        />
+        <h1 className="text-[2rem] font-bold">{character.name}</h1>
+      </section>
+      <section className="mb-8">
+        <h2>Character Desciption</h2>
+
+        <section className="grid grid-cols-3 gap-6 mt-4">
+          <p className="col-span-2 text-center">{character.description}</p>
+          <Link to={"/users/" + character.user_id}>
+            <p className="hover:underline">
+              {"Creator: " + character.username}
+            </p>
           </Link>
-        )}
-        {profile?.id === character.user_id && (
-          <button onClick={deleteChar}>Delete</button>
-        )}
-        {token && isFavorite ? (
-          <button onClick={unfavoriteChar}>Unfavorite</button>
-        ) : (
-          <button onClick={favoriteChar}>Favorite</button>
-        )}
-      </section>
-      <section className="grid justify-center gap-[1em]">
-        <h2>Character Stats</h2>
-        <p>{character.hp} HP</p>
-        <p>{character.attack} ATK</p>
-        <p>{character.defense} DEF</p>
-        <p>
-          {character.ability_name
-            ? `Ability: ${character.ability_name}`
-            : "No Ability"}
-        </p>
-      </section>
-      {history && history.battle_history ? (
-        <section className="col-[2/3] row-[1/4] grid justify-center grid-cols-1 grid-rows-[1fr_1fr_1fr_1fr_20fr]">
-          <h2>Battle History</h2>
-          <p>Total Battles: {history.total_battles}</p>
-          <p>Wins: {history.wins}</p>
-          <h3>Battles</h3>
-          <ul className="flex flex-col gap-[1em]">
-            {history.battle_history.map((battle, i) => (
-              <li key={i}>
-                <p>
-                  {battle.challenger.name} vs {battle.defender.name}
-                </p>
-                <p>Winner: {battle.winner.name}</p>
-              </li>
-            ))}
-          </ul>
+          {profile?.id === character.user_id && (
+            <Link to="edit">
+              <button className="w-full">Edit</button>
+            </Link>
+          )}
+          {token && isFavorite ? (
+            <button className="col-start-2" onClick={unfavoriteChar}>
+              Unfavorite
+            </button>
+          ) : (
+            <button className="col-start-2" onClick={favoriteChar}>
+              Favorite
+            </button>
+          )}
+          {profile?.id === character.user_id && (
+            <button onClick={deleteChar}>Delete</button>
+          )}
         </section>
-      ) : (
-        <p className="col-[2/3] row-[1/4]">
-          {character.name} is yet to see battle
-        </p>
+      </section>
+      <div className="mb-8">
+        <h2>Character Stats</h2>
+
+        <section className="grid grid-cols-3 gap-6 mt-4">
+          <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+            <p className="text-[2rem] font-bold text-red-600">{character.hp}</p>
+            <h3 className="block mt-2 text-[#555] text-[2rem]">HP</h3>
+          </section>
+          <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+            <p className="text-[2rem] font-bold text-red-600">
+              {character.attack}
+            </p>
+            <h3 className="block mt-2 text-[#555] text-[2rem]">ATK</h3>
+          </section>
+          <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+            <p className="text-[2rem] font-bold text-red-600">
+              {character.defense}
+            </p>
+            <h3 className="block mt-2 text-[#555] text-[2rem]">DEF</h3>
+          </section>
+          <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center col-span-full">
+            <p className="text-[2rem] font-bold text-red-600">
+              {character.ability_name || "No Ability"}
+            </p>
+            <h3 className="block mt-2 text-[#555] text-[2rem]">Ability</h3>
+          </section>
+        </section>
+      </div>
+      {history && (
+        <div className="mb-8">
+          <h2>Battle History</h2>
+          <section className="grid grid-cols-3 gap-6 mt-4">
+            <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+              <p className="text-[2rem] font-bold text-red-600">
+                {history.wins}
+              </p>
+              <p className="block mt-2 text-[#555] text-[2rem]">Wins</p>
+            </section>
+            <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+              <p className="text-[2rem] font-bold text-red-600">
+                {history.losses}
+              </p>
+              <p className="block mt-2 text-[#555] text-[2rem]">Losses</p>
+            </section>
+            <section className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center ">
+              <p className="text-[2rem] font-bold text-red-600">
+                {history.draws}
+              </p>
+              <p className="block mt-2 text-[#555] text-[2rem]">Draws</p>
+            </section>
+          </section>
+        </div>
       )}
     </section>
   );

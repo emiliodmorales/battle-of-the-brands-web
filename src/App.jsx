@@ -36,10 +36,10 @@ export default function App() {
           <Route path=":id/edit" element={<CharacterEditor />} />
           <Route path="new" element={<CharacterCreator />} />
         </Route>
-        <Route path="/team-builder" element={<TeamBuilder />} />
         <Route path="/teams">
           <Route index element={<TeamBrowser />} />
           <Route path=":id" element={<TeamViewer />} />
+          <Route path="new" element={<TeamBuilder />} />
         </Route>
 
         <Route path="*" element={<Error404 />} />

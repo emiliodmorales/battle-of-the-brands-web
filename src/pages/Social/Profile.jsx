@@ -13,8 +13,6 @@ import {
 } from "../../api/users";
 import { useAuth } from "../../auth/AuthContext";
 
-const defaultAvatar = "https://via.placeholder.com/150";
-
 export default function Profile() {
   const { id } = useParams();
   const { token, profile } = useAuth();
@@ -117,7 +115,7 @@ export default function Profile() {
     <section className="max-w-150 m-[40px_auto] bg-neutral-600 rounded-2xl p-8">
       <div className="flex items-center gap-6 mb-8">
         <img
-          src={defaultAvatar}
+          src={aboutProfile.image}
           alt="Profile"
           className="w-25 h-25 border-[3px] border-red-600 rounded-[50%] object-cover"
         />
@@ -155,7 +153,7 @@ export default function Profile() {
 
       <div className="mb-8">
         <h2>Battle History</h2>
-        <div className="flex gap-6 mt-4">
+        <div className="grid grid-cols-3 gap-6 mt-4">
           <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center w-[clamp(100px,150px,200px)]">
             <span className="text-[2rem] font-bold text-red-600">
               {history.wins}
@@ -164,9 +162,15 @@ export default function Profile() {
           </div>
           <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center w-[clamp(100px,150px,200px)]">
             <span className="text-[2rem] font-bold text-red-600">
-              {history.total_battles}
+              {history.losses}
             </span>
-            <span className="block mt-2 text-[#555] text-[2rem]">Battles</span>
+            <span className="block mt-2 text-[#555] text-[2rem]">Losses</span>
+          </div>
+          <div className="bg-[#f5f7fa] rounded-lg py-4 px-6 text-center w-[clamp(100px,150px,200px)]">
+            <span className="text-[2rem] font-bold text-red-600">
+              {history.draws}
+            </span>
+            <span className="block mt-2 text-[#555] text-[2rem]">Draws</span>
           </div>
         </div>
       </div>

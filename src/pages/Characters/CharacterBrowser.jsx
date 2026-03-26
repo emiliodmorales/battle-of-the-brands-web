@@ -43,12 +43,7 @@ export default function CharacterBrowser() {
 
   return (
     <section className="p-[1em] flex flex-col gap-[1em]">
-      <h1>Characters</h1>
-      {token && (
-        <Link to="new">
-          <button className="w-full">New Character</button>
-        </Link>
-      )}
+      <h1 className="text-3xl">Characters</h1>
       <form>
         <search className="grid grid-cols-[90%_1fr] gap-[1em]">
           <input
@@ -62,7 +57,7 @@ export default function CharacterBrowser() {
       </form>
       {searchText && searchText !== "" && (
         <section>
-          <h2>Search Results</h2>
+          <h2 className="text-xl">Search Results</h2>
           <ul className="overflowScroll">
             {characters
               .filter(
@@ -78,7 +73,7 @@ export default function CharacterBrowser() {
       )}
       {token && userCharacters.length > 0 && (
         <section>
-          <h2>Your Characters</h2>
+          <h2 className="text-xl">Your Characters</h2>
           <ul className="overflowScroll">
             {userCharacters.map(CharacterItem)}
           </ul>
@@ -86,14 +81,14 @@ export default function CharacterBrowser() {
       )}
       {token && faveCharacters.length > 0 && (
         <section>
-          <h2>Favorite Characters</h2>
+          <h2 className="text-xl">Favorite Characters</h2>
           <ul className="overflowScroll">
             {faveCharacters.map(CharacterItem)}
           </ul>
         </section>
       )}
       <section>
-        <h2>All Characters</h2>
+        <h2 className="text-xl">All Characters</h2>
         <ul className="overflowScroll">{characters.map(CharacterItem)}</ul>
       </section>
     </section>

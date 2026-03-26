@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="h-14/15 mt-0 overflow-scroll">
         <Outlet />
       </main>
     </>
