@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-// TODO - I understand CSS, but I am absolutely terrible with design.
-
 import { Link } from "react-router";
 import { getTeams, getFavoriteTeams } from "../../api/teams";
 import SearchTeams from "./SearchTeams";
@@ -57,8 +55,7 @@ export default function TeamBrowser() {
             teams={bestTeams}
           />
 
-          {/*TODO - Edit Link when Team Builder page is made*/}
-          <Link to="/">
+          <Link to="/team-builder">
             <h3>Build a New Team!</h3>
           </Link>
         </section>
@@ -70,13 +67,14 @@ export default function TeamBrowser() {
   );
 }
 
-// Made it to be flexible, but should I be hardcoding instead?
 function TeamList({ heading, className, teams }) {
   return (
     <section className={className}>
       <h3>{heading}</h3>
       {teams.length ? (
-        <ul className="max-w-[30vw] list-none">{teams.map(TeamCard)}</ul>
+        <ul className="max-w-[30vw] list-none overflowScroll">
+          {teams.map(TeamCard)}
+        </ul>
       ) : (
         "Looks like there's nothing here right now!"
       )}
