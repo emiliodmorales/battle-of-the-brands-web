@@ -32,10 +32,10 @@ export default function TeamBrowser() {
     tryGetTeams();
   }, []);
   useEffect(() => {
-    if (token) {
+    if (profile) {
       filterTeams(token);
     }
-  }, [allTeams]);
+  }, [allTeams, profile]);
 
   return (
     <section className="flex [&>section]:flex-1">
