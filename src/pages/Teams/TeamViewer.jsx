@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useParams, useNavigate } from "react-router";
 import { useAuth } from "../../auth/AuthContext";
 
-import { getTeamById, getTeamHistory } from "../../api/teams";
+import { getTeamById, getTeamHistory, deleteTeam } from "../../api/teams";
 
 export default function TeamViewer() {
   const { token, profile } = useAuth();
   const [team, setTeam] = useState();
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -17,7 +18,16 @@ export default function TeamViewer() {
       setTeam({ ...t, history: h });
     };
     getTeamDetails();
-  }, []);
+  }, [id]);
+
+  const handleDelete = async () => {
+    try {
+      await deleteTeam(team.id, token);
+      navigate("/teams");
+    } catch (err) {
+      alert(err.message || "Failed to delete team.");
+    }
+  };
 
   if (!team) {
     return <h1>Loading...</h1>;
@@ -29,6 +39,13 @@ export default function TeamViewer() {
         <section>
           <p>{team.name}</p>
           <p>Created by {team.username}</p>
+          {token && profile?.username === team.username && (
+            <div style={{ marginTop: "1em" }}>
+              <button onClick={handleDelete} style={{ color: "red" }}>
+                Delete
+              </button>
+            </div>
+          )}
         </section>
         {token && (
           <section className="battle-button">
@@ -68,6 +85,11 @@ export default function TeamViewer() {
           </section>
         ))}
       </section>
+      {token && profile && profile.id === team.creator && (
+        <section className="flex flex-row gap-2">
+          <button onClick={handleDelete}>Delete</button>
+        </section>
+      )}
     </>
   );
 }
