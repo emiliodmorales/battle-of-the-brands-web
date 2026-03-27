@@ -1,7 +1,15 @@
 const API = import.meta.env.VITE_API;
 
 /**
- * @returns array of all abilities
+ * @typedef {object} Ability
+ * @property {string} name
+ * @property {string} description
+ * @property {number} cost
+ * @property {number} id
+ */
+
+/**
+ * @returns {Promise<Ability[]>} array of all abilities
  */
 export async function getAbilities() {
   const response = await fetch(API + "/abilities");

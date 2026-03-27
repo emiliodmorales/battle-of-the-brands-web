@@ -4,7 +4,7 @@ const API_KEY = import.meta.env.VITE_IMG_API_KEY;
 /**
  * Upload an image and get its url
  * @param {File} image - Image file to upload
- * @returns the url to the uploaded image
+ * @returns {Promise<string>} the url to the uploaded image
  */
 export async function uploadImage(image) {
   const formData = new FormData();

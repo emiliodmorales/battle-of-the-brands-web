@@ -2,19 +2,47 @@ const CHAR_API = import.meta.env.VITE_API + "/characters";
 const USER_API = import.meta.env.VITE_API + "/users";
 
 /**
- * Represents a character
  * @typedef {object} CharacterInfo
- * @property {string} name - The name of the character
- * @property {string} description - A short description of the character
- * @property {string} image - A url to an image of the character
- * @property {number} hp - Character's health
- * @property {number} attack - Character's damage
- * @property {number} defense - Character's block
- * @property {number} abilityId - Id of character's ability
+ * @property {string} name
+ * @property {string} description
+ * @property {string} image
+ * @property {number} hp
+ * @property {number} attack
+ * @property {number} defense
+ * @property {number} abilityId
  */
 
 /**
- * @returns array of all characters
+ * @typedef {object} Character
+ * @property {number} id
+ * @property {string} name
+ * @property {string} description
+ * @property {string} image
+ * @property {number} hp
+ * @property {number} attack
+ * @property {number} defense
+ * @property {number} abilityId
+ * @property {number} userId
+ */
+
+/**
+ * @typedef {object} BattleHistory
+ * @property {BattleTeam[]} battle_history
+ * @property {number} total_battles
+ * @property {number} wins
+ * @property {number} losses
+ * @property {number} draws
+ */
+
+/**
+ * @typedef {object} BattleTeam
+ * @property {Team} challenger
+ * @property {Team} defender
+ * @property {Team} winner
+ */
+
+/**
+ * @returns {Promise<Character[]>} array of all characters
  */
 export async function getCharacters() {
   const response = await fetch(CHAR_API);
@@ -23,9 +51,8 @@ export async function getCharacters() {
 }
 
 /**
- * Get character details by id
  * @param {number} id - The character id
- * @returns the character
+ * @returns {Promise<Character>} the character
  */
 export async function getCharacterDetails(id) {
   const response = await fetch(CHAR_API + "/" + id);
@@ -34,9 +61,8 @@ export async function getCharacterDetails(id) {
 }
 
 /**
- * Get battle history by character
  * @param {number} id - The character id
- * @returns the character's history
+ * @returns {Promise<BattleHistory>} the character's history
  */
 export async function getCharacterHistory(id) {
   const response = await fetch(CHAR_API + "/" + id + "/history");
@@ -67,7 +93,7 @@ export async function deleteCharacter(token, id) {
  * Create a new character. Uses token to store creator id.
  * @param {CharacterInfo} charData - The character to create
  * @param {string} token - User's auth token
- * @returns the newly created character
+ * @returns {Promise<Character>} the newly created character
  * @throws Will throw an error if the token is null
  */
 export async function createCharacter(charData, token) {
@@ -97,7 +123,7 @@ export async function createCharacter(charData, token) {
  * @param {CharacterInfo} charData - The character to update
  * @param {string} token - User's auth token
  * @param {number} id - Character id to update
- * @returns the updated character
+ * @returns {Promise<Character>} the updated character
  * @throws Will throw an error if user is signed out
  */
 export async function updateCharacter(charData, token, id) {
@@ -199,7 +225,7 @@ export async function removeFavoriteCharacter(id, token) {
 /**
  * Get a user's favorite characters
  * @param {string} token - User's auth token
- * @returns array of favorite characters
+ * @returns {Promise<Character[]>} array of favorite characters
  * @throws Will throw an error if user is signed out
  */
 export async function getFavoriteCharacters(token) {

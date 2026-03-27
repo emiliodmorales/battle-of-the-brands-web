@@ -2,7 +2,30 @@ const API = import.meta.env.VITE_API + "/teams";
 const USER_API = import.meta.env.VITE_API + "/users";
 
 /**
- * @returns array of all teams
+ * @typedef {object} Team
+ * @property {number} id
+ * @property {number} userId
+ * @property {string} name
+ */
+
+/**
+ * @typedef {object} BattleHistory
+ * @property {BattleTeam[]} battle_history
+ * @property {number} total_battles
+ * @property {number} wins
+ * @property {number} losses
+ * @property {number} draws
+ */
+
+/**
+ * @typedef {object} BattleTeam
+ * @property {Team} challenger
+ * @property {Team} defender
+ * @property {Team} winner
+ */
+
+/**
+ * @returns {Promise<Team[]>} array of all teams
  */
 export async function getTeams() {
   const res = await fetch(API);
@@ -11,9 +34,8 @@ export async function getTeams() {
 }
 
 /**
- * Get a team by its id
  * @param {number} id - The team id
- * @returns the team with the given id
+ * @returns {Promise<Team>} the team with the given id
  */
 export async function getTeamById(id) {
   const res = await fetch(API + "/" + id);
@@ -24,7 +46,7 @@ export async function getTeamById(id) {
 /**
  * Get a user's favorite teams
  * @param {string} token - User's auth token
- * @returns array of favorite teams
+ * @returns {Promise<Team>} array of favorite teams
  */
 export async function getFavoriteTeams(token) {
   const res = await fetch(USER_API + "/favorite_teams", {
@@ -115,8 +137,7 @@ export async function removeFavoriteTeam(id, token) {
 }
 
 /**
- * Get a team's battle history
- * @returns battle history
+ * @returns {Promise<BattleHistory>} battle history
  */
 export async function getTeamHistory(id) {
   const res = await fetch(API + `/${id}/history`);
@@ -125,8 +146,7 @@ export async function getTeamHistory(id) {
 }
 
 /**
- * Create a new team
- * @returns the newly created team
+ * @returns {Promise<Team>} the newly created team
  */
 export async function createTeam(teamData, token) {
   if (!token) {
@@ -151,8 +171,7 @@ export async function createTeam(teamData, token) {
 }
 
 /**
- * Delete a team
- * @returns current status
+ * @returns {Promise<boolean>} current status
  */
 export async function deleteTeam(id, token) {
   if (!token) {
@@ -180,8 +199,7 @@ export async function deleteTeam(id, token) {
 }
 
 /**
- * Update a team
- * @returns the updated team
+ * @returns {Promise<Team>} the updated team
  */
 export async function updateTeam(id, teamData, token) {
   if (!token) {
