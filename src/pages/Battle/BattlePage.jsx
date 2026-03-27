@@ -124,7 +124,10 @@ export default function Battle() {
           </ul>
 
           <p className="col-start-3 row-start-1 place-self-center">Defender</p>
-          <ul className="col-start-3 row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2">
+          <ul
+            hidden={!challengerTeam}
+            className="col-start-3 row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2"
+          >
             {isFighting || defenderTeam ? (
               defenderTeam?.characters.map((character) => (
                 <li key={character.id}>
