@@ -61,6 +61,7 @@ export default function Combat({ challengerTeam, defenderTeam }) {
       <p className="col-start-1 place-self-center pb-2">
         {challengerTeam.name}
       </p>
+      <p className="col-start-2 place-self-center pb-2">{`Turn ${turn}`}</p>
       <p className="col-start-3 place-self-center pb-2">{defenderTeam.name}</p>
       <p className="col-start-1 row-start-2 place-self-center pb-2">
         {currentChallenger.name}
