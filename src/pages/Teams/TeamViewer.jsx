@@ -10,12 +10,14 @@ import {
   removeFavoriteTeam,
   deleteTeam,
 } from "../../api/teams";
+import { getAbilities } from "../../api/abilities";
 
 export default function TeamViewer() {
   const { token, profile } = useAuth();
   const [team, setTeam] = useState();
   const [isFavorite, setIsFavorite] = useState(false);
   const navigate = useNavigate();
+  const [abilities, setAbilities] = useState({});
 
   const { id } = useParams();
 
@@ -43,6 +45,18 @@ export default function TeamViewer() {
     };
     getTeamDetails();
   }, [id]);
+
+  useEffect(() => {
+    const tryGetAbilities = async () => {
+      const retrievedAbilities = await getAbilities();
+      const newAbilities = retrievedAbilities.reduce((list, ability) => {
+        list[ability.id] = ability.name;
+        return list;
+      }, {});
+      setAbilities(newAbilities);
+    };
+    tryGetAbilities();
+  }, []);
 
   const handleDelete = async () => {
     try {
@@ -104,7 +118,9 @@ export default function TeamViewer() {
               <p className="text-black">{c.attack} ATK</p>
               <p className="text-black">{c.defense} DEF</p>
               <p className="text-black">
-                {c.ability_name ? `Ability: ${c.ability_name}` : "No Ability"}
+                {c.ability_id
+                  ? `Ability: ${abilities[c.ability_id]}`
+                  : "No Ability"}
               </p>
             </section>
             <img
