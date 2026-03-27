@@ -219,3 +219,13 @@ export async function updateTeam(id, teamData, token) {
   }
   return await response.json();
 }
+
+/**
+ * Get a random team
+ * @returns the randomly selected team
+ */
+export async function getRandomTeam() {
+  const res = await fetch(API + "/random");
+  const team = await res.json();
+  return team;
+}
