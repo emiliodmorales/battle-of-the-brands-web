@@ -65,6 +65,7 @@ export default function TeamViewer() {
             <button onClick={unfavoriteTeam}>Unfavorite</button>
           ) : (
             <button onClick={favoriteTeam}>Favorite</button>
+          )}
           {token && profile?.username === team.username && (
             <div style={{ marginTop: "1em" }}>
               <button onClick={handleDelete} style={{ color: "red" }}>
