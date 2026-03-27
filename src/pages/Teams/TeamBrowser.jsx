@@ -58,7 +58,7 @@ export default function TeamBrowser() {
           />
 
           {/*TODO - Edit Link when Team Builder page is made*/}
-          <Link to="/">
+          <Link to="/teams/new">
             <h3>Build a New Team!</h3>
           </Link>
         </section>
