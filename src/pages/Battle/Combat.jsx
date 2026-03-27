@@ -51,7 +51,7 @@ export default function Combat({ challengerTeam, defenderTeam }) {
   }
 
   return (
-    <section className="grid grid-cols-[45%_10%_45%] grid-rows-[5%_5%_65%_25%] h-[50vh] w-[100vh]">
+    <section className="grid grid-cols-[1fr_1fr_1fr] grid-rows-[5%_5%_65%_25%] h-[50vh] w-[100vh] place-self-center">
       <p className="col-start-1 place-self-center pb-2">
         {challengerTeam.name}
       </p>
@@ -68,6 +68,11 @@ export default function Combat({ challengerTeam, defenderTeam }) {
         alt={currentChallenger.name}
         onAnimationEnd={() => setAnimated(false)}
       />
+      <div className="col-start-2 row-start-3 place-self-center">
+        {battleManager.current.turnMsg().map((msg, i) => (
+          <p key={i}>{msg}</p>
+        ))}
+      </div>
       <img
         className={`col-start-3 row-start-3 w-full h-full object-contain ${animated ? "animate-defenderAttack" : ""}`}
         src={currentDefender.img}
