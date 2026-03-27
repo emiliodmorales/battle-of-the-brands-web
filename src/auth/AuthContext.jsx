@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
   }, [token]);
 
   useEffect(() => {
-    if (!token) setProfile(null);
+    if (!token) return setProfile(null);
     const tryGetProfile = async () => {
       const response = await fetch(API + "/users/profile", {
         method: "GET",
