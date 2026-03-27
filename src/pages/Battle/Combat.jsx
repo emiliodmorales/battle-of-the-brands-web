@@ -1,10 +1,7 @@
 import Fighter from "./BattleManager/Fighter";
 import Team from "./BattleManager/Team";
 import BattleManager from "./BattleManager/BattleManager";
-import { useState, useRef, useEffect } from "react";
-
-const STARTUP_DELAY = 3000;
-const TURN_DELAY = 1000;
+import { useState, useRef } from "react";
 
 export default function Combat({ challengerTeam, defenderTeam }) {
   const [turn, setTurn] = useState(1);
@@ -36,16 +33,7 @@ export default function Combat({ challengerTeam, defenderTeam }) {
     setAnimated(true);
     if (result) setWinner(result);
     setTurn((turn) => turn + 1);
-    setTimeout(() => {
-      nextTurn();
-    }, TURN_DELAY);
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      nextTurn();
-    }, STARTUP_DELAY);
-  }, []);
 
   if (!challengerTeam || !defenderTeam)
     return (
@@ -99,6 +87,12 @@ export default function Combat({ challengerTeam, defenderTeam }) {
       <p className="col-start-1 row-start-4 place-self-center">
         {currentChallenger.hp}/{currentChallenger.maxHp}
       </p>
+      <button
+        className="col-start-2 row-start-4 place-self-center"
+        onClick={nextTurn}
+      >
+        Next Turn
+      </button>
       <p className="col-start-3 row-start-4 place-self-center">
         {currentDefender.hp}/{currentDefender.maxHp}
       </p>
