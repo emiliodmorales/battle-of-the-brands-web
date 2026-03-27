@@ -161,9 +161,13 @@ export default function Battle() {
       {/* isFigting is neccessary so it won't try to render until button is pressed can remove challengerTeam,
       defenderTeam once me make it impossible to start combat. Or leave it just in case */}
       {isFighting && challengerTeam && defenderTeam && (
-        <section className={`${!isFighting ? "hidden" : ""} place-self-center`}>
-          <Combat challengerTeam={challengerTeam} defenderTeam={defenderTeam} />
-        </section>
+        <div className="flex flex-col">
+          <Combat
+            challengerTeam={challengerTeam}
+            defenderTeam={defenderTeam}
+            hidden={!isFighting}
+          />
+        </div>
       )}
     </>
   );
