@@ -10,15 +10,15 @@ export default function Battle() {
   const [isFighting, setIsFighting] = useState(false);
   const [countdown, setCountdown] = useState(COUNTDOWN_TIME);
   const [isCounting, setIsCounting] = useState(false);
-  const [challengerTeam, setChallengerTeam] = useState([]);
-  const [defenderTeam, setdefenderTeam] = useState([]);
+  const [challengerTeam, setChallengerTeam] = useState(null);
+  const [defenderTeam, setdefenderTeam] = useState(null);
 
   const selectChallengerTeam = async (teamId) => {
     const team = await getTeamById(teamId);
     if (!team) {
       return;
     }
-    setChallengerTeam(team.characters);
+    setChallengerTeam(team);
   };
 
   const selectDefenderTeam = async (teamId) => {
@@ -26,12 +26,12 @@ export default function Battle() {
     if (!team) {
       return;
     }
-    setdefenderTeam(team.characters);
+    setdefenderTeam(team);
   };
 
   // Fix this later to select random team
   const startBattle = () => {
-    if (defenderTeam.length === 0) {
+    if (!defenderTeam) {
       selectDefenderTeam(2);
     }
     toggleFighting();
@@ -75,7 +75,7 @@ export default function Battle() {
             >
               <CombatTeamSearch onTeamSelect={selectChallengerTeam} />
             </li>
-            {challengerTeam.map((character) => (
+            {challengerTeam?.characters.map((character) => (
               <li key={character.id}>
                 <span
                   className={`${isFighting ? "inline-block animate-challengerCharge" : ""}`}
@@ -89,7 +89,7 @@ export default function Battle() {
           <p className="col-start-3 row-start-1 place-self-center">Defender</p>
           <ul className="col-start-3 row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2">
             {isFighting ? (
-              defenderTeam.map((character) => (
+              defenderTeam?.characters.map((character) => (
                 <li key={character.id}>
                   <span className="inline-block animate-defenderCharge">
                     <FighterDetails characterId={character.id} />
@@ -116,9 +116,13 @@ export default function Battle() {
           </button>
         </div>
       </div>
-      <section className={`${!isFighting ? "hidden" : ""} place-self-center`}>
-        <Combat challengerTeam={challengerTeam} defenderTeam={defenderTeam} />
-      </section>
+      {/* isFigting is neccessary so it won't try to render until button is pressed can remove challengerTeam,
+      defenderTeam once me make it impossible to start combat. Or leave it just in case */}
+      {isFighting && challengerTeam && defenderTeam && (
+        <section className={`${!isFighting ? "hidden" : ""} place-self-center`}>
+          <Combat challengerTeam={challengerTeam} defenderTeam={defenderTeam} />
+        </section>
+      )}
     </>
   );
 }
