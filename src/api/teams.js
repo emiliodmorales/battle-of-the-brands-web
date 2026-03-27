@@ -39,6 +39,82 @@ export async function getFavoriteTeams(token) {
 }
 
 /**
+ * Check if the team is already favorited
+ * @param {number} id - The team id
+ * @param {string} token - User's auth token
+ * @throws Will throw an error if user is signed out
+ */
+export async function getIsFavoriteTeam(id, token) {
+  if (!token) return false;
+
+  const response = await fetch(USER_API + "/favorite_teams/" + id, {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw Error(result.message);
+  }
+
+  return result;
+}
+
+/**
+ * Favorite a team
+ * @param {number} id - The team id
+ * @param {string} token - User's auth token
+ * @throws Will throw an error if user is signed out
+ */
+export async function addFavoriteTeam(id, token) {
+  if (!token) {
+    throw Error("You must be signed in to favorite a team.");
+  }
+
+  const response = await fetch(USER_API + "/favorite_teams", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({ id }),
+  });
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message);
+  }
+}
+
+/**
+ * Unfavorite a team
+ * @param {number} id - The team id
+ * @param {string} token - User's auth token
+ * @throws Will throw an error if user is signed out
+ */
+export async function removeFavoriteTeam(id, token) {
+  if (!token) {
+    throw Error("You must be signed in to favorite a team.");
+  }
+
+  const response = await fetch(USER_API + "/favorite_teams", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({ id }),
+  });
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message);
+  }
+}
+
+/**
  * Get a team's battle history
  * @returns battle history
  */
