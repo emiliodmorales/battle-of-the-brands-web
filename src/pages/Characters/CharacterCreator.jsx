@@ -17,6 +17,7 @@ export default function CharacterCreator() {
   const [points, setPoints] = useState(STARTING_POINTS);
   const [abilities, setAbilities] = useState([]);
   const [error, setError] = useState();
+  const [previewImage, setPreviewImage] = useState();
 
   useEffect(() => {
     const tryGetAbilities = async () => {
@@ -68,6 +69,11 @@ export default function CharacterCreator() {
     setPoints(STARTING_POINTS - hp - attack - defense - abilityCost);
   };
 
+  const changePreviewImage = (e) => {
+    const [file] = e.target.files;
+    if (file) setPreviewImage(URL.createObjectURL(file));
+  };
+
   return (
     <div className="grid grid-cols-2 place-items-center h-full">
       <div className="bg-[#f9f9f9] p-10 rounded-xl container max-w-100 text-center font-[papyrus] shadow-[0_4px_12px_#0000001A]">
@@ -92,11 +98,19 @@ export default function CharacterCreator() {
           </label>
           <label className={LABEL_STYLE}>
             Image
+            {previewImage && (
+              <img
+                className="max-w-[12em] max-h-[12em]"
+                alt={"preview character image"}
+                src={previewImage}
+              />
+            )}
             <input
               className={INPUT_STYLE}
               type="file"
               name="image"
               accept="image/*"
+              onChange={changePreviewImage}
             />
           </label>
           <label className={LABEL_STYLE}>{points} Points</label>
