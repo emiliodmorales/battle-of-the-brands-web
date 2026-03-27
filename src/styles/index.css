@@ -15,8 +15,8 @@ npm install -D prettier-plugin-tailwindcss */
   --animate-verticalShake: verticalShake 0.2s infinite;
   --animate-challengerCharge: challengerCharge 0.75s infinite;
   --animate-defenderCharge: defenderCharge 0.75s infinite;
-  --animate-challengerAttack: challengerAttack 0.2s infinite;
-  --animate-defenderAttack: defenderAttack 0.2s infinite;
+  --animate-challengerAttack: challengerAttack 0.2s forwards;
+  --animate-defenderAttack: defenderAttack 0.2s forwards;
 }
 
 /* 
