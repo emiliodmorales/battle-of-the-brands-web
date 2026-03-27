@@ -7,3 +7,5 @@ Search button clears once a team has been selected?
 If challengerTeam is empty it says select a team?
 
 Can start a fight if even no team is selected should fix that.
+
+Create Battle stores the (challenger, defender, winner)

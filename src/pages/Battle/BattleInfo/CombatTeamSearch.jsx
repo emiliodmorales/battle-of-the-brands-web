@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
-import { getTeams } from "../../api/teams";
+import { getTeams } from "../../../api/teams";
 import CombatCard from "./CombatCard";
 
 export default function CombatTeamSearch({ onTeamSelect }) {

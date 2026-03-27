@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCharacterDetails } from "../../api/characters";
+import { getCharacterDetails } from "../../../api/characters";
 
 export default function FighterDetails({ characterId }) {
   const [fighter, setFighter] = useState();
