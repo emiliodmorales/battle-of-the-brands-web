@@ -38,13 +38,19 @@ export default function Combat({ challengerTeam, defenderTeam }) {
   };
 
   if (!challengerTeam || !defenderTeam)
-    return <p>This is empty and you aren't supposed to see it</p>;
+    return (
+      <p className="place-self-center">
+        This is empty and you aren't supposed to see it
+      </p>
+    );
   if (!currentChallenger || !currentDefender) {
-    if (winner === null) return <p>Determining winner</p>;
-    if (winner === "Draw") return <p>It has ended in a draw</p>;
+    if (winner === null)
+      return <p className="place-self-center">Determining winner</p>;
+    if (winner === "Draw")
+      return <p className="place-self-center">It has ended in a draw</p>;
     return (
       <section className="grid">
-        <p>The winner is {winner}</p>
+        <p className="place-self-center">The winner is {winner}</p>
         <p className="text-[64px] place-self-center">🏆</p>
       </section>
     );
