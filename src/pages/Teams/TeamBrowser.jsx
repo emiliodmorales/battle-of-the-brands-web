@@ -33,40 +33,70 @@ export default function TeamBrowser() {
   }, [allTeams, profile]);
 
   return (
-    <section className="flex [&>section]:flex-1">
+    <section className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 p-8">
+      <section className="w-full max-w-5xl mx-auto mb-8 flex justify-center">
+        <div className="w-full max-w-lg">
+          <SearchTeams />
+        </div>
+      </section>
+      <section className="flex flex-col md:flex-row gap-8 items-start justify-center w-full max-w-5xl mx-auto">
+        {token && (
+          <>
+            <section className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex-1">
+              <TeamList
+                heading="Your Teams"
+                className="yourTeams"
+                teams={yourTeams}
+              />
+            </section>
+            <section className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex-1">
+              <TeamList
+                heading="Favorite Teams"
+                className="faveTeams"
+                teams={faveTeams}
+              />
+            </section>
+          </>
+        )}
+      </section>
       {token && (
-        <section>
-          <TeamList
-            heading="Your Teams"
-            className="yourTeams"
-            teams={yourTeams}
-          />
-          <TeamList
-            heading="Favorite Teams"
-            className="faveTeams"
-            teams={faveTeams}
-          />
-
-          <Link to="/teams/new">
-            <h3>Build a New Team!</h3>
+        <section className="w-full flex justify-center mt-12">
+          <Link to="/teams/new" className="w-full max-w-md block">
+            <button
+              className="w-full py-2 rounded bg-black text-white font-semibold hover:bg-red-600 transition border-2 border-red-600 text-lg tracking-wider"
+              style={{ fontFamily: "Papyrus, fantasy" }}
+            >
+              Build a New Team!
+            </button>
           </Link>
         </section>
       )}
-      <section>
-        <SearchTeams />
-      </section>
     </section>
   );
 }
 
 function TeamList({ heading, className, teams }) {
   return (
-    <section className={className}>
-      <h1>{heading}</h1>
+    <section
+      className={
+        className +
+        " bg-gray-100 dark:bg-gray-800 rounded-lg shadow p-4 w-full max-w-md mb-6"
+      }
+    >
+      <h1
+        className="text-2xl font-bold text-red-700 mb-2"
+        style={{ fontFamily: "Papyrus, fantasy" }}
+      >
+        {heading}
+      </h1>
       {teams.length ? (
-        <ul className="max-w-[30vw] list-none m-5">{teams.map(TeamCard)}</ul>
+        <ul className="max-w-[30vw] list-none m-5 flex flex-col gap-4">
+          {teams.map(TeamCard)}
+        </ul>
       ) : (
-        "Looks like there's nothing here right now!"
+        <p className="text-gray-500 italic">
+          Looks like theres nothing here right now!
+        </p>
       )}
     </section>
   );

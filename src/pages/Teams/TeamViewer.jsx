@@ -8,12 +8,14 @@ import {
   getIsFavoriteTeam,
   addFavoriteTeam,
   removeFavoriteTeam,
+  deleteTeam,
 } from "../../api/teams";
 
 export default function TeamViewer() {
   const { token, profile } = useAuth();
   const [team, setTeam] = useState();
   const [isFavorite, setIsFavorite] = useState(false);
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -93,13 +95,15 @@ export default function TeamViewer() {
         {team.characters.map((c) => (
           <section key={c.id} className="w-[25%] flex flex-row char m-5 p-5">
             <section className="flex-1 text-center">
-              <Link to={`/characters/${c.id}`}>
-                <h2>{c.name}</h2>
+              <Link to={`/characters/${c.id}`} className="group">
+                <h2 className="text-black group-hover:text-red-700 transition-colors cursor-pointer">
+                  {c.name}
+                </h2>
               </Link>
-              <p>{c.hp} HP</p>
-              <p>{c.attack} ATK</p>
-              <p>{c.defense} DEF</p>
-              <p>
+              <p className="text-black">{c.hp} HP</p>
+              <p className="text-black">{c.attack} ATK</p>
+              <p className="text-black">{c.defense} DEF</p>
+              <p className="text-black">
                 {c.ability_name ? `Ability: ${c.ability_name}` : "No Ability"}
               </p>
             </section>
