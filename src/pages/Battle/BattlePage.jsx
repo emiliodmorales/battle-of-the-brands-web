@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import FighterDetails from "./BattleInfo/FighterDetails";
-import CombatTeamSearch from "./BattleInfo/CombatTeamSearch";
 import { getTeamById } from "../../api/teams";
 import Combat from "./Combat";
+import Select from "react-select";
+import { getUserTeams } from "../../api/users";
+import { useAuth } from "../../auth/AuthContext";
 
 const COUNTDOWN_TIME = 3;
 
@@ -12,6 +14,8 @@ export default function Battle() {
   const [isCounting, setIsCounting] = useState(false);
   const [challengerTeam, setChallengerTeam] = useState(null);
   const [defenderTeam, setdefenderTeam] = useState(null);
+  const [teamOptions, setTeamOptions] = useState([]);
+  const { profile } = useAuth();
 
   const selectChallengerTeam = async (teamId) => {
     const team = await getTeamById(teamId);
@@ -60,6 +64,18 @@ export default function Battle() {
     setCountdown(COUNTDOWN_TIME);
   };
 
+  useEffect(() => {
+    const tryGetUserTeams = async () => {
+      if (!profile) return;
+      const teams = await getUserTeams(profile.id);
+      const newTeamOptions = teams.map((team) => {
+        return { value: team.id, label: team.name };
+      });
+      setTeamOptions(newTeamOptions);
+    };
+    tryGetUserTeams();
+  }, [profile]);
+
   return (
     <>
       <div className="flex flex-col justify-center items-center p-6">
@@ -73,7 +89,12 @@ export default function Battle() {
             <li
               className={`col-span-full mb-2 ${isCounting || isFighting ? "hidden" : ""}`}
             >
-              <CombatTeamSearch onTeamSelect={selectChallengerTeam} />
+              <Select
+                className="text-black"
+                placeholder="Select a team"
+                options={teamOptions}
+                onChange={(x) => selectChallengerTeam(x.value)}
+              />
             </li>
             {challengerTeam?.characters.map((character) => (
               <li key={character.id}>
