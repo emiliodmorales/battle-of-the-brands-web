@@ -10,12 +10,10 @@ export default class BattleManager {
       teamAStatus && teamBStatus
         ? "Draw"
         : teamAStatus
-          ? "Winner " + this.teamB.name
+          ? this.teamB.name
           : teamBStatus
-            ? "Winner " + this.teamA.name
+            ? this.teamA.name
             : "Error";
-
-    console.log("The battle has ended with a " + result); // Change this to record the win
     this.isBattling = false;
     return result;
   }
@@ -35,7 +33,7 @@ export default class BattleManager {
       this.teamB.killFighter();
     }
     if (this.teamA.isEveryoneDead() || this.teamB.isEveryoneDead()) {
-      this.determineWinner(
+      return this.determineWinner(
         this.teamA.isEveryoneDead(),
         this.teamB.isEveryoneDead(),
       );
