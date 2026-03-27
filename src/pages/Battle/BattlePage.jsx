@@ -29,9 +29,16 @@ export default function Battle() {
   };
 
   const selectDefenderTeam = async (teamId) => {
-    const team = teamId ? await getTeamById(teamId) : await getRandomTeam();
+    let team;
+    if (teamId) {
+      team = await getTeamById(teamId);
+    } else {
+      const randomTeams = await getRandomTeam();
+      team = randomTeams.filter((t) => t.id !== challengerTeam?.id)[0];
+    }
     if (!team) return;
     setdefenderTeam(team);
+    startBattle();
   };
 
   // Fix this later to select random team
