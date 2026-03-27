@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-// TODO - I understand CSS, but I am absolutely terrible with design.
-
 import { Link } from "react-router";
 import { getTeams, getFavoriteTeams } from "../../api/teams";
 import SearchTeams from "./SearchTeams";
@@ -14,7 +12,6 @@ export default function TeamBrowser() {
   const [allTeams, setAllTeams] = useState([]);
   const [yourTeams, setYourTeams] = useState([]);
   const [faveTeams, setFaveTeams] = useState([]);
-  const [bestTeams, setBestTeams] = useState([]);
 
   const tryGetTeams = async () => {
     const teams = await getTeams();
@@ -24,8 +21,6 @@ export default function TeamBrowser() {
     setYourTeams(allTeams?.filter((t) => t.user_id === profile.id));
     const faves = await getFavoriteTeams(token);
     setFaveTeams(faves);
-    // TODO - Best teams (highest win ratio)
-    setBestTeams(yourTeams?.filter(() => false));
   };
 
   useEffect(() => {
@@ -51,14 +46,8 @@ export default function TeamBrowser() {
             className="faveTeams"
             teams={faveTeams}
           />
-          <TeamList
-            heading="Best Teams"
-            className="bestTeams"
-            teams={bestTeams}
-          />
 
-          {/*TODO - Edit Link when Team Builder page is made*/}
-          <Link to="/">
+          <Link to="/teams/new">
             <h3>Build a New Team!</h3>
           </Link>
         </section>

@@ -49,8 +49,7 @@ export default function TeamViewer() {
         </section>
         {token && (
           <section className="battle-button">
-            {/* TODO - Edit battle link to pass in ID of this team in whatever way is appropriate */}
-            <Link to="/battle">FIGHT</Link>
+            <Link to={`/battle?defender=${id}`}>FIGHT</Link>
           </section>
         )}
         {team.history && (
