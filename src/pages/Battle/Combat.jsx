@@ -3,7 +3,7 @@ import Team from "./BattleManager/Team";
 import BattleManager from "./BattleManager/BattleManager";
 import { useState, useRef } from "react";
 
-export default function Combat({ challengerTeam, defenderTeam }) {
+export default function Combat({ challengerTeam, defenderTeam, resetCombat }) {
   const [turn, setTurn] = useState(1);
   const [winner, setWinner] = useState(null);
   const [animated, setAnimated] = useState(false);
@@ -50,6 +50,7 @@ export default function Combat({ challengerTeam, defenderTeam }) {
       <section className="grid">
         <p className="place-self-center">The winner is {winner}</p>
         <p className="text-[64px] place-self-center">🏆</p>
+        <button onClick={resetCombat}>Return</button>
       </section>
     );
   }
@@ -87,12 +88,14 @@ export default function Combat({ challengerTeam, defenderTeam }) {
       <p className="col-start-1 row-start-4 place-self-center">
         {currentChallenger.hp}/{currentChallenger.maxHp}
       </p>
-      <button
-        className="col-start-2 row-start-4 place-self-center"
-        onClick={nextTurn}
-      >
-        Next Turn
-      </button>
+      <div className="col-start-2 row-start-4 place-self-center flex gap-4">
+        <button className="p-1" onClick={nextTurn}>
+          Next Turn
+        </button>
+        <button className="p-1" onClick={resetCombat}>
+          Stop
+        </button>
+      </div>
       <p className="col-start-3 row-start-4 place-self-center">
         {currentDefender.hp}/{currentDefender.maxHp}
       </p>

@@ -14,7 +14,7 @@ export default function Battle() {
   const [countdown, setCountdown] = useState(COUNTDOWN_TIME);
   const [isCounting, setIsCounting] = useState(false);
   const [challengerTeam, setChallengerTeam] = useState(null);
-  const [defenderTeam, setdefenderTeam] = useState(null);
+  const [defenderTeam, setDefenderTeam] = useState(null);
   const [teamOptions, setTeamOptions] = useState([]);
   const [opponentOptions, setOpponentOptions] = useState([]);
   const { profile } = useAuth();
@@ -37,8 +37,7 @@ export default function Battle() {
       team = randomTeams.filter((t) => t.id !== challengerTeam?.id)[0];
     }
     if (!team) return;
-    setdefenderTeam(team);
-    startBattle();
+    setDefenderTeam(team);
   };
 
   // Fix this later to select random team
@@ -67,9 +66,11 @@ export default function Battle() {
   }, [countdown, isCounting]);
 
   // function not complete but its for stopping fights and reseting the screen, also recording win++
-  const stop = () => {
+  const resetCombat = () => {
+    setChallengerTeam(null);
+    setDefenderTeam(null);
     setIsFighting(false);
-    setCountdown(COUNTDOWN_TIME);
+    setIsCounting(false);
   };
 
   useEffect(() => {
@@ -165,6 +166,16 @@ export default function Battle() {
           <p className="row-[1/3] place-self-center text-[clamp(2rem,20vmin,9rem)]">
             {isFighting ? "" : isCounting ? countdown : "⚔️"}
           </p>
+          {challengerTeam && defenderTeam && (
+            <button
+              className={`col-start-2 row-start-3 bg-neutral-400 border border-black rounded-md
+          h-[60%] w-[90%] place-self-center text-[clamp(0.8rem,1.5vw,1.5rem)]
+          ${isCounting ? "disabled opacity-50" : isFighting ? "hidden" : "hover"}`}
+              onClick={startBattle}
+            >
+              FIGHT!
+            </button>
+          )}
         </div>
       </div>
       {/* isFigting is neccessary so it won't try to render until button is pressed can remove challengerTeam,
@@ -175,6 +186,7 @@ export default function Battle() {
             challengerTeam={challengerTeam}
             defenderTeam={defenderTeam}
             hidden={!isFighting}
+            resetCombat={resetCombat}
           />
         </div>
       )}
