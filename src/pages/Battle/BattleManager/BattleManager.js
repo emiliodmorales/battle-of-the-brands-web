@@ -26,16 +26,20 @@ export default class BattleManager {
     const messages = [];
 
     messages.push(`${attacker.name} attacked for ${attacker.attack} damage\n`);
-    messages.push(`${defender.name} blocked ${defender.defense} damage\n`);
+    if (defender.defense >= attacker.attack)
+      messages.push(`${defender.name} blocked all the damage\n`);
+    else messages.push(`${defender.name} blocked ${defender.defense} damage\n`);
 
     messages.push(
       `${defender.name} counterattacked for ${defender.attack} damage\n`,
     );
-    messages.push(`${attacker.name} blocked ${attacker.defense} damage\n`);
+    if (attacker.defense >= defender.attack)
+      messages.push(`${attacker.name} blocked all the damage\n`);
+    else messages.push(`${attacker.name} blocked ${attacker.defense} damage\n`);
 
     if (
-      attacker.attack === defender.defense &&
-      attacker.defense === defender.attack
+      defender.defense >= attacker.attack &&
+      attacker.defense >= defender.attack
     )
       messages.push(
         `${attacker.name} and ${defender.name} are equally matched and both fainted`,
@@ -50,8 +54,8 @@ export default class BattleManager {
     const defender = this.teamB.getFighter();
 
     if (
-      attacker.attack === defender.defense &&
-      attacker.defense === defender.attack
+      defender.defense >= attacker.attack &&
+      attacker.defense >= defender.attack
     ) {
       this.teamA.killFighter();
       this.teamB.killFighter();
