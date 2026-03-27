@@ -90,7 +90,7 @@ export default function Battle() {
           <ul className="col-start-3 row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2">
             {isFighting ? (
               defenderTeam.map((character) => (
-                <li key={character.character_id}>
+                <li key={character.id}>
                   <span className="inline-block animate-defenderCharge">
                     <FighterDetails characterId={character.id} />
                   </span>
@@ -117,9 +117,7 @@ export default function Battle() {
         </div>
       </div>
       <section className={`${!isFighting ? "hidden" : ""} place-self-center`}>
-        This is shown when they are fighting The current plan is to hide the top
-        or leave that as a roster and use this area for the actual combat?
-        <Combat />
+        <Combat challengerTeam={challengerTeam} defenderTeam={defenderTeam} />
       </section>
     </>
   );

@@ -5,13 +5,11 @@ export default class Team {
     this.current = 0;
   }
 
-  getActiveFighters() {
-    return Object.values(this.roster).filter((fighter) => !fighter.isDead());
+  getFighter() {
+    return this.roster[this.current];
   }
 
   killFighter() {
-    // Make this into array later
-    console.log(this.roster[this.current].name + " has been killed");
     this.current = this.current + 1;
   }
   isEveryoneDead() {

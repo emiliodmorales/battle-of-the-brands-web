@@ -14,18 +14,6 @@ export default class Fighter {
   attackTarget(target) {
     let dmg = target.defend(this.attack);
     target.takeDmg(dmg);
-    console.log(
-      this.name +
-        " attacked " +
-        target.name +
-        " took " +
-        dmg +
-        " damage. " +
-        target.name +
-        " has " +
-        target.hp +
-        "hp left",
-    );
   }
 
   defend(attack) {
