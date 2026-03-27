@@ -146,16 +146,6 @@ export default function Battle() {
           <p className="row-[1/3] place-self-center text-[clamp(2rem,20vmin,9rem)]">
             {isFighting ? "" : isCounting ? countdown : "⚔️"}
           </p>
-
-          {/* Need to add error when you try to start combat but don't have a challenger team selected */}
-          <button
-            className={`col-start-2 row-start-3 bg-neutral-400 border border-black rounded-md
-          h-[60%] w-[90%] place-self-center text-[clamp(0.8rem,1.5vw,1.5rem)]
-          ${isCounting ? "disabled opacity-50" : isFighting ? "hidden" : "hover"}`}
-            onClick={startBattle}
-          >
-            FIGHT!
-          </button>
         </div>
       </div>
       {/* isFigting is neccessary so it won't try to render until button is pressed can remove challengerTeam,
