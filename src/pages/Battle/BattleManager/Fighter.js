@@ -1,6 +1,7 @@
 export default class Fighter {
-  constructor(name, hp, attack, defense, ability) {
+  constructor(name, image, hp, attack, defense, ability) {
     this.name = name;
+    this.img = image;
     this.hp = hp;
     this.maxHp = hp;
     this.attack = attack;

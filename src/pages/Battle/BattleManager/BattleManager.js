@@ -4,9 +4,7 @@ export default class BattleManager {
     this.teamB = teamB;
     this.isBattling = true;
   }
-  startBattle() {
-    this.battleLoop();
-  }
+
   determineWinner(teamAStatus, teamBStatus) {
     let result =
       teamAStatus && teamBStatus
@@ -16,33 +14,31 @@ export default class BattleManager {
           : teamBStatus
             ? "Winner " + this.teamA.name
             : "Error";
-    this.stopBattle(result);
-  }
 
-  stopBattle(winner) {
-    console.log("The battle has ended with a " + winner); // Change this to record the win
+    console.log("The battle has ended with a " + result); // Change this to record the win
     this.isBattling = false;
+    return result;
   }
-  battleLoop() {
-    while (this.isBattling) {
-      const attacker = this.teamA.getFighter();
-      const defender = this.teamB.getFighter();
 
-      attacker.attackTarget(defender);
-      defender.attackTarget(attacker);
+  nextTurn() {
+    if (!this.isBattling) return null;
+    const attacker = this.teamA.getFighter();
+    const defender = this.teamB.getFighter();
 
-      if (attacker.hp === 0) {
-        this.teamA.killFighter();
-      }
-      if (defender.hp === 0) {
-        this.teamB.killFighter();
-      }
-      if (this.teamA.isEveryoneDead() || this.teamB.isEveryoneDead()) {
-        this.determineWinner(
-          this.teamA.isEveryoneDead(),
-          this.teamB.isEveryoneDead(),
-        );
-      }
+    attacker.attackTarget(defender);
+    defender.attackTarget(attacker);
+
+    if (attacker.isDead()) {
+      this.teamA.killFighter();
+    }
+    if (defender.isDead()) {
+      this.teamB.killFighter();
+    }
+    if (this.teamA.isEveryoneDead() || this.teamB.isEveryoneDead()) {
+      this.determineWinner(
+        this.teamA.isEveryoneDead(),
+        this.teamB.isEveryoneDead(),
+      );
     }
   }
 }
