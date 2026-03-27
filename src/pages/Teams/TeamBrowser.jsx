@@ -55,7 +55,8 @@ export default function TeamBrowser() {
             teams={bestTeams}
           />
 
-          <Link to="/team-builder">
+          {/*TODO - Edit Link when Team Builder page is made*/}
+          <Link to="/teams/new">
             <h3>Build a New Team!</h3>
           </Link>
         </section>

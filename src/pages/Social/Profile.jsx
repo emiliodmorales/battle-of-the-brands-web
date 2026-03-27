@@ -24,16 +24,16 @@ export default function Profile() {
       setAboutProfile(retrievedAboutProfile);
     };
     tryGetAboutProfile();
-  }, []);
+  }, [id]);
 
   const [isSelf, setIsSelf] = useState();
   useEffect(() => {
     const tryGetIsSelf = async () => {
-      if (!aboutProfile) return;
+      if (!aboutProfile || !profile) return;
       setIsSelf(aboutProfile.id === profile.id);
     };
     tryGetIsSelf();
-  }, [aboutProfile]);
+  }, [aboutProfile, profile]);
 
   const [teams, setTeams] = useState([]);
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function Profile() {
       setTeams(retrievedTeams);
     };
     tryGetTeams();
-  }, []);
+  }, [id]);
 
   const [characters, setCharacters] = useState([]);
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function Profile() {
       setCharacters(retrievedCharacters);
     };
     tryGetCharacters();
-  }, []);
+  }, [id]);
 
   const [history, setHistory] = useState();
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function Profile() {
       setHistory(retrievedHistory);
     };
     tryGetHistory();
-  }, []);
+  }, [id]);
 
   const tryGetFollowers = async () => {
     const retrievedFollowers = await getUserFollowers(id);
@@ -69,7 +69,7 @@ export default function Profile() {
   const [followers, setFollowers] = useState();
   useEffect(() => {
     tryGetFollowers();
-  }, []);
+  }, [id]);
 
   const [following, setFollowing] = useState();
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function Profile() {
       setFollowing(retrievedFollowing);
     };
     tryGetFollowing();
-  }, []);
+  }, [id]);
 
   const [isFollowing, setIsFollowing] = useState();
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function Profile() {
       setIsFollowing(retrievedIsFollowing);
     };
     tryGetIsFollowing();
-  }, []);
+  }, [id, token]);
 
   if (
     !aboutProfile ||

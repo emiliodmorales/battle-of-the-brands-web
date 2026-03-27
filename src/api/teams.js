@@ -149,3 +149,55 @@ export async function createTeam(teamData, token) {
 
   return await response.json();
 }
+
+/**
+ * Delete a team
+ * @returns current status
+ */
+export async function deleteTeam(id, token) {
+  if (!token) {
+    throw Error("Sign in to delete a team.");
+  }
+  const response = await fetch(API + "/" + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  if (!response.ok) {
+    let errorMsg = "Failed to delete team.";
+    try {
+      const result = await response.json();
+      errorMsg = result.message || errorMsg;
+    } catch {
+      try {
+        errorMsg = await response.text();
+      } catch {}
+    }
+    throw Error(errorMsg);
+  }
+  return true;
+}
+
+/**
+ * Update a team
+ * @returns the updated team
+ */
+export async function updateTeam(id, teamData, token) {
+  if (!token) {
+    throw Error("Sign in to update team.");
+  }
+  const response = await fetch(API + "/" + id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(teamData),
+  });
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message || "Failed to update team.");
+  }
+  return await response.json();
+}

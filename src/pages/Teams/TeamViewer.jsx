@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useParams, useNavigate } from "react-router";
 import { useAuth } from "../../auth/AuthContext";
 
 import {
@@ -40,7 +40,16 @@ export default function TeamViewer() {
       setTeam({ ...t, history: h });
     };
     getTeamDetails();
-  }, []);
+  }, [id]);
+
+  const handleDelete = async () => {
+    try {
+      await deleteTeam(team.id, token);
+      navigate("/teams");
+    } catch (err) {
+      alert(err.message || "Failed to delete team.");
+    }
+  };
 
   if (!team) {
     return <h1>Loading...</h1>;
@@ -56,6 +65,12 @@ export default function TeamViewer() {
             <button onClick={unfavoriteTeam}>Unfavorite</button>
           ) : (
             <button onClick={favoriteTeam}>Favorite</button>
+          {token && profile?.username === team.username && (
+            <div style={{ marginTop: "1em" }}>
+              <button onClick={handleDelete} style={{ color: "red" }}>
+                Delete
+              </button>
+            </div>
           )}
         </section>
         {token && (
@@ -96,6 +111,11 @@ export default function TeamViewer() {
           </section>
         ))}
       </section>
+      {token && profile && profile.id === team.creator && (
+        <section className="flex flex-row gap-2">
+          <button onClick={handleDelete}>Delete</button>
+        </section>
+      )}
     </>
   );
 }
