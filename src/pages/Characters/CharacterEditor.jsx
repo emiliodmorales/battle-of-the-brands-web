@@ -14,6 +14,7 @@ const INPUT_STYLE =
 export default function CharacterEditor() {
   const { id } = useParams();
   const [character, setCharacter] = useState();
+  const [previewImage, setPreviewImage] = useState();
 
   const navigate = useNavigate();
   const { token } = useAuth();
@@ -40,6 +41,8 @@ export default function CharacterEditor() {
       )[0];
       const abilityCost = ability?.cost ?? 0;
       setPoints(STARTING_POINTS - hp - attack - defense - abilityCost);
+
+      setPreviewImage(retrievedCharacter.image);
     };
     tryGetCharacter();
   }, [abilities]);
@@ -87,6 +90,11 @@ export default function CharacterEditor() {
     setPoints(STARTING_POINTS - hp - attack - defense - abilityCost);
   };
 
+  const changePreviewImage = (e) => {
+    const [file] = e.target.files;
+    if (file) setPreviewImage(URL.createObjectURL(file));
+  };
+
   if (!character) return <p>Loading character...</p>;
 
   return (
@@ -125,14 +133,15 @@ export default function CharacterEditor() {
             Image
             <img
               className="max-w-[12em] max-h-[12em]"
-              alt={"old image of " + character.name}
-              src={character.image}
+              alt={"preview character image"}
+              src={previewImage}
             />
             <input
               className={INPUT_STYLE}
               type="file"
               name="image"
               accept="image/*"
+              onChange={changePreviewImage}
             />
           </label>
           <p className={LABEL_STYLE}>{points} Points</p>
