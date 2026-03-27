@@ -78,19 +78,28 @@ export default function Battle() {
   }, [profile]);
 
   useEffect(() => {
-    const defenderId = Number(searchParams.get("defender"));
-    if (defenderId) {
-      selectDefenderTeam(defenderId);
-    }
     const tryGetOpponentTeams = async () => {
-      const teams = await getTeams();
-      const newTeamOptions = teams.map((team) => {
-        return { value: team.id, label: team.name };
-      });
-      setOpponentOptions(newTeamOptions);
+      try {
+        if (!challengerTeam)
+          return setOpponentOptions([{ value: null, label: "Random Team" }]);
+        const defenderId = Number(searchParams.get("defender"));
+        if (defenderId) {
+          selectDefenderTeam(defenderId);
+        }
+        const teams = await getTeams();
+        const newTeamOptions = teams
+          .filter((team) => team.id !== challengerTeam.id)
+          .map((team) => {
+            return { value: team.id, label: team.name };
+          });
+        newTeamOptions.push({ value: null, label: "Random Team" });
+        setOpponentOptions(newTeamOptions);
+      } catch (e) {
+        console.error(e);
+      }
     };
     tryGetOpponentTeams();
-  }, []);
+  }, [challengerTeam]);
 
   return (
     <>
