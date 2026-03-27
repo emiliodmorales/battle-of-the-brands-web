@@ -23,6 +23,6 @@ export default class Fighter {
   }
 
   takeDmg(dmg) {
-    this.hp = Math.max(0, (this.hp -= dmg));
+    this.hp = Math.max(0, this.hp - dmg);
   }
 }
