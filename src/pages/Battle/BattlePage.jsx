@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 import FighterDetails from "./BattleInfo/FighterDetails";
-import { getTeamById } from "../../api/teams";
+import { getTeams, getTeamById, getRandomTeam } from "../../api/teams";
 import Combat from "./Combat";
 import Select from "react-select";
 import { getUserTeams } from "../../api/users";
@@ -15,7 +16,9 @@ export default function Battle() {
   const [challengerTeam, setChallengerTeam] = useState(null);
   const [defenderTeam, setdefenderTeam] = useState(null);
   const [teamOptions, setTeamOptions] = useState([]);
+  const [opponentOptions, setOpponentOptions] = useState([]);
   const { profile } = useAuth();
+  const [searchParams] = useSearchParams();
 
   const selectChallengerTeam = async (teamId) => {
     const team = await getTeamById(teamId);
@@ -26,17 +29,15 @@ export default function Battle() {
   };
 
   const selectDefenderTeam = async (teamId) => {
-    const team = await getTeamById(teamId);
-    if (!team) {
-      return;
-    }
+    const team = teamId ? await getTeamById(teamId) : await getRandomTeam();
+    if (!team) return;
     setdefenderTeam(team);
   };
 
   // Fix this later to select random team
   const startBattle = () => {
     if (!defenderTeam) {
-      selectDefenderTeam(2);
+      selectDefenderTeam();
     }
     toggleFighting();
   };
@@ -76,6 +77,21 @@ export default function Battle() {
     tryGetUserTeams();
   }, [profile]);
 
+  useEffect(() => {
+    const defenderId = Number(searchParams.get("defender"));
+    if (defenderId) {
+      selectDefenderTeam(defenderId);
+    }
+    const tryGetOpponentTeams = async () => {
+      const teams = await getTeams();
+      const newTeamOptions = teams.map((team) => {
+        return { value: team.id, label: team.name };
+      });
+      setOpponentOptions(newTeamOptions);
+    };
+    tryGetOpponentTeams();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col justify-center items-center p-6">
@@ -109,7 +125,7 @@ export default function Battle() {
 
           <p className="col-start-3 row-start-1 place-self-center">Defender</p>
           <ul className="col-start-3 row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2">
-            {isFighting ? (
+            {isFighting || defenderTeam ? (
               defenderTeam?.characters.map((character) => (
                 <li key={character.id}>
                   <span className="inline-block animate-defenderCharge">
@@ -118,7 +134,12 @@ export default function Battle() {
                 </li>
               ))
             ) : (
-              <div className="text-[9rem]">❔</div>
+              <Select
+                className="text-black"
+                placeholder="Select a team"
+                options={opponentOptions}
+                onChange={(x) => selectDefenderTeam(x.value)}
+              />
             )}
           </ul>
 
