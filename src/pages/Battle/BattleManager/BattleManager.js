@@ -33,6 +33,14 @@ export default class BattleManager {
     );
     messages.push(`${attacker.name} blocked ${attacker.defense} damage\n`);
 
+    if (
+      attacker.attack === defender.defense &&
+      attacker.defense === defender.attack
+    )
+      messages.push(
+        `${attacker.name} and ${defender.name} are equally matched and both fainted`,
+      );
+
     return messages;
   }
 
@@ -40,6 +48,14 @@ export default class BattleManager {
     if (!this.isBattling) return null;
     const attacker = this.teamA.getFighter();
     const defender = this.teamB.getFighter();
+
+    if (
+      attacker.attack === defender.defense &&
+      attacker.defense === defender.attack
+    ) {
+      this.teamA.killFighter();
+      this.teamB.killFighter();
+    }
 
     attacker.attackTarget(defender);
     defender.attackTarget(attacker);
