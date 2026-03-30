@@ -14,7 +14,7 @@ export default function Battle() {
   const [countdown, setCountdown] = useState(COUNTDOWN_TIME);
   const [isCounting, setIsCounting] = useState(false);
   const [challengerTeam, setChallengerTeam] = useState(null);
-  const [defenderTeam, setdefenderTeam] = useState(null);
+  const [defenderTeam, setDefenderTeam] = useState(null);
   const [teamOptions, setTeamOptions] = useState([]);
   const [opponentOptions, setOpponentOptions] = useState([]);
   const { profile } = useAuth();
@@ -29,9 +29,15 @@ export default function Battle() {
   };
 
   const selectDefenderTeam = async (teamId) => {
-    const team = teamId ? await getTeamById(teamId) : await getRandomTeam();
+    let team;
+    if (teamId) {
+      team = await getTeamById(teamId);
+    } else {
+      const randomTeams = await getRandomTeam();
+      team = randomTeams.filter((t) => t.id !== challengerTeam?.id)[0];
+    }
     if (!team) return;
-    setdefenderTeam(team);
+    setDefenderTeam(team);
   };
 
   // Fix this later to select random team
@@ -60,9 +66,11 @@ export default function Battle() {
   }, [countdown, isCounting]);
 
   // function not complete but its for stopping fights and reseting the screen, also recording win++
-  const stop = () => {
+  const resetCombat = () => {
+    setChallengerTeam(null);
+    setDefenderTeam(null);
     setIsFighting(false);
-    setCountdown(COUNTDOWN_TIME);
+    setIsCounting(false);
   };
 
   useEffect(() => {
@@ -78,19 +86,28 @@ export default function Battle() {
   }, [profile]);
 
   useEffect(() => {
-    const defenderId = Number(searchParams.get("defender"));
-    if (defenderId) {
-      selectDefenderTeam(defenderId);
-    }
     const tryGetOpponentTeams = async () => {
-      const teams = await getTeams();
-      const newTeamOptions = teams.map((team) => {
-        return { value: team.id, label: team.name };
-      });
-      setOpponentOptions(newTeamOptions);
+      try {
+        if (!challengerTeam)
+          return setOpponentOptions([{ value: null, label: "Random Team" }]);
+        const defenderId = Number(searchParams.get("defender"));
+        if (defenderId) {
+          selectDefenderTeam(defenderId);
+        }
+        const teams = await getTeams();
+        const newTeamOptions = teams
+          .filter((team) => team.id !== challengerTeam.id)
+          .map((team) => {
+            return { value: team.id, label: team.name };
+          });
+        newTeamOptions.push({ value: null, label: "Random Team" });
+        setOpponentOptions(newTeamOptions);
+      } catch (e) {
+        console.error(e);
+      }
     };
     tryGetOpponentTeams();
-  }, []);
+  }, [challengerTeam]);
 
   return (
     <>
@@ -124,7 +141,10 @@ export default function Battle() {
           </ul>
 
           <p className="col-start-3 row-start-1 place-self-center">Defender</p>
-          <ul className="col-start-3 row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2">
+          <ul
+            hidden={!challengerTeam}
+            className="col-start-3 row-[2/4] grid grid-cols-3 grid-rows-auto list-none place-self-center ml-2"
+          >
             {isFighting || defenderTeam ? (
               defenderTeam?.characters.map((character) => (
                 <li key={character.id}>
@@ -146,24 +166,29 @@ export default function Battle() {
           <p className="row-[1/3] place-self-center text-[clamp(2rem,20vmin,9rem)]">
             {isFighting ? "" : isCounting ? countdown : "⚔️"}
           </p>
-
-          {/* Need to add error when you try to start combat but don't have a challenger team selected */}
-          <button
-            className={`col-start-2 row-start-3 bg-neutral-400 border border-black rounded-md
+          {challengerTeam && defenderTeam && (
+            <button
+              className={`col-start-2 row-start-3 bg-neutral-400 border border-black rounded-md
           h-[60%] w-[90%] place-self-center text-[clamp(0.8rem,1.5vw,1.5rem)]
           ${isCounting ? "disabled opacity-50" : isFighting ? "hidden" : "hover"}`}
-            onClick={startBattle}
-          >
-            FIGHT!
-          </button>
+              onClick={startBattle}
+            >
+              FIGHT!
+            </button>
+          )}
         </div>
       </div>
       {/* isFigting is neccessary so it won't try to render until button is pressed can remove challengerTeam,
       defenderTeam once me make it impossible to start combat. Or leave it just in case */}
       {isFighting && challengerTeam && defenderTeam && (
-        <section className={`${!isFighting ? "hidden" : ""} place-self-center`}>
-          <Combat challengerTeam={challengerTeam} defenderTeam={defenderTeam} />
-        </section>
+        <div className="flex flex-col">
+          <Combat
+            challengerTeam={challengerTeam}
+            defenderTeam={defenderTeam}
+            hidden={!isFighting}
+            resetCombat={resetCombat}
+          />
+        </div>
       )}
     </>
   );

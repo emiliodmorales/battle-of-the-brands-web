@@ -18,11 +18,11 @@ export default class Fighter {
   }
 
   defend(attack) {
-    let dmg = attack - this.defense;
+    let dmg = Math.max(0, attack - this.defense);
     return dmg;
   }
 
   takeDmg(dmg) {
-    this.hp = Math.max(0, (this.hp -= dmg));
+    this.hp = Math.max(0, this.hp - dmg);
   }
 }

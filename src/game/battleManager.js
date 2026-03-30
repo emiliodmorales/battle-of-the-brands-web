@@ -14,10 +14,10 @@ export default class BattleManager {
     console.log("The battle has ended. " + winner + " is the winner");
     this.isBattling = false;
   }
-  battleLoop() {
-    while (this.isBattling) {
-      const attacker = this.teamA.getFighter();
-      const defender = this.teamB.getFighter();
+  nextTurn() {
+    if (!this.isBattling) return;
+    const attacker = this.teamA.getFighter();
+    const defender = this.teamB.getFighter();
 
       attacker.doAttack(defender);
       defender.doAttack(attacker);
@@ -35,5 +35,22 @@ export default class BattleManager {
         }
       }
     }
+  }
+  turnMsg() {
+    if (!this.isBattling) return;
+    const attacker = this.teamA.getFighter();
+    const defender = this.teamB.getFighter();
+
+    const messages = [];
+
+    messages.push(`${attacker.name} attacked for ${attacker.attack} damage\n`);
+    messages.push(`${defender.name} blocked ${defender.defense} damage\n`);
+
+    messages.push(
+      `${defender.name} counterattacked for ${defender.attack} damage\n`,
+    );
+    messages.push(`${attacker.name} blocked ${attacker.defense} damage\n`);
+
+    return messages;
   }
 }
